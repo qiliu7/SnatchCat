@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SearchViewController: UIViewController {
   
   @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var tableView: UITableView!
   
+  let petFinder = PetFinderAPI()
+  let locationManager = CLLocationManager()
   let suggestions = ["Current Location"]
   
   // TODO: add previous searched locations to tableView
@@ -23,6 +26,8 @@ class SearchViewController: UIViewController {
     tableView.delegate = self
     tableView.dataSource = self
     tableView.isHidden = true
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
   }
 }
 
@@ -41,6 +46,12 @@ extension SearchViewController: UISearchBarDelegate {
     searchBar.endEditing(true)
     tableView.isHidden = true
   }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    petFinder.searchAnimals(for: "") { (_) in
+      print("finished")
+    }
+  }
 }
 
 extension SearchViewController: UITableViewDataSource {
@@ -58,7 +69,29 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    performSegue(withIdentifier: "showSearchResults", sender: self)
+//    CLLocationManager.locationServicesEnabled()
+//    if CLLocationManager.locationServicesEnabled() {
+//        locationManager.requestLocation()
+//    } else {
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.requestLocation()
+//    }
+//    performSegue(withIdentifier: "showSearchResults", sender: self)
     tableView.deselectRow(at: indexPath, animated: true)
   }
+}
+
+extension SearchViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let location = manager.location
+    print(location?.coordinate)
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print(error.localizedDescription)
+  }
+//
+//  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//    
+//  }
 }
