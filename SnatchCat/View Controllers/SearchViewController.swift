@@ -29,6 +29,13 @@ class SearchViewController: UIViewController {
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
   }
+  
+  // TODO: change naming
+  private func showSearchResults(lat: Double, lon: Double) {
+    let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
+    petFinder.searchAnimals(at: (lat: lat, lon: lon), completion: resultsVC.dataReceived)
+    navigationController?.pushViewController(resultsVC, animated: true)
+  }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -81,18 +88,9 @@ extension SearchViewController: CLLocationManagerDelegate {
       showAlert(title: "Error", message: "Failed To Retrieve Your Location")
       return
     }
-    // MARK:send request to PetFinderAPI from here? and tell the next screen
     let lat = location.coordinate.latitude
     let lon = location.coordinate.longitude
-    
     showSearchResults(lat: lat, lon: lon)
-  }
-  
-  // TODO: change naming
-  private func showSearchResults(lat: Double, lon: Double) {
-    let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
-    petFinder.searchAnimals(at: (lat: lat, lon: lon), completion: resultsVC.dataReceived)
-    navigationController?.pushViewController(resultsVC, animated: true)
   }
   
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
