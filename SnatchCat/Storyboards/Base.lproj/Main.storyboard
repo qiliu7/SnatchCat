@@ -24,7 +24,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a location to start" translatesAutoresizingMaskIntoConstraints="NO" id="6gm-BS-grb">
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a city name or postal code" translatesAutoresizingMaskIntoConstraints="NO" id="6gm-BS-grb">
                                         <rect key="frame" x="0.0" y="42" width="394" height="56"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="search" textContentType="location"/>
                                         <scopeButtonTitles>
@@ -82,7 +82,6 @@
                     <connections>
                         <outlet property="searchBar" destination="6gm-BS-grb" id="NS4-Tb-2iG"/>
                         <outlet property="tableView" destination="mxK-6o-aBy" id="9LR-KV-e5c"/>
-                        <segue destination="fvb-JY-gv7" kind="show" identifier="showSearchResults" id="aNt-ka-hT8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -92,7 +91,7 @@
         <!--Search Results Table View Controller-->
         <scene sceneID="TCD-Bo-Hb4">
             <objects>
-                <tableViewController id="fvb-JY-gv7" customClass="SearchResultsTableViewController" customModule="SnatchCat" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="searchResultsVC" id="fvb-JY-gv7" customClass="SearchResultsTableViewController" customModule="SnatchCat" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qkr-Mj-Fm6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -175,7 +174,7 @@
         <!--Saved-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="SnatchCat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -261,7 +260,7 @@
         <!--Mine-->
         <scene sceneID="olC-kg-ehF">
             <objects>
-                <tableViewController id="G63-uu-kor" customClass="MineTableViewController" sceneMemberID="viewController">
+                <tableViewController id="G63-uu-kor" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="k81-KH-24d">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -38,7 +38,7 @@ class PetFinderAPI: NSObject {
   }
   
     // MARK：here or in endpoint?
-  func searchAnimals(at location: (lat: Float, lon: Float), completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
+  func searchAnimals(at location: (lat: Double, lon: Double), completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
      let queryItems = [
       URLQueryItem(name: "latitude", value: "\(location.lat)"),
       URLQueryItem(name: "longitude", value: "\(location.lon)")
@@ -75,7 +75,7 @@ class PetFinderAPI: NSObject {
       do {
         let results = try decoder.decode(SearchAnimalsResults.self, from: data)
         dispatchToMain {
-          print(results)
+          completion(Result.results(results))
         }
       } catch {
         dispatchToMain {

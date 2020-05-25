@@ -31,6 +31,10 @@ class SearchResultsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
+  
+  func dataReceived(results: Result<SearchAnimalsResults>) {
+    print("data is here!")
+  }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

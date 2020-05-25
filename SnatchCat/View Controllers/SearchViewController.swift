@@ -48,9 +48,8 @@ extension SearchViewController: UISearchBarDelegate {
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    petFinder.searchAnimals(for: "") { (_) in
-      print("finished")
-    }
+    showSearchResults(lat: 52, lon: -106)
+    
   }
 }
 
@@ -69,29 +68,38 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//    CLLocationManager.locationServicesEnabled()
-//    if CLLocationManager.locationServicesEnabled() {
-//        locationManager.requestLocation()
-//    } else {
+    // TODO: only when the 1st rown is selected
     locationManager.requestWhenInUseAuthorization()
     locationManager.requestLocation()
-//    }
-//    performSegue(withIdentifier: "showSearchResults", sender: self)
     tableView.deselectRow(at: indexPath, animated: true)
   }
 }
 
 extension SearchViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    let location = manager.location
-    print(location?.coordinate)
+    guard let location = manager.location else {
+      showAlert(title: "Error", message: "Failed To Retrieve Your Location")
+      return
+    }
+    // MARK:send request to PetFinderAPI from here? and tell the next screen
+    let lat = location.coordinate.latitude
+    let lon = location.coordinate.longitude
+    
+    showSearchResults(lat: lat, lon: lon)
+  }
+  
+  // TODO: change naming
+  private func showSearchResults(lat: Double, lon: Double) {
+    let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
+    petFinder.searchAnimals(at: (lat: lat, lon: lon), completion: resultsVC.dataReceived)
+    navigationController?.pushViewController(resultsVC, animated: true)
   }
   
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print(error.localizedDescription)
+    showAlert(title: "Failed To Retrieve Your Location", message: "\(error.localizedDescription)")
   }
 //
 //  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//    
+//
 //  }
 }
