@@ -17,11 +17,39 @@ class PetFinderAPI: NSObject {
     case generic
   }
   
-  func searchAnimals(for searchTerm: String, completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
-    guard let searchURL = searchAnimalsURL(for: searchTerm) else {
+  struct Endpoint {
+//    let base = "https://api.petfinder.com/v2/animals"
+    let scheme = "https"
+    let host = "api.petfinder.com"
+    let path = "/v2/animals"
+    // MARK: Query Items
+    var queryItems: [URLQueryItem]
+    
+    var url: URL? {
+      var components = URLComponents()
+      components.scheme = scheme
+      components.host = host
+      components.path = path
+      components.queryItems = queryItems
+      // MARK: may not belong here...
+      components.queryItems?.append(URLQueryItem(name: "type", value: "cat"))
+      return components.url
+    }
+  }
+  
+    // MARK：here or in endpoint?
+  func searchAnimals(at location: (lat: Float, lon: Float), completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
+     let queryItems = [
+      URLQueryItem(name: "latitude", value: "\(location.lat)"),
+      URLQueryItem(name: "longitude", value: "\(location.lon)")
+    ]
+    
+    let endpoint = Endpoint(queryItems: queryItems)
+    guard let searchURL = endpoint.url else {
       completion(Result.error(Error.unknownAPIResponse))
       return
     }
+    print(searchURL)
     
     var searchRequest = URLRequest(url: searchURL)
     searchRequest.httpMethod = "GET"
@@ -56,14 +84,14 @@ class PetFinderAPI: NSObject {
       }
     }.resume()
   }
-  
-  // w/o searchTerm first
-  private func searchAnimalsURL(for searchTerm: String) -> URL? {
-    guard let escapedTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics) else {
-      return nil
-    }
-    
-    let URLString = "https://api.petfinder.com/v2/animals?type=cat"
-    return URL(string: URLString)
-  }
+//
+//  // w/o searchTerm first
+//  private func searchAnimalsURL(for searchTerm: String) -> URL? {
+//    guard let escapedTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics) else {
+//      return nil
+//    }
+//
+//    let URLString = "https://api.petfinder.com/v2/animals?type=cat"
+//    return URL(string: URLString)
+//  }
 }
