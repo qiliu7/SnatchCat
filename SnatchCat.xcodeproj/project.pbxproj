@@ -20,6 +20,7 @@
 		B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D936247AD1F900465135 /* SearchAnimalsResults.swift */; };
 		B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93B247AD22500465135 /* DispatchToMain.swift */; };
 		B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93D247B155700465135 /* UIViewController+Extensions.swift */; };
+		B168D940247C186900465135 /* dataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* dataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B168D936247AD1F900465135 /* SearchAnimalsResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAnimalsResults.swift; sourceTree = "<group>"; };
 		B168D93B247AD22500465135 /* DispatchToMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchToMain.swift; sourceTree = "<group>"; };
 		B168D93D247B155700465135 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		B168D93F247C186900465135 /* dataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				B168D934247AD1F900465135 /* Result.swift */,
 				B168D935247AD1F900465135 /* PetFinderAPI.swift */,
 				B168D8F7246CC05C00465135 /* SnatchCat.xcdatamodeld */,
+				B168D93F247C186900465135 /* dataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */,
 				B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */,
 				B168D8F1246CC05C00465135 /* SearchViewController.swift in Sources */,
+				B168D940247C186900465135 /* dataModel.swift in Sources */,
 				B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */,
 				B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */,
 				B168D9302477975E00465135 /* SearchResultsTableViewController.swift in Sources */,

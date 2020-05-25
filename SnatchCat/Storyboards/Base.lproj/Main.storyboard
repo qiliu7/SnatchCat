@@ -24,13 +24,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a city name or postal code" translatesAutoresizingMaskIntoConstraints="NO" id="6gm-BS-grb">
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a city name" translatesAutoresizingMaskIntoConstraints="NO" id="6gm-BS-grb">
                                         <rect key="frame" x="0.0" y="42" width="394" height="56"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="search" textContentType="location"/>
-                                        <scopeButtonTitles>
-                                            <string>Cat</string>
-                                            <string>Shelter</string>
-                                        </scopeButtonTitles>
                                     </searchBar>
                                 </subviews>
                                 <constraints>
@@ -96,9 +92,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Vbe-yF-48g">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="lXN-30-0cy">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lXN-30-0cy" id="1NC-ia-O51">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -112,6 +113,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="P9l-I7-mE8"/>
+                    <connections>
+                        <outlet property="searchBar" destination="Vbe-yF-48g" id="t1H-p3-Ycb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNa-fR-RuZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

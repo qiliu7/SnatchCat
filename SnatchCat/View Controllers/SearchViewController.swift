@@ -10,93 +10,105 @@ import UIKit
 import CoreLocation
 
 class SearchViewController: UIViewController {
-  
-  @IBOutlet weak var searchBar: UISearchBar!
-  @IBOutlet weak var tableView: UITableView!
-  
-  let petFinder = PetFinderAPI()
-  let locationManager = CLLocationManager()
-  let suggestions = ["Current Location"]
-  
-  // TODO: add previous searched locations to tableView
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    searchBar.delegate = self
-    tableView.delegate = self
-    tableView.dataSource = self
-    tableView.isHidden = true
-    locationManager.delegate = self
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest
-  }
-  
-  // TODO: change naming
-  private func searchAndNavigateToResultsVC(lat: Double, lon: Double) {
-    let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
-    petFinder.searchAnimals(at: (lat: lat, lon: lon), completion: resultsVC.dataReceived)
-    navigationController?.pushViewController(resultsVC, animated: true)
-  }
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    let petFinder = PetFinderAPI()
+    let locationManager = CLLocationManager()
+    let suggestions = ["Current Location"]
+    
+    // TODO: add previous searched locations to tableView
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.isHidden = true
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    // TODO: change naming
+    private func searchAndNavigateToResultsVC(location: Location) {
+        let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
+        petFinder.searchAnimals(at: location, completion: resultsVC.dataReceived)
+        navigationController?.pushViewController(resultsVC, animated: true)
+    }
+//    private func searchAndNavigateToResultsVC(lat: Double, lon: Double) {
+//        let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
+//        petFinder.searchAnimals(at: (lat: lat, lon: lon), completion: resultsVC.dataReceived)
+//        navigationController?.pushViewController(resultsVC, animated: true)
+//    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    searchBar.showsCancelButton = true
-    tableView.isHidden = false
-  }
-  
-  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-    searchBar.showsCancelButton = false
-    tableView.isHidden = true
-  }
-  
-  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-    searchBar.endEditing(true)
-    tableView.isHidden = true
-  }
-  
-  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    searchAndNavigateToResultsVC(lat: 52, lon: -106)
-  }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        tableView.isHidden = false
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        tableView.isHidden = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        tableView.isHidden = true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //TODO: add zip code later, AUTOCORRECTION
+        if searchBar.text == "" {
+            return
+        }
+        guard let city = searchBar.text else {
+            return
+        }
+        searchAndNavigateToResultsVC(location: Location.city(city))
+//        searchAndNavigateToResultsVC(lat: 52, lon: -106)
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return suggestions.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
-    cell.textLabel?.text = suggestions[indexPath.row]
-    return cell
-  }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return suggestions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
+        cell.textLabel?.text = suggestions[indexPath.row]
+        return cell
+    }
 }
 
 extension SearchViewController: UITableViewDelegate {
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // TODO: only when the 1st rown is selected
-    locationManager.requestWhenInUseAuthorization()
-    locationManager.requestLocation()
-    tableView.deselectRow(at: indexPath, animated: true)
-  }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: only when the 1st rown is selected
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension SearchViewController: CLLocationManagerDelegate {
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    guard let location = manager.location else {
-      showAlert(title: "Error", message: "Failed To Retrieve Your Location")
-      return
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = manager.location else {
+            showAlert(title: "Error", message: "Failed To Retrieve Your Location")
+            return
+        }
+        let coordinate = Location.coordinate(location.coordinate.latitude, location.coordinate.longitude)
+        searchAndNavigateToResultsVC(location: coordinate)
     }
-    let lat = location.coordinate.latitude
-    let lon = location.coordinate.longitude
-    searchAndNavigateToResultsVC(lat: lat, lon: lon)
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    showAlert(title: "Failed To Retrieve Your Location", message: "\(error.localizedDescription)")
-  }
-//
-//  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//
-//  }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        showAlert(title: "Failed To Retrieve Your Location", message: "\(error.localizedDescription)")
+    }
+    //
+    //  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    //
+    //  }
 }

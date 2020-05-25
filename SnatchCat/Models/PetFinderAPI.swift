@@ -38,11 +38,16 @@ class PetFinderAPI: NSObject {
   }
   
     // MARK：here or in endpoint?
-  func searchAnimals(at location: (lat: Double, lon: Double), completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
-     let queryItems = [
-      URLQueryItem(name: "latitude", value: "\(location.lat)"),
-      URLQueryItem(name: "longitude", value: "\(location.lon)")
-    ]
+  func searchAnimals(at location: Location, completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
+    var queryItems = [URLQueryItem]()
+    
+    switch location {
+    case .city(let city):
+        queryItems.append(URLQueryItem(name: "city", value: "\(city)"))
+    case let .coordinate(lat, lon):
+        queryItems.append(URLQueryItem(name: "latitude", value: "\(lat)"))
+        queryItems.append(URLQueryItem(name: "longitude", value: "\(lon)"))
+    }
     
     let endpoint = Endpoint(queryItems: queryItems)
     guard let searchURL = endpoint.url else {
