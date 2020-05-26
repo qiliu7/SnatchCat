@@ -31,7 +31,7 @@ class SearchViewController: UIViewController {
     }
     
     // TODO: change naming
-    private func searchAndNavigateToResultsVC(location: Location) {
+    private func startSearchAndNavigateToResultsVC(location: Location) {
         let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
         petFinder.searchAnimals(at: location, completion: resultsVC.dataReceived)
         navigationController?.pushViewController(resultsVC, animated: true)
@@ -67,8 +67,7 @@ extension SearchViewController: UISearchBarDelegate {
         guard let city = searchBar.text else {
             return
         }
-        searchAndNavigateToResultsVC(location: Location.city(city))
-//        searchAndNavigateToResultsVC(lat: 52, lon: -106)
+        startSearchAndNavigateToResultsVC(location: Location.city(city))
     }
 }
 
@@ -101,7 +100,7 @@ extension SearchViewController: CLLocationManagerDelegate {
             return
         }
         let coordinate = Location.coordinate(location.coordinate.latitude, location.coordinate.longitude)
-        searchAndNavigateToResultsVC(location: coordinate)
+        startSearchAndNavigateToResultsVC(location: coordinate)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
