@@ -6,10 +6,16 @@
 //  Copyright © 2020 qi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Location {
     case city(String)
     case coordinate(Double, Double)
 //    case postalCode(String)
+}
+
+struct Cat {
+    let name: String
+    var photoURL: URL?
+    var photo: UIImage?
 }

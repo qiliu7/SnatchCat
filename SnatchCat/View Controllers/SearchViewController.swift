@@ -33,14 +33,11 @@ class SearchViewController: UIViewController {
     // TODO: change naming
     private func startSearchAndNavigateToResultsVC(location: Location) {
         let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
-        petFinder.searchAnimals(at: location, completion: resultsVC.dataReceived)
+        resultsVC.petFinder = petFinder
+        resultsVC.location = location
+        petFinder.searchAnimals(at: location, completion: resultsVC.handleSearchResponse)
         navigationController?.pushViewController(resultsVC, animated: true)
     }
-//    private func searchAndNavigateToResultsVC(lat: Double, lon: Double) {
-//        let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
-//        petFinder.searchAnimals(at: (lat: lat, lon: lon), completion: resultsVC.dataReceived)
-//        navigationController?.pushViewController(resultsVC, animated: true)
-//    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -79,6 +76,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
         cell.textLabel?.text = suggestions[indexPath.row]
+        
         return cell
     }
 }
