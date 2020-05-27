@@ -27,7 +27,7 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         tableView.isHidden = true
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
     // TODO: change naming
@@ -84,7 +84,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: only when the 1st rown is selected
+        // TODO: only when the 1st row is selected
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         tableView.deselectRow(at: indexPath, animated: true)
