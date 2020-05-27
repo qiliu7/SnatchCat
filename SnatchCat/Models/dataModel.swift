@@ -16,6 +16,8 @@ enum Location {
 
 struct Cat {
     let name: String
+    let breed: String
+    let age: String
     var photoURL: URL?
     var photo: UIImage?
 }

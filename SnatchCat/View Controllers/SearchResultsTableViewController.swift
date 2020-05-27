@@ -10,6 +10,8 @@ import UIKit
 
 class SearchResultsTableViewController: UITableViewController {
     
+    let ROW_HEIGHT = 150
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     var petFinder: PetFinderAPI!
@@ -18,7 +20,13 @@ class SearchResultsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpSearchBar()
+        tableView.rowHeight = CGFloat(ROW_HEIGHT)
+    }
+
+    private func setUpSearchBar() {
         searchBar.delegate = self
+        
         switch location {
         case .city(let city):
             searchBar.placeholder = city
@@ -27,12 +35,6 @@ class SearchResultsTableViewController: UITableViewController {
         case .none:
             ()
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     func handleSearchResponse(results: Result<SearchAnimalsResults>) {
@@ -48,7 +50,7 @@ class SearchResultsTableViewController: UITableViewController {
         let downloadGroup = DispatchGroup()
         print("animals count \(animals.count)")
         for animal in animals {
-            var cat = Cat(name: animal.name, photoURL: nil, photo: #imageLiteral(resourceName: "default_profile"))
+            var cat = Cat(name: animal.name, breed: animal.breeds.primary, age: animal.age, photoURL: nil, photo: nil)
             if let url = animal.photos?.first?.full {
                 downloadGroup.enter()
                 petFinder.downloadPhoto(url: url) { (photoResult) in
@@ -83,10 +85,17 @@ class SearchResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchResultTableCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchResultTableCell", for: indexPath) as! SearchResultTableCell
         let cat = cats[indexPath.row]
-        cell.textLabel?.text = cat.name
-        cell.imageView?.image = cat.photo
+        cell.nameLabel.text = cat.name
+        if cat.photo == nil {
+            cell.resultImageView.image = #imageLiteral(resourceName: "default_profile")
+        } else {
+            cell.resultImageView.image = cat.photo
+        }
+        cell.detailLabal.text = cat.age + " • " + cat.breed
+        // TODO: add real date decoding
+        cell.secondDetailLabel.text = "1 day ago"
         return cell
     }
     
