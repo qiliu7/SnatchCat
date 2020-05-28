@@ -16,7 +16,7 @@ class SearchResultsTableViewController: UITableViewController {
     
     var petFinder: PetFinderAPI!
     var location: Location!
-    var cats = [Cat]()
+    var catProfiles = [CatProfile]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,34 +38,32 @@ class SearchResultsTableViewController: UITableViewController {
     }
     
     func handleSearchResponse(results: Result<SearchAnimalsResults>) {
-        var animals = [Animal]()
+        var cats = [Cat]()
         
         switch results {
         case .results(let results):
-            animals = results.animals
+            cats = results.cats
         case .error(let error):
             showAlert(title: "Error", message: error.localizedDescription)
         }
         // TODO: add activityIndicator
         let downloadGroup = DispatchGroup()
-        print("animals count \(animals.count)")
-        for animal in animals {
-            var cat = Cat(name: animal.name, breed: animal.breeds.primary, age: animal.age, photoURL: nil, photo: nil)
-            if let url = animal.photos?.first?.full {
+        for cat in cats {
+            var catProfile = CatProfile(cat: cat, photo: nil)
+            if let url = cat.photoURLs?.first?.full {
                 downloadGroup.enter()
                 petFinder.downloadPhoto(url: url) { (photoResult) in
-                    cat.photoURL = url
                     switch photoResult {
                     case .results(let photo):
-                        cat.photo = photo
+                        catProfile.photo = photo
                     case .error(let error):
                         print(error.localizedDescription)
                     }
-                    self.cats.append(cat)
+                    self.catProfiles.append(catProfile)
                     downloadGroup.leave()
                 }
             } else {
-                self.cats.append(cat)
+                self.catProfiles.append(catProfile)
             }
         }
         
@@ -81,19 +79,15 @@ class SearchResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cats.count
+        return catProfiles.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchResultTableCell", for: indexPath) as! SearchResultTableCell
-        let cat = cats[indexPath.row]
-        cell.nameLabel.text = cat.name
-        if cat.photo == nil {
-            cell.resultImageView.image = #imageLiteral(resourceName: "default_profile")
-        } else {
-            cell.resultImageView.image = cat.photo
-        }
-        cell.detailLabal.text = cat.age + " • " + cat.breed
+        let profile = catProfiles[indexPath.row]
+        cell.nameLabel.text = profile.cat.name
+        cell.resultImageView.image = catProfiles[indexPath.row].photo
+        cell.detailLabal.text = profile.cat.age + " • " + profile.cat.breeds.primary
         // TODO: add real date decoding
         cell.secondDetailLabel.text = "1 day ago"
         return cell
