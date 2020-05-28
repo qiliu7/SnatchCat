@@ -88,8 +88,10 @@ class SearchResultsTableViewController: UITableViewController {
         cell.nameLabel.text = profile.cat.name
         cell.resultImageView.image = catProfiles[indexPath.row].photo
         cell.detailLabal.text = profile.cat.age + " • " + profile.cat.breeds.primary
-        // TODO: add real date decoding
-        cell.secondDetailLabel.text = "1 day ago"
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        let publishTime = formatter.localizedString(for: profile.cat.publishedAt, relativeTo: Date())
+        cell.secondDetailLabel.text = publishTime
         return cell
     }
     

@@ -77,6 +77,12 @@ class PetFinderAPI: NSObject {
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ssZ"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
             do {
                 let results = try decoder.decode(SearchAnimalsResults.self, from: data)
                 dispatchToMain {

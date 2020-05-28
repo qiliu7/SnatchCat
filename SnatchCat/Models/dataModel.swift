@@ -20,12 +20,13 @@ struct CatProfile {
 }
 
 struct Cat: Codable {
-    var name: String
-    var breeds: Breed
-    var age: String
-    var photoURLs: [PhotoURL]?
+    let name: String
+    let breeds: Breed
+    let age: String
+    let photoURLs: [PhotoURL]?
+    let publishedAt: Date
     
     enum CodingKeys: String, CodingKey {
-        case photoURLs = "photos", name, breeds, age
+        case photoURLs = "photos", name, breeds, age, publishedAt
     }
 }
