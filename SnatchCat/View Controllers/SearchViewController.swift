@@ -15,13 +15,19 @@ class SearchViewController: UIViewController {
 //    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    private enum ReuseCellID: String {
+        case searchLocationCell
+    }
+    
     let petFinder = PetFinderAPI()
     // NOT SURE IF NIL YET
-    let searchController = UISearchController(searchResultsController: nil)
+    private var completerController: CompleterResultsTableViewController!
+    private var searchController: UISearchController!
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
     let suggestions = ["Current Location"]
-    let locationCompleter = MKLocalSearchCompleter()
+
+//    var completerResults = [String]()
     
     var isSearching: Bool {
         return searchController.isActive && !isSearchBarEmpty
@@ -36,18 +42,19 @@ class SearchViewController: UIViewController {
         
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
-        navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
+        completerController = CompleterResultsTableViewController(style: .plain)
+        searchController = UISearchController(searchResultsController: completerController)
+        searchController.searchResultsUpdater = completerController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Enter a location"
         searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isHidden = true
+//        tableView.isHidden = true
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationCompleter.delegate = self
-        locationCompleter.resultTypes = .address
+
         definesPresentationContext = true
     }
     
@@ -61,33 +68,28 @@ class SearchViewController: UIViewController {
     }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        locationCompleter.queryFragment = searchController.searchBar.text!
-    }
-}
+//extension SearchViewController: UISearchResultsUpdating {
+//    func updateSearchResults(for searchController: UISearchController) {
+//        locationCompleter.queryFragment = searchController.searchBar.text!
+//    }
+//}
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
-        tableView.isHidden = false
+//        tableView.isHidden = false
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-        tableView.isHidden = true
+//        tableView.isHidden = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
-        tableView.isHidden = true
+//        tableView.isHidden = true
     }
-
-//    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        locationCompleter.queryFragment = text
-//        return true
-//    }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //TODO: add zip code later, AUTOCORRECTION
         if searchBar.text == "" {
@@ -100,25 +102,14 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchViewController: MKLocalSearchCompleterDelegate {
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        print(completer.results)
-    }
-    
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        print(error)
-    }
-}
-
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return suggestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReuseCellID.searchLocationCell.rawValue, for: indexPath)
         cell.textLabel?.text = suggestions[indexPath.row]
-        
         return cell
     }
 }
