@@ -22,7 +22,7 @@
 		B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93D247B155700465135 /* UIViewController+Extensions.swift */; };
 		B168D940247C186900465135 /* dataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* dataModel.swift */; };
 		B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */; };
-		B1A183AE24862831006BE4CA /* CompleterResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* CompleterResultsTableViewController.swift */; };
+		B1A183AE24862831006BE4CA /* SuggestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* SuggestionTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		B168D93D247B155700465135 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		B168D93F247C186900465135 /* dataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataModel.swift; sourceTree = "<group>"; };
 		B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableCell.swift; sourceTree = "<group>"; };
-		B1A183AD24862831006BE4CA /* CompleterResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleterResultsTableViewController.swift; sourceTree = "<group>"; };
+		B1A183AD24862831006BE4CA /* SuggestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 				B168D8F0246CC05C00465135 /* SearchViewController.swift */,
 				B168D92F2477975E00465135 /* SearchResultsTableViewController.swift */,
 				B168D93D247B155700465135 /* UIViewController+Extensions.swift */,
-				B1A183AD24862831006BE4CA /* CompleterResultsTableViewController.swift */,
+				B1A183AD24862831006BE4CA /* SuggestionTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -218,7 +218,7 @@
 				B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */,
 				B168D9302477975E00465135 /* SearchResultsTableViewController.swift in Sources */,
 				B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */,
-				B1A183AE24862831006BE4CA /* CompleterResultsTableViewController.swift in Sources */,
+				B1A183AE24862831006BE4CA /* SuggestionTableViewController.swift in Sources */,
 				B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */,
 				B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */,
 			);

@@ -21,7 +21,7 @@ class SearchViewController: UIViewController {
     
     let petFinder = PetFinderAPI()
     // NOT SURE IF NIL YET
-    private var completerController: CompleterResultsTableViewController!
+    private var suggestionController: SuggestionTableViewController!
     private var searchController: UISearchController!
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
@@ -42,9 +42,9 @@ class SearchViewController: UIViewController {
         
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
-        completerController = CompleterResultsTableViewController(style: .plain)
-        searchController = UISearchController(searchResultsController: completerController)
-        searchController.searchResultsUpdater = completerController
+        suggestionController = SuggestionTableViewController(style: .plain)
+        searchController = UISearchController(searchResultsController: suggestionController)
+        searchController.searchResultsUpdater = suggestionController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Enter a location"
         searchController.searchBar.delegate = self
