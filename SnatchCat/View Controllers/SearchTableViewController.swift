@@ -10,10 +10,14 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class SearchViewController: UIViewController {
+class SearchTableViewController: UITableViewController {
     
 //    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var tableView: UITableView!
+    
+    private enum CellReuseID: String {
+        case searchLocationCell
+    }
     
     let petFinder = PetFinderAPI()
     // NOT SURE IF NIL YET
@@ -21,10 +25,11 @@ class SearchViewController: UIViewController {
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
     let suggestions = ["Current Location"]
+    let emptySeggustions = [String]()
     let locationCompleter = MKLocalSearchCompleter()
     
     var isSearching: Bool {
-        return searchController.isActive && !isSearchBarEmpty
+        return searchController.isActive
     }
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -41,9 +46,10 @@ class SearchViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Enter a location"
         searchController.searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.isHidden = true
+        tableView.separatorStyle = .none
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.isHidden = true
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationCompleter.delegate = self
@@ -59,28 +65,60 @@ class SearchViewController: UIViewController {
         petFinder.searchAnimals(at: location, completion: resultsVC.handleSearchResponse)
         navigationController?.pushViewController(resultsVC, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching {
+            return suggestions.count
+        }
+        return emptySeggustions.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchLocationCell.rawValue, for: indexPath)
+        let search: String
+        if isSearching {
+            search = suggestions[indexPath.row]
+            print(search)
+        } else {
+            search = emptySeggustions[indexPath.row]
+            print(search)
+        }
+        cell.textLabel?.text = search
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: only when the 1st row is selected
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
+extension SearchTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         locationCompleter.queryFragment = searchController.searchBar.text!
     }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+extension SearchTableViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
-        tableView.isHidden = false
+        print(searchController.isActive)
+        tableView.reloadData()
+//        tableView.isHidden = false
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-        tableView.isHidden = true
+//        tableView.isHidden = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
-        tableView.isHidden = true
+        searchController.isActive = false
+        tableView.reloadData()
+//        tableView.isHidden = true
     }
 
 //    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -100,7 +138,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchViewController: MKLocalSearchCompleterDelegate {
+extension SearchTableViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         print(completer.results)
     }
@@ -110,30 +148,30 @@ extension SearchViewController: MKLocalSearchCompleterDelegate {
     }
 }
 
-extension SearchViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return suggestions.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
-        cell.textLabel?.text = suggestions[indexPath.row]
-        
-        return cell
-    }
-}
+//extension SearchTableViewController: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return suggestions.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
+//        cell.textLabel?.text = suggestions[indexPath.row]
+//
+//        return cell
+//    }
+//}
 
-extension SearchViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: only when the 1st row is selected
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
+//extension SearchTableViewController: UITableViewDelegate {
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        // TODO: only when the 1st row is selected
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.requestLocation()
+//        tableView.deselectRow(at: indexPath, animated: true)
+//    }
+//}
 
-extension SearchViewController: CLLocationManagerDelegate {
+extension SearchTableViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = manager.location else {
             showAlert(title: "Error", message: "Failed To Retrieve Your Location")
