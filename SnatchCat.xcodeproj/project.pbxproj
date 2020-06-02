@@ -14,7 +14,6 @@
 		B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B168D8F7246CC05C00465135 /* SnatchCat.xcdatamodeld */; };
 		B168D8FB246CC05E00465135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B168D8FA246CC05E00465135 /* Assets.xcassets */; };
 		B168D8FE246CC05E00465135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B168D8FC246CC05E00465135 /* LaunchScreen.storyboard */; };
-		B168D9302477975E00465135 /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D92F2477975E00465135 /* SearchResultsTableViewController.swift */; };
 		B168D937247AD1F900465135 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D934247AD1F900465135 /* Result.swift */; };
 		B168D938247AD1F900465135 /* PetFinderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D935247AD1F900465135 /* PetFinderAPI.swift */; };
 		B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D936247AD1F900465135 /* SearchAnimalsResults.swift */; };
@@ -35,7 +34,6 @@
 		B168D8FA246CC05E00465135 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B168D8FD246CC05E00465135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B168D8FF246CC05E00465135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B168D92F2477975E00465135 /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		B168D934247AD1F900465135 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		B168D935247AD1F900465135 /* PetFinderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFinderAPI.swift; sourceTree = "<group>"; };
 		B168D936247AD1F900465135 /* SearchAnimalsResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAnimalsResults.swift; sourceTree = "<group>"; };
@@ -93,9 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				B168D8F0246CC05C00465135 /* SearchViewController.swift */,
-				B168D92F2477975E00465135 /* SearchResultsTableViewController.swift */,
-				B168D93D247B155700465135 /* UIViewController+Extensions.swift */,
 				B1A183AD24862831006BE4CA /* SuggestionTableViewController.swift */,
+				B168D93D247B155700465135 /* UIViewController+Extensions.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -216,7 +213,6 @@
 				B168D940247C186900465135 /* dataModel.swift in Sources */,
 				B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */,
 				B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */,
-				B168D9302477975E00465135 /* SearchResultsTableViewController.swift in Sources */,
 				B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */,
 				B1A183AE24862831006BE4CA /* SuggestionTableViewController.swift in Sources */,
 				B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */,
