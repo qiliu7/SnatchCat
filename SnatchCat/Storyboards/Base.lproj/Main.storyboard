@@ -15,27 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="CJj-az-1Zn">
-                                <rect key="frame" x="10" y="118" width="394" height="98"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   Calgary, AB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9At-Cm-lvg" userLabel="Location Label">
-                                        <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a city name" translatesAutoresizingMaskIntoConstraints="NO" id="6gm-BS-grb">
-                                        <rect key="frame" x="0.0" y="42" width="394" height="56"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="search" textContentType="location"/>
-                                    </searchBar>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="6gm-BS-grb" firstAttribute="leading" secondItem="CJj-az-1Zn" secondAttribute="leading" id="Igu-av-kbd"/>
-                                    <constraint firstAttribute="trailing" secondItem="6gm-BS-grb" secondAttribute="trailing" id="lYg-U5-gNm"/>
-                                </constraints>
-                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mxK-6o-aBy">
-                                <rect key="frame" x="0.0" y="216" width="414" height="597"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchLocationCell" textLabel="IYh-XJ-tLA" imageView="0w8-5w-tWN" style="IBUITableViewCellStyleDefault" id="hBi-Sc-H1X">
@@ -64,25 +45,21 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="mxK-6o-aBy" firstAttribute="top" secondItem="CJj-az-1Zn" secondAttribute="bottom" id="Ave-Md-FPM"/>
                             <constraint firstItem="mxK-6o-aBy" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="B6C-pa-hl8"/>
-                            <constraint firstItem="CJj-az-1Zn" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="30" id="Ma8-V8-saY"/>
-                            <constraint firstItem="CJj-az-1Zn" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="10" id="NOF-X8-gl4"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="mxK-6o-aBy" secondAttribute="bottom" id="c6b-2X-OAL"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="CJj-az-1Zn" secondAttribute="trailing" constant="10" id="c8r-kX-ypW"/>
                             <constraint firstItem="mxK-6o-aBy" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="elv-Xy-jBZ"/>
+                            <constraint firstItem="mxK-6o-aBy" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="qiY-Qd-q3O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" id="KnF-hG-7HQ"/>
                     <connections>
-                        <outlet property="searchBar" destination="6gm-BS-grb" id="NS4-Tb-2iG"/>
                         <outlet property="tableView" destination="mxK-6o-aBy" id="9LR-KV-e5c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1839.1304347826087" y="-456.02678571428567"/>
+            <point key="canvasLocation" x="1819" y="-456"/>
         </scene>
         <!--Search Results Table View Controller-->
         <scene sceneID="TCD-Bo-Hb4">

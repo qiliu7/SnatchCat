@@ -8,26 +8,47 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
 class SearchViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     let petFinder = PetFinderAPI()
+    // NOT SURE IF NIL YET
+    let searchController = UISearchController(searchResultsController: nil)
     let locationManager = CLLocationManager()
+    // TODO: add previous searched locations
     let suggestions = ["Current Location"]
+    let locationCompleter = MKLocalSearchCompleter()
     
-    // TODO: add previous searched locations to tableView
+    var isSearching: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
+        
+        // TODO: add appropiate title
+        navigationItem.title = "Calgary, AB"
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Enter a location"
+        searchController.searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isHidden = true
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationCompleter.delegate = self
+        locationCompleter.resultTypes = .address
+        definesPresentationContext = true
     }
     
     // TODO: change naming
@@ -37,6 +58,12 @@ class SearchViewController: UIViewController {
         resultsVC.location = location
         petFinder.searchAnimals(at: location, completion: resultsVC.handleSearchResponse)
         navigationController?.pushViewController(resultsVC, animated: true)
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        locationCompleter.queryFragment = searchController.searchBar.text!
     }
 }
 
@@ -55,7 +82,12 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
         tableView.isHidden = true
     }
-    
+
+//    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        locationCompleter.queryFragment = text
+//        return true
+//    }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //TODO: add zip code later, AUTOCORRECTION
         if searchBar.text == "" {
@@ -65,6 +97,16 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
         startSearchAndNavigateToResultsVC(location: Location.city(city))
+    }
+}
+
+extension SearchViewController: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        print(completer.results)
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print(error)
     }
 }
 
