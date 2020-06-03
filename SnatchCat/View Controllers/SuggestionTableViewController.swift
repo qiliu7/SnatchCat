@@ -12,12 +12,19 @@ import MapKit
 class SuggestionTableViewController: UITableViewController{
 
     var searchCompleter: MKLocalSearchCompleter?
-    var completerResults: [MKLocalSearchCompletion]?
+    var completerResults = [MKLocalSearchCompletion]()
+    var searchSuggestions = [["Current Location"]] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         StartProvidingCompletions()
         tableView.register(SuggestedCompletionTableViewCell.self, forCellReuseIdentifier: SuggestedCompletionTableViewCell.reuseID)
+        tableView.separatorStyle = .none
+        tableView.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,24 +45,23 @@ class SuggestionTableViewController: UITableViewController{
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        print("section count: \(searchSuggestions.count)")
+        return searchSuggestions.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return completerResults?.count ?? 0
+        print("section: \(section) row count: \(searchSuggestions[section].count)")
+        return searchSuggestions[section].count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestedCompletionTableViewCell.reuseID, for: indexPath)
-        if let suggestion = completerResults?[indexPath.row] {
-            cell.textLabel?.text = suggestion.title
-        }
-       
+        print("cellForRowAt called")
+        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestedCompletionTableViewCell.reuseID, for: indexPath) as! SuggestedCompletionTableViewCell
+        let suggestion = searchSuggestions[indexPath.section][indexPath.row]
+        cell.textLabel?.text = suggestion
+        print(tableView.isHidden)
         return cell
     }
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -105,18 +111,25 @@ class SuggestionTableViewController: UITableViewController{
 
 extension SuggestionTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+//        print("sa")
         searchCompleter?.queryFragment = searchController.searchBar.text ?? ""
+//                tableView.reloadData()
     }
 }
 
 extension SuggestionTableViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completerResults = completer.results
-        tableView.reloadData()
+        let resultStrings = completerResults.map({ $0.title })
+        searchSuggestions = [["Current Location"]] + [resultStrings]
+        print("a")
+//            print(searchSuggestions)
+//        tableView.reloadData()
     }
     
+    // WHEN IS EMPTY, GOES TO HERE?
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        fatalError(error.localizedDescription)
+        print(error.localizedDescription)
     }
 }
 

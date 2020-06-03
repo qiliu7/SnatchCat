@@ -58,7 +58,7 @@ class SearchViewController: UIViewController {
         petFinder = PetFinderAPI()
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
-        suggestionController = SuggestionTableViewController(style: .plain)
+        suggestionController = SuggestionTableViewController(style: .grouped)
         suggestionController.tableView.delegate = self
         
         searchController = UISearchController(searchResultsController: suggestionController)
@@ -76,10 +76,11 @@ class SearchViewController: UIViewController {
         definesPresentationContext = true
         
         tableView.rowHeight = CGFloat(ROW_HEIGHT)
+        
     }
     
     // TODO: change naming
-    private func startSearchAndNavigateToResultsVC(location: Location) {
+    private func search(location: Location) {
 //        let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
 //        resultsVC.petFinder = petFinder
 //        resultsVC.location = location
@@ -153,7 +154,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
-//        tableView.isHidden = false
+        suggestionController.tableView.reloadData()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -174,7 +175,7 @@ extension SearchViewController: UISearchBarDelegate {
         guard let city = searchBar.text else {
             return
         }
-        startSearchAndNavigateToResultsVC(location: Location.city(city))
+        search(location: Location.city(city))
     }
 }
 
@@ -198,10 +199,12 @@ extension SearchViewController: UITableViewDelegate {
 //        locationManager.requestWhenInUseAuthorization()
 //        locationManager.requestLocation()
 //        tableView.deselectRow(at: indexPath, animated: true)
-        if tableView == suggestionController.tableView, let suggestion = suggestionController.completerResults?[indexPath.row] {
+//        if tableView == suggestionController.tableView, let suggestion = suggestionController.completerResults?[indexPath.row] {
+        if tableView == suggestionController.tableView {
+            let suggestion = suggestionController.searchSuggestions[indexPath.section][indexPath.row]
             searchController.isActive = false
-            searchController.searchBar.text = suggestion.title
-            startSearchAndNavigateToResultsVC(location: Location.city(suggestion.title))
+            searchController.searchBar.text = suggestion
+            search(location: Location.city(suggestion))
         }
     }
 }
@@ -213,7 +216,7 @@ extension SearchViewController: CLLocationManagerDelegate {
             return
         }
         let coordinate = Location.coordinate(location.coordinate.latitude, location.coordinate.longitude)
-        startSearchAndNavigateToResultsVC(location: coordinate)
+        search(location: coordinate)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

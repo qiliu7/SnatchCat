@@ -8,7 +8,7 @@
 
 import UIKit
 
-let bearerToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJEWHVIZ0R0bVFuNm94bFdMbjNRbXQ1aU9PZGVRMWQ0U3hUdVFOa0N3TjFKNTJycmxsaiIsImp0aSI6ImZiMjhkMTdlODk3NGYwYzcyYzk1NDBjODJmOTdhYzExM2M1MTQwYmNmMjNhZTc3NzU2Y2U1YWY3ZGJlNDhlNWY3OTAxZTA1YWM2NGIxZDZiIiwiaWF0IjoxNTkwNzAwNDM2LCJuYmYiOjE1OTA3MDA0MzYsImV4cCI6MTU5MDcwNDAzNiwic3ViIjoiIiwic2NvcGVzIjpbXX0.ATF1WZ5-wOyFWAU07wtX20XdslYLUMSrKP7_Jg2ZLkzA30rjMsqmDw3yJqhou4UC8u0MFcdXKGxXMVE6KNUOevqAEvj06TZWMXmT3G4uoKi7izYg80EI0ESeUOWeJX2UIF29z5nLu6ADPfHDeRV7QvftGDE_o9DYRPN5OkwcqDxn2XdOqKLU79mPxB-OYJ42McllxR_6BXLtooBAsubbFZQyXSe0_qhPw9f27QyVU8_3roWJupZhXt_UP9KDhd-EqYJAtYPma85alvY0mjDn8v5gccUrW1k1ff94WzHkLHuVsJWfWotF_vQN9rU3tPX3U3ryZtp183N5h50F8BLiaQ"
+let bearerToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJEWHVIZ0R0bVFuNm94bFdMbjNRbXQ1aU9PZGVRMWQ0U3hUdVFOa0N3TjFKNTJycmxsaiIsImp0aSI6IjY2YzE0ZjAwNWE3MTViODFhYjFjOTBiODYxOGJlMmM1MGY3ZDE5NGFlNDg0ODQzOTU0MThjZTNjNGJmZGU1ZGE2ODJmZTQ0ODM5Y2UwNjFjIiwiaWF0IjoxNTkxMTM0OTkzLCJuYmYiOjE1OTExMzQ5OTMsImV4cCI6MTU5MTEzODU5Mywic3ViIjoiIiwic2NvcGVzIjpbXX0.ntpA5oT77SUEtkI-kJEM0jZWnusJoJtgbOJ1NGP3XSnmOV71DpLZIpjV-MjRdfjl2v-35nSnaQCq0OpyQAr0AtxwKYkWq4TBg0RaPP4mGmzdi-mu5IR5BHxv1egHaZ3z2QmhX6R0TptGk2rHhWDlBVBU49bM0r4aPwCo0_VQ_k-jSRfS3Sw-bPTWJ_ZIF1XPxY3A0hN1Yr3T8pNcgRy1yEay2BVUJOmJZhb1piUxubDbAG-jgbID5bq1G0xppSYNUfW8alA4gAuLY7jtCZw20CaG0SI6DIfsZbEMdGewiojyoK04GwvDbu32Ke9SGpco2bc5Povi4u3GJQTHvj8vJA"
 
 class PetFinderAPI: NSObject {
     
@@ -43,10 +43,9 @@ class PetFinderAPI: NSObject {
         
         switch location {
         case .city(let city):
-            queryItems.append(URLQueryItem(name: "city", value: "\(city)"))
+            queryItems.append(URLQueryItem(name: "location", value: "\(city)"))
         case let .coordinate(lat, lon):
-            queryItems.append(URLQueryItem(name: "latitude", value: "\(lat)"))
-            queryItems.append(URLQueryItem(name: "longitude", value: "\(lon)"))
+            queryItems.append(URLQueryItem(name: "location", value: "\(lat),\(lon)"))
         }
         
         let endpoint = Endpoint(queryItems: queryItems)
