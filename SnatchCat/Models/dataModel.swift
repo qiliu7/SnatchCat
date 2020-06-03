@@ -8,11 +8,11 @@
 
 import UIKit
 
-enum Location {
-    case city(String)
-    case coordinate(Double, Double)
-//    case postalCode(String)
-}
+//enum Location {
+//    case city(String)
+//    case coordinate(Double, Double)
+////    case postalCode(String)
+//}
 
 struct CatProfile {
     let cat: Cat

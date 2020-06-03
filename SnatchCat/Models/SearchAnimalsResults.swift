@@ -15,7 +15,8 @@ struct SearchAnimalsResults: Codable {
     
     enum CodingKeys: String, CodingKey {
         // this app only request for cat results rather then all animals
-        case cats = "animals", pagination
+        case cats = "animals"
+        case pagination
     }
 }
 

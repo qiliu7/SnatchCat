@@ -26,14 +26,9 @@ class SearchResultsViewController: UIViewController {
         case searchResultCell
     }
     
-    private var suggestionController: SuggestionTableViewController!
+    private var suggestionController: SearchSuggestionsTableViewController!
     private var searchController: UISearchController!
     // TODO: add shelter later
-    private var searchResults: [Cat]? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
     var catProfiles = [CatProfile]()
     
     let locationManager = CLLocationManager()
@@ -53,7 +48,7 @@ class SearchResultsViewController: UIViewController {
         petFinder = PetFinderAPI()
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
-        suggestionController = SuggestionTableViewController(style: .plain)
+        suggestionController = SearchSuggestionsTableViewController(style: .plain)
         suggestionController.tableView.delegate = self
         
         searchController = UISearchController(searchResultsController: suggestionController)
@@ -79,6 +74,9 @@ class SearchResultsViewController: UIViewController {
     }
     
     func handleSearchResponse(results: Result<SearchAnimalsResults>) {
+        
+        // Clear previous searchResults
+        catProfiles = []
         print(results)
         var cats = [Cat]()
         
@@ -130,6 +128,10 @@ extension SearchResultsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultTableCell
         let profile = catProfiles[indexPath.row]
         cell.nameLabel.text = profile.cat.name
+        
+        // TODO: encapsulate
+        cell.resultImageView.layer.cornerRadius = 10
+        cell.clipsToBounds = true
         cell.resultImageView.image = catProfiles[indexPath.row].photo
         cell.detailLabal.text = profile.cat.age + " • " + profile.cat.breeds.primary
         let formatter = RelativeDateTimeFormatter()

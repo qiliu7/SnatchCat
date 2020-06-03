@@ -8,7 +8,7 @@
 
 import UIKit
 
-let bearerToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJEWHVIZ0R0bVFuNm94bFdMbjNRbXQ1aU9PZGVRMWQ0U3hUdVFOa0N3TjFKNTJycmxsaiIsImp0aSI6IjY2YzE0ZjAwNWE3MTViODFhYjFjOTBiODYxOGJlMmM1MGY3ZDE5NGFlNDg0ODQzOTU0MThjZTNjNGJmZGU1ZGE2ODJmZTQ0ODM5Y2UwNjFjIiwiaWF0IjoxNTkxMTM0OTkzLCJuYmYiOjE1OTExMzQ5OTMsImV4cCI6MTU5MTEzODU5Mywic3ViIjoiIiwic2NvcGVzIjpbXX0.ntpA5oT77SUEtkI-kJEM0jZWnusJoJtgbOJ1NGP3XSnmOV71DpLZIpjV-MjRdfjl2v-35nSnaQCq0OpyQAr0AtxwKYkWq4TBg0RaPP4mGmzdi-mu5IR5BHxv1egHaZ3z2QmhX6R0TptGk2rHhWDlBVBU49bM0r4aPwCo0_VQ_k-jSRfS3Sw-bPTWJ_ZIF1XPxY3A0hN1Yr3T8pNcgRy1yEay2BVUJOmJZhb1piUxubDbAG-jgbID5bq1G0xppSYNUfW8alA4gAuLY7jtCZw20CaG0SI6DIfsZbEMdGewiojyoK04GwvDbu32Ke9SGpco2bc5Povi4u3GJQTHvj8vJA"
+let bearerToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJEWHVIZ0R0bVFuNm94bFdMbjNRbXQ1aU9PZGVRMWQ0U3hUdVFOa0N3TjFKNTJycmxsaiIsImp0aSI6ImQyMGIwZjA4ZTI2MTc1NjVhNzBjNmY3YTViZWE2ODIwNTU3Mjc0NzIyYzk2M2IzMGQ2MWIzMTg5NGQ4MTRkNjU4OWE4MjQ2NDViY2RmM2VkIiwiaWF0IjoxNTkxMjE0NDUwLCJuYmYiOjE1OTEyMTQ0NTAsImV4cCI6MTU5MTIxODA1MCwic3ViIjoiIiwic2NvcGVzIjpbXX0.Kyh9tAHZawtTYwS4PqUx163DF69-1R3YfBiZkv47uYrfSRwyoeTcHCc2CLTbH7QRN3ltJVC_Gdc9tVj1-ihmNVwoKr7p2JWc9oq7STDLpjCJk5r75p1MLkRpc1oz9oZwHRg8Qs6JlORevtN_4u1m7f-PtHtVZjmhdR6o8xf0CQo2OXPYgMuyDGih7SEuWMliIGrzWwhScKa33Yf2QUv9lJ6UPChnTysATDb2fIiTpt7Fg6d_LF29FOqptAVPKGBqD6vTBSKQM-jd2hGwTcM0MerbnNz9OBDqr5-qbQnn9ElE8XJJJeocws9efjFHAquRV8nSWR3Tj1AahF_srKKtTQ"
 
 class PetFinderAPI: NSObject {
     
@@ -38,15 +38,15 @@ class PetFinderAPI: NSObject {
     }
     
     // MARK：here or in endpoint?
-    func searchAnimals(at location: Location, completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
-        var queryItems = [URLQueryItem]()
+    func searchAnimals(at location: String, completion: @escaping (Result<SearchAnimalsResults>) -> Void) {
+        let queryItems = [URLQueryItem(name: "location", value: location)]
         
-        switch location {
-        case .city(let city):
-            queryItems.append(URLQueryItem(name: "location", value: "\(city)"))
-        case let .coordinate(lat, lon):
-            queryItems.append(URLQueryItem(name: "location", value: "\(lat),\(lon)"))
-        }
+//        switch location {
+//        case .city(let city):
+//            queryItems.append(URLQueryItem(name: "location", value: "\(city)"))
+//        case let .coordinate(lat, lon):
+//            queryItems.append(URLQueryItem(name: "location", value: "\(lat),\(lon)"))
+//        }
         
         let endpoint = Endpoint(queryItems: queryItems)
         guard let searchURL = endpoint.url else {
