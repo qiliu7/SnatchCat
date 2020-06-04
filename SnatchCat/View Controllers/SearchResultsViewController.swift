@@ -26,6 +26,10 @@ class SearchResultsViewController: UIViewController {
         case searchResultCell
     }
     
+    private enum Prompt: String {
+        case enterLocation = "Enter a Location to Start"
+    }
+    
     private var suggestionController: SearchSuggestionsTableViewController!
     private var searchController: UISearchController!
     // TODO: add shelter later
@@ -41,32 +45,49 @@ class SearchResultsViewController: UIViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         petFinder = PetFinderAPI()
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
+        authenticate()
+        configureSearchController()
+        configureTableView()
+        configureLocationManager()
+    }
+    
+    fileprivate func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = CGFloat(ROW_HEIGHT)
+    }
+    private func configureSearchController() {
         suggestionController = SearchSuggestionsTableViewController(style: .plain)
         suggestionController.tableView.delegate = self
         
         searchController = UISearchController(searchResultsController: suggestionController)
         searchController.searchResultsUpdater = suggestionController
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Enter a location"
+        searchController.searchBar.placeholder = Prompt.enterLocation.rawValue
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        //        tableView.isHidden = true
+    }
+    
+    fileprivate func configureLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         definesPresentationContext = true
-        
-        tableView.rowHeight = CGFloat(ROW_HEIGHT)
-        
+    }
+    
+    private func authenticate() {
+        petFinder.requestAccessToken { (result) in
+            switch result {
+            case .results(let success):
+                print(success)
+            case .error(let error):
+                self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
     
     private func search(location: String) {

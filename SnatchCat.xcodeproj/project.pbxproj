@@ -21,6 +21,7 @@
 		B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93D247B155700465135 /* UIViewController+Extensions.swift */; };
 		B168D940247C186900465135 /* dataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* dataModel.swift */; };
 		B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */; };
+		B184F605248887D900AD2A43 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F604248887D900AD2A43 /* Auth.swift */; };
 		B1A183AE24862831006BE4CA /* SearchSuggestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* SearchSuggestionsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		B168D93D247B155700465135 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		B168D93F247C186900465135 /* dataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataModel.swift; sourceTree = "<group>"; };
 		B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableCell.swift; sourceTree = "<group>"; };
+		B184F604248887D900AD2A43 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		B1A183AD24862831006BE4CA /* SearchSuggestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 				B168D935247AD1F900465135 /* PetFinderAPI.swift */,
 				B168D8F7246CC05C00465135 /* SnatchCat.xcdatamodeld */,
 				B168D93F247C186900465135 /* dataModel.swift */,
+				B184F604248887D900AD2A43 /* Auth.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B184F605248887D900AD2A43 /* Auth.swift in Sources */,
 				B168D938247AD1F900465135 /* PetFinderAPI.swift in Sources */,
 				B168D937247AD1F900465135 /* Result.swift in Sources */,
 				B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */,
