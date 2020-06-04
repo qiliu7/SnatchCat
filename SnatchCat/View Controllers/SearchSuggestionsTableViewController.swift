@@ -53,7 +53,6 @@ class SearchSuggestionsTableViewController: UITableViewController{
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cellForRowAt called")
         let cell = tableView.dequeueReusableCell(withIdentifier: SuggestedCompletionTableViewCell.reuseID, for: indexPath) as! SuggestedCompletionTableViewCell
         let suggestion = searchSuggestions[indexPath.section][indexPath.row]
         cell.textLabel?.text = suggestion

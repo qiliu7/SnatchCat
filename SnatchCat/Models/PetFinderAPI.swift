@@ -28,17 +28,18 @@ class PetFinderAPI: NSObject {
         static let base = "https://api.petfinder.com/v2"
         //        static let apiKeyParam = "&client_id=\(apiKey)"
         //        static let clientSecretParam = "&client_secret=\(clientSecret)"
-        static let catParam = "/animals?type=cat"
         
         case getAccessToken
         case search(location: String)
         
+        // MARK: hard coded for now, may change for filters
         var urlString: String {
             switch self {
             case .getAccessToken:
                 return Endpoint.base + "/oauth2/token"
-            case .search(location: let location):
-                return Endpoint.base + Endpoint.catParam + "&location=\(location)"
+            case .search(location: var location):
+                location = location.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                return Endpoint.base + "/animals?type=cat&location=\(location)"
             }
         }
         
@@ -73,7 +74,6 @@ class PetFinderAPI: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let encoder = JSONEncoder()
         let auth = Auth(grantType: "client_credentials", clientID: apiKey, clientSecret: clientSecret)
-        print(auth)
         do {
             request.httpBody = try encoder.encode(auth)
         } catch {
@@ -98,7 +98,6 @@ class PetFinderAPI: NSObject {
             do {
                 let results = try decoder.decode(TokenResponse.self, from: data)
                 self.bearToken = results.accessToken
-                print(results.accessToken)
                 dispatchToMain {
                     completion(Result.results(true))
                 }
@@ -116,6 +115,7 @@ class PetFinderAPI: NSObject {
         //        let queryItems = [URLQueryItem(name: "location", value: location)]
         //        let endpoint = Endpoint(queryItems: queryItems)
         let endpoint = Endpoint.search(location: location)
+        print(endpoint)
         guard let searchURL = endpoint.url else {
             completion(Result.error(Error.unknownAPIResponse))
             return
