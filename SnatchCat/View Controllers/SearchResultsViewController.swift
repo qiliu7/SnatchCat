@@ -151,7 +151,8 @@ extension SearchResultsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultTableCell
-        
+        // First reset the image
+        cell.resultImageView.image = nil
         let cat = cats[indexPath.row]
         
         cell.nameLabel.text = cat.name
