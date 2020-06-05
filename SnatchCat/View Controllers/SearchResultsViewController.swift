@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 class SearchResultsViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     let ROW_HEIGHT = 150
@@ -32,8 +32,10 @@ class SearchResultsViewController: UIViewController {
     
     private var suggestionController: SearchSuggestionsTableViewController!
     private var searchController: UISearchController!
+    private let imageCache = NSCache<NSURL, UIImage>()
     // TODO: add shelter later
-    var catProfiles = [CatProfile]()
+//    var catProfiles = [CatProfile]()
+    var cats = [Cat]()
     
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
@@ -82,8 +84,8 @@ class SearchResultsViewController: UIViewController {
     private func authenticate() {
         petFinder.requestAccessToken { (result) in
             switch result {
-            case .results(let success):
-                print(success)
+            case .results(_):
+                ()
             case .error(let error):
                 self.showAlert(title: "Error", message: error.localizedDescription)
             }
@@ -97,39 +99,41 @@ class SearchResultsViewController: UIViewController {
     func handleSearchResponse(results: Result<SearchAnimalsResults>) {
         
         // Clear previous searchResults
-        catProfiles = []
-        print(results)
-        var cats = [Cat]()
+//        catProfiles = []
         
         switch results {
         case .results(let results):
             cats = results.cats
+            dispatchToMain {
+                print(self.cats)
+                self.tableView.reloadData()
+            }
+            print(cats.map{($0.name)})
         case .error(let error):
             showAlert(title: "Error", message: error.localizedDescription)
         }
-        // TODO: add activityIndicator
-        let downloadGroup = DispatchGroup()
-        for cat in cats {
-            var catProfile = CatProfile(cat: cat, photo: nil)
-            if let url = cat.photoURLs?.first?.full {
-                downloadGroup.enter()
-                petFinder.downloadPhoto(url: url) { (photoResult) in
-                    switch photoResult {
-                    case .results(let photo):
-                        catProfile.photo = photo
-                    case .error(let error):
-                        print(error.localizedDescription)
-                    }
-                    self.catProfiles.append(catProfile)
-                    downloadGroup.leave()
-                }
-            } else {
-                self.catProfiles.append(catProfile)
+    }
+    
+    private func loadImage(for url: URL, completion: @escaping (UIImage?) -> Void){
+        if let image = imageCache.object(forKey: url as NSURL) {
+            dispatchToMain {
+                completion(image)
             }
-        }
-        
-        downloadGroup.notify(queue: DispatchQueue.main) {
-            self.tableView.reloadData()
+        } else {
+            petFinder.downloadImage(url: url) { (imageResult) in
+                switch imageResult {
+                case .results(let image):
+                    dispatchToMain {
+                        completion(image)
+                        self.imageCache.setObject(image, forKey: url as NSURL)
+                    }
+                case .error(let error):
+                    dispatchToMain {
+                        completion(nil)
+                        print(error)
+                    }
+                }
+            }
         }
     }
 }
@@ -142,22 +146,33 @@ extension SearchResultsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return catProfiles.count
+        return cats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultTableCell
-        let profile = catProfiles[indexPath.row]
-        cell.nameLabel.text = profile.cat.name
         
-        // TODO: encapsulate
+        let cat = cats[indexPath.row]
+        
+        cell.nameLabel.text = cat.name
         cell.resultImageView.layer.cornerRadius = 10
         cell.clipsToBounds = true
-        cell.resultImageView.image = catProfiles[indexPath.row].photo
-        cell.detailLabal.text = profile.cat.age + " • " + profile.cat.breeds.primary
+        // Set default image
+        if let url = cat.photoURLs?.first?.full {
+            loadImage(for: url) { (image) in
+                if let image = image {
+                    cell.resultImageView.image = image
+                } else {
+                    cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
+                }
+            }
+        } else {
+            cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
+        }
+        cell.detailLabal.text = cat.age + " • " + cat.breeds.primary
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
-        let publishTime = formatter.localizedString(for: profile.cat.publishedAt, relativeTo: Date())
+        let publishTime = formatter.localizedString(for: cat.publishedAt, relativeTo: Date())
         cell.secondDetailLabel.text = publishTime
         return cell
     }
@@ -227,3 +242,11 @@ extension SearchResultsViewController: CLLocationManagerDelegate {
     //
     //  }
 }
+//
+//extension UIImageView {
+//    func loadImage(url: URL) {
+//        if let imageFromCache = imageCache.object(forKey: url) {
+//
+//        }
+//    }
+//}

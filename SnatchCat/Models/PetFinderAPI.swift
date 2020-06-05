@@ -162,7 +162,7 @@ class PetFinderAPI: NSObject {
         }.resume()
     }
     
-    func downloadPhoto(url: URL, completion: @escaping (Result<UIImage>) -> Void) {
+    func downloadImage(url: URL, completion: @escaping (Result<UIImage>) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completion(Result.error(error))
