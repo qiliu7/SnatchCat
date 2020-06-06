@@ -34,7 +34,7 @@ class SearchResultsViewController: UIViewController {
     private var searchController: UISearchController!
     private let imageCache = NSCache<NSURL, UIImage>()
     // TODO: add shelter later
-//    var catProfiles = [CatProfile]()
+    //    var catProfiles = [CatProfile]()
     var cats = [Cat]()
     
     let locationManager = CLLocationManager()
@@ -71,6 +71,7 @@ class SearchResultsViewController: UIViewController {
         searchController.searchResultsUpdater = suggestionController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = Prompt.enterLocation.rawValue
+        searchController.setTextColorToGray()
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
     }
@@ -97,10 +98,6 @@ class SearchResultsViewController: UIViewController {
     }
     
     func handleSearchResponse(results: Result<SearchAnimalsResults>) {
-        
-        // Clear previous searchResults
-//        catProfiles = []
-        
         switch results {
         case .results(let results):
             cats = results.cats
@@ -118,20 +115,21 @@ class SearchResultsViewController: UIViewController {
         if let image = imageCache.object(forKey: url as NSURL) {
             dispatchToMain {
                 completion(image)
+                return
             }
-        } else {
-            petFinder.downloadImage(url: url) { (imageResult) in
-                switch imageResult {
-                case .results(let image):
-                    dispatchToMain {
-                        completion(image)
-                        self.imageCache.setObject(image, forKey: url as NSURL)
-                    }
-                case .error(let error):
-                    dispatchToMain {
-                        completion(nil)
-                        print(error)
-                    }
+        }
+        petFinder.downloadImage(url: url) { (imageResult) in
+            switch imageResult {
+            case .results(let image):
+                dispatchToMain {
+                    completion(image)
+                    self.imageCache.setObject(image, forKey: url as NSURL)
+                }
+            case .error(let error):
+                dispatchToMain {
+                    completion(nil)
+                    print(error)
+                    
                 }
             }
         }
@@ -218,8 +216,12 @@ extension SearchResultsViewController: UITableViewDelegate {
                 search(location: suggestion)
             }
             searchController.isActive = false
+            searchController.setTextColorToGray()
             searchController.searchBar.text = suggestion
             tableView.deselectRow(at: indexPath, animated: false)
+            // Select a search result
+        } else if tableView == self.tableView {
+            
         }
     }
 }
@@ -243,11 +245,12 @@ extension SearchResultsViewController: CLLocationManagerDelegate {
     //
     //  }
 }
-//
-//extension UIImageView {
-//    func loadImage(url: URL) {
-//        if let imageFromCache = imageCache.object(forKey: url) {
-//
-//        }
-//    }
-//}
+
+extension UISearchController {
+    
+    func setTextColorToGray() {
+        if let searchField = self.searchBar.value(forKey: "searchField") as? UITextField {
+            searchField.textColor = .darkGray
+        }
+    }
+}

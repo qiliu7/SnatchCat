@@ -55,6 +55,7 @@ class SearchSuggestionsTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SuggestedCompletionTableViewCell.reuseID, for: indexPath) as! SuggestedCompletionTableViewCell
         let suggestion = searchSuggestions[indexPath.section][indexPath.row]
+        cell.textLabel?.textColor = .darkGray
         cell.textLabel?.text = suggestion
         cell.imageView?.image = UIImage(systemName: "location")
         return cell
