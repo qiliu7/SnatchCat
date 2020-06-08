@@ -15,18 +15,8 @@ import UIKit
 //}
 
 struct CatProfile {
-    let cat: Cat
+    let cat: CatResult
     var photo: UIImage?
 }
 
-struct Cat: Codable {
-    let name: String
-    let breeds: Breed
-    let age: String
-    let photoURLs: [PhotoURL]?
-    let publishedAt: Date
-    
-    enum CodingKeys: String, CodingKey {
-        case photoURLs = "photos", name, breeds, age, publishedAt
-    }
-}
+

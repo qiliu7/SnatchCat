@@ -10,13 +10,31 @@
 import Foundation
 
 struct SearchAnimalsResults: Codable {
-    let cats: [Cat]
+    let cats: [CatResult]
     let pagination: Pagination
     
     enum CodingKeys: String, CodingKey {
         // this app only request for cat results rather then all animals
         case cats = "animals"
         case pagination
+    }
+}
+
+struct CatResult: Codable {
+    let name: String
+    let breeds: Breed
+    let age: String
+    let photoURLs: [PhotoURL]?
+    let publishedAt: Date
+    let description: String?
+    let gender: String
+    // TODO: make enum
+    let size: String
+    let environment: Environment
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case photoURLs = "photos", name, breeds, age, publishedAt, description, gender, size, environment
     }
 }
 

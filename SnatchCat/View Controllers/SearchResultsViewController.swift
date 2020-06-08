@@ -30,12 +30,17 @@ class SearchResultsViewController: UIViewController {
         case enterLocation = "Enter a Location to Start"
     }
     
+    private enum segueID: String {
+        case showDetails
+    }
+    
     private var suggestionController: SearchSuggestionsTableViewController!
     private var searchController: UISearchController!
     private let imageCache = NSCache<NSURL, UIImage>()
     // TODO: add shelter later
     //    var catProfiles = [CatProfile]()
-    var cats = [Cat]()
+    var cats = [CatResult]()
+    var catProfiles = [CatProfile]()
     
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
@@ -102,10 +107,8 @@ class SearchResultsViewController: UIViewController {
         case .results(let results):
             cats = results.cats
             dispatchToMain {
-                print(self.cats)
                 self.tableView.reloadData()
             }
-            print(cats.map{($0.name)})
         case .error(let error):
             showAlert(title: "Error", message: error.localizedDescription)
         }
@@ -129,14 +132,11 @@ class SearchResultsViewController: UIViewController {
                 dispatchToMain {
                     completion(nil)
                     print(error)
-                    
                 }
             }
         }
     }
 }
-
-
 
 extension SearchResultsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -159,6 +159,9 @@ extension SearchResultsViewController: UITableViewDataSource {
         // Set default image
         if let url = cat.photoURLs?.first?.full {
             loadImage(for: url) { (image) in
+                // TODO: Refactor
+                let catProfile = CatProfile(cat: cat, photo: image)
+                self.catProfiles.append(catProfile)
                 if let image = image {
                     cell.resultImageView.image = image
                 } else {
@@ -221,7 +224,15 @@ extension SearchResultsViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: false)
             // Select a search result
         } else if tableView == self.tableView {
-            
+            performSegue(withIdentifier: segueID.showDetails.rawValue, sender: catProfiles[indexPath.row])
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueID.showDetails.rawValue {
+            let detailVC = segue.destination as! CatDetailViewController
+            detailVC.selectedCat = (sender as! CatProfile)
         }
     }
 }

@@ -22,6 +22,7 @@
 		B168D940247C186900465135 /* dataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* dataModel.swift */; };
 		B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */; };
 		B184F605248887D900AD2A43 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F604248887D900AD2A43 /* Auth.swift */; };
+		B184F607248B158600AD2A43 /* CatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F606248B158600AD2A43 /* CatDetailViewController.swift */; };
 		B1A183AE24862831006BE4CA /* SearchSuggestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* SearchSuggestionsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		B168D93F247C186900465135 /* dataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataModel.swift; sourceTree = "<group>"; };
 		B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableCell.swift; sourceTree = "<group>"; };
 		B184F604248887D900AD2A43 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		B184F606248B158600AD2A43 /* CatDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDetailViewController.swift; sourceTree = "<group>"; };
 		B1A183AD24862831006BE4CA /* SearchSuggestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +97,7 @@
 				B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */,
 				B1A183AD24862831006BE4CA /* SearchSuggestionsTableViewController.swift */,
 				B168D93D247B155700465135 /* UIViewController+Extensions.swift */,
+				B184F606248B158600AD2A43 /* CatDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				B1A183AE24862831006BE4CA /* SearchSuggestionsTableViewController.swift in Sources */,
 				B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */,
 				B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */,
+				B184F607248B158600AD2A43 /* CatDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
