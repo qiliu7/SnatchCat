@@ -20,7 +20,11 @@ struct SearchAnimalsResults: Codable {
     }
 }
 
-struct CatResult: Codable {
+struct CatResult: Codable, Equatable {
+    static func == (lhs: CatResult, rhs: CatResult) -> Bool {
+        return lhs.name == rhs.name && lhs.publishedAt == rhs.publishedAt
+    }
+    
     let name: String
     let breeds: Breed
     let age: String

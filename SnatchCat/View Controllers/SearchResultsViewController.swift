@@ -106,6 +106,7 @@ class SearchResultsViewController: UIViewController {
         switch results {
         case .results(let results):
             cats = results.cats
+            //            print("cats: \(cats.map{ $0.name })")
             dispatchToMain {
                 self.tableView.reloadData()
             }
@@ -157,19 +158,30 @@ extension SearchResultsViewController: UITableViewDataSource {
         cell.resultImageView.layer.cornerRadius = 10
         cell.clipsToBounds = true
         // Set default image
+        print(cat.name)
+        // MARK: 检查是不是同个cat
+        cell.tag = indexPath.row
         if let url = cat.photoURLs?.first?.full {
             loadImage(for: url) { (image) in
+                print(cat.name)
                 // TODO: Refactor
-                let catProfile = CatProfile(cat: cat, photo: image)
-                self.catProfiles.append(catProfile)
-                if let image = image {
-                    cell.resultImageView.image = image
-                } else {
-                    cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
+                //                print(cat)
+                // 此处catProfile里面的profile是对的 只是顺序跟cats不同， 根据cat取得photo？
+                if cell.tag == indexPath.row {
+                    let catProfile = CatProfile(cat: cat, photo: image)
+                    //                print(catProfile)
+                    self.catProfiles.append(catProfile)
+                    if let image = image {
+                        cell.resultImageView.image = image
+                    } else {
+                        cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
+                    }
                 }
             }
         } else {
             cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
+            let catProfile = CatProfile(cat: cat, photo: #imageLiteral(resourceName: "noImageAvailable"))
+            self.catProfiles.append(catProfile)
         }
         cell.detailLabal.text = cat.age + " • " + cat.breeds.primary
         let formatter = RelativeDateTimeFormatter()
@@ -224,7 +236,12 @@ extension SearchResultsViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: false)
             // Select a search result
         } else if tableView == self.tableView {
-            performSegue(withIdentifier: segueID.showDetails.rawValue, sender: catProfiles[indexPath.row])
+            let selectedCat = catProfiles.filter {$0.cat == cats[indexPath.row]}
+            //  MARK: DOES NOT WORK WHEN NO IMAGE?
+            performSegue(withIdentifier: segueID.showDetails.rawValue, sender: selectedCat[0])
+                print("catProfile: \(catProfiles.map{ $0.cat.name })")
+            print("cats: \(cats.map{$0.name})")
+            //            print(indexPath.row)
             tableView.deselectRow(at: indexPath, animated: false)
         }
     }
