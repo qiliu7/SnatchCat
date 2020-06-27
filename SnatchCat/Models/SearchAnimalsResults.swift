@@ -35,10 +35,13 @@ struct CatResult: Codable, Equatable {
     // TODO: make enum
     let size: String
     let environment: Environment
+    let attributes: Attributes
+    let coat: String?
+    let colors: Colors
     
     
     enum CodingKeys: String, CodingKey {
-        case photoURLs = "photos", name, breeds, age, publishedAt, description, gender, size, environment
+        case photoURLs = "photos", name, breeds, age, publishedAt, description, gender, size, environment, attributes, coat, colors
     }
 }
 
