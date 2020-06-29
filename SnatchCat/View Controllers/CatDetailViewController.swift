@@ -34,7 +34,16 @@ class CatDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+ 
+        if let navigationBar = navigationController?.navigationBar {
+          let appearance = UINavigationBarAppearance()
+          appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .none
+            navigationBar.isTranslucent = true
+          navigationBar.scrollEdgeAppearance = appearance
+          navigationBar.compactAppearance = appearance
+          navigationBar.standardAppearance = appearance
+        }
         
         attributeTableView.dataSource = self
         attributeTableView.delegate = self
