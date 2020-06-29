@@ -112,14 +112,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lXa-Z8-vP6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="210"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="459"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImageAvailable" translatesAutoresizingMaskIntoConstraints="NO" id="8fh-VA-t7P">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="179.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="428.5"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="428.5" id="7nd-Pi-PuI"/>
+                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfo-zV-P5p">
-                                        <rect key="frame" x="0.0" y="189.5" width="414" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="438.5" width="414" height="20.5"/>
                                         <color key="backgroundColor" red="0.96460121870000004" green="0.96476620440000005" blue="0.96459084750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="L2a-qS-OPh"/>
@@ -130,20 +133,20 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="nCt-Ac-sYF">
-                                <rect key="frame" x="0.0" y="308" width="414" height="279.5"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="nCt-Ac-sYF">
+                                <rect key="frame" x="0.0" y="469" width="414" height="344"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="attributeCell" textLabel="Aoh-dD-S9a" style="IBUITableViewCellStyleDefault" id="E86-HI-fjN">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E86-HI-fjN" id="KMe-38-La7">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aoh-dD-S9a">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -160,8 +163,8 @@
                         <constraints>
                             <constraint firstItem="aet-6f-IOv" firstAttribute="trailing" secondItem="lXa-Z8-vP6" secondAttribute="trailing" id="0mK-QK-MJ5"/>
                             <constraint firstItem="lXa-Z8-vP6" firstAttribute="leading" secondItem="aet-6f-IOv" secondAttribute="leading" id="D9d-m6-3vS"/>
-                            <constraint firstItem="nCt-Ac-sYF" firstAttribute="top" secondItem="lXa-Z8-vP6" secondAttribute="bottom" constant="10" id="s8D-2U-HmP"/>
-                            <constraint firstItem="lXa-Z8-vP6" firstAttribute="top" secondItem="aet-6f-IOv" secondAttribute="top" id="vwm-3I-TYU"/>
+                            <constraint firstItem="nCt-Ac-sYF" firstAttribute="top" secondItem="lXa-Z8-vP6" secondAttribute="bottom" constant="10" id="l1B-rr-JJB"/>
+                            <constraint firstItem="lXa-Z8-vP6" firstAttribute="top" secondItem="mJU-A3-iqo" secondAttribute="top" id="vwm-3I-TYU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aet-6f-IOv"/>
                     </view>

@@ -70,13 +70,14 @@ struct CatProfile {
             goodWithChildrenString = goodWithChildren ? attributeString.goodWithKids.rawValue : nil
         }
         
-        let dict: [String: [String]] = [
+        var dict: [String: [String]] = [
             "Breed": [cat.breeds.primary],
             "Physical": [cat.size, cat.gender, cat.age, cat.coat, cat.colors.primary].compactMap { $0 },
             "Health": [shotsCurrentString, spayedNeuteredString].compactMap { $0 },
             "Behavioral": [goodWithDogsString, goodWithCatsString, goodWithChildrenString].compactMap { $0 }
         ]
         
+        dict = dict.filter({ return $0.value.count != 0 })
         return dict
         
     }
