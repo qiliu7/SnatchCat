@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SearchSuggestionsTableViewController: UITableViewController{
+class SearchSuggestionsController: UITableViewController{
 
     var searchCompleter: MKLocalSearchCompleter?
     var completerResults = [MKLocalSearchCompletion]()
@@ -108,13 +108,13 @@ class SearchSuggestionsTableViewController: UITableViewController{
 
 }
 
-extension SearchSuggestionsTableViewController: UISearchResultsUpdating {
+extension SearchSuggestionsController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         searchCompleter?.queryFragment = searchController.searchBar.text ?? ""
     }
 }
 
-extension SearchSuggestionsTableViewController: MKLocalSearchCompleterDelegate {
+extension SearchSuggestionsController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completerResults = completer.results
         let resultStrings = completerResults.map({ $0.title })

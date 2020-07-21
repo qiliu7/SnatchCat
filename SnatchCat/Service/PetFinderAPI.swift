@@ -11,6 +11,7 @@ import UIKit
 // TODO: move somewhere else
 let apiKey = "***REMOVED***"
 let clientSecret = "***REMOVED***"
+
 class PetFinderAPI: NSObject {
     // MARK: ???
     var bearToken = ""
@@ -158,17 +159,6 @@ class PetFinderAPI: NSObject {
                 dispatchToMain {
                     completion(Result.error(error))
                 }
-            }
-        }.resume()
-    }
-    
-    func downloadImage(url: URL, completion: @escaping (Result<UIImage>) -> Void) {
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                completion(Result.error(error))
-            }
-            if let data = data, let photo = UIImage(data: data) {
-                completion(Result.results(photo))
             }
         }.resume()
     }

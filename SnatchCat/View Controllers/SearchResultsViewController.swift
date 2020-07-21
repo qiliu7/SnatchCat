@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SDWebImage
 
 class SearchResultsViewController: UIViewController {
     
@@ -34,9 +35,9 @@ class SearchResultsViewController: UIViewController {
         case showDetails
     }
     
-    private var suggestionController: SearchSuggestionsTableViewController!
+    private var suggestionController: SearchSuggestionsController!
     private var searchController: UISearchController!
-    private let imageCache = NSCache<NSURL, UIImage>()
+//    private let imageCache = NSCache<NSURL, UIImage>()
     // TODO: add shelter later
     //    var catProfiles = [CatProfile]()
     var cats = [CatResult]()
@@ -69,7 +70,7 @@ class SearchResultsViewController: UIViewController {
         tableView.rowHeight = CGFloat(ROW_HEIGHT)
     }
     private func configureSearchController() {
-        suggestionController = SearchSuggestionsTableViewController(style: .plain)
+        suggestionController = SearchSuggestionsController(style: .plain)
         suggestionController.tableView.delegate = self
         
         searchController = UISearchController(searchResultsController: suggestionController)
@@ -106,7 +107,6 @@ class SearchResultsViewController: UIViewController {
         switch results {
         case .results(let results):
             cats = results.cats
-            //            print("cats: \(cats.map{ $0.name })")
             dispatchToMain {
                 self.tableView.reloadData()
             }
@@ -114,35 +114,9 @@ class SearchResultsViewController: UIViewController {
             showAlert(title: "Error", message: error.localizedDescription)
         }
     }
-    
-    private func loadImage(for url: URL, completion: @escaping (UIImage?) -> Void){
-        if let image = imageCache.object(forKey: url as NSURL) {
-            dispatchToMain {
-                completion(image)
-                return
-            }
-        }
-        petFinder.downloadImage(url: url) { (imageResult) in
-            switch imageResult {
-            case .results(let image):
-                dispatchToMain {
-                    completion(image)
-                    self.imageCache.setObject(image, forKey: url as NSURL)
-                }
-            case .error(let error):
-                dispatchToMain {
-                    completion(nil)
-                    print(error)
-                }
-            }
-        }
-    }
 }
 
 extension SearchResultsViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cats.count
@@ -150,44 +124,9 @@ extension SearchResultsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultTableCell
-        // First reset the image
-        cell.resultImageView.image = nil
+
         let cat = cats[indexPath.row]
-        
-        cell.nameLabel.text = cat.name
-        cell.resultImageView.layer.cornerRadius = 10
-        cell.clipsToBounds = true
-        // Set default image
-        print(cat.name)
-        // MARK: 检查是不是同个cat
-        cell.tag = indexPath.row
-        if let url = cat.photoURLs?.first?.full {
-            loadImage(for: url) { (image) in
-                print(cat.name)
-                // TODO: Refactor
-                //                print(cat)
-                // 此处catProfile里面的profile是对的 只是顺序跟cats不同， 根据cat取得photo？
-                if cell.tag == indexPath.row {
-                    let catProfile = CatProfile(cat: cat, photo: image)
-                    //                print(catProfile)
-                    self.catProfiles.append(catProfile)
-                    if let image = image {
-                        cell.resultImageView.image = image
-                    } else {
-                        cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
-                    }
-                }
-            }
-        } else {
-            cell.resultImageView.image = #imageLiteral(resourceName: "noImageAvailable")
-            let catProfile = CatProfile(cat: cat, photo: #imageLiteral(resourceName: "noImageAvailable"))
-            self.catProfiles.append(catProfile)
-        }
-        cell.detailLabal.text = cat.age + " • " + cat.breeds.primary
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
-        let publishTime = formatter.localizedString(for: cat.publishedAt, relativeTo: Date())
-        cell.secondDetailLabel.text = publishTime
+        cell.cat = cat
         return cell
     }
 }
