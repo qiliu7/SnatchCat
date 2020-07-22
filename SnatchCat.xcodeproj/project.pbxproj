@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		44098279A8E232613B49FAB1 /* Pods_SnatchCat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 370A32FD95904F47DCE10BA6 /* Pods_SnatchCat.framework */; };
+		B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F024C8D1990047A413 /* AttributesCell.swift */; };
+		B14131F324C8D2F30047A413 /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F224C8D2F30047A413 /* DescriptionCell.swift */; };
 		B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EC246CC05C00465135 /* AppDelegate.swift */; };
 		B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EE246CC05C00465135 /* SceneDelegate.swift */; };
 		B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */; };
@@ -21,16 +23,24 @@
 		B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93B247AD22500465135 /* DispatchToMain.swift */; };
 		B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93D247B155700465135 /* UIViewController+Extensions.swift */; };
 		B168D940247C186900465135 /* dataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* dataModel.swift */; };
-		B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */; };
+		B184D6E0247ECBD4007972E8 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */; };
 		B184F605248887D900AD2A43 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F604248887D900AD2A43 /* Auth.swift */; };
-		B184F607248B158600AD2A43 /* CatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F606248B158600AD2A43 /* CatDetailViewController.swift */; };
 		B1A183AE24862831006BE4CA /* SearchSuggestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */; };
+		B1E6217A24C89D6000550B63 /* ImageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6217924C89D6000550B63 /* ImageHeaderCell.swift */; };
+		B1E6217E24C89EB300550B63 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6217D24C89EB300550B63 /* UIView+Layout.swift */; };
+		B1E6218024C89F0400550B63 /* CatDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6217F24C89F0400550B63 /* CatDetailController.swift */; };
+		B1E6218224C89F2B00550B63 /* BaseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6218124C89F2B00550B63 /* BaseListController.swift */; };
+		B1E6218624C8C79B00550B63 /* NameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6218524C8C79B00550B63 /* NameCell.swift */; };
+		B1E6218824C8C7C400550B63 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6218724C8C7C400550B63 /* Extensions.swift */; };
+		B1E6218B24C8C9F900550B63 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6218A24C8C9F900550B63 /* VerticalStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1ADA4B8970FCB956F764E228 /* Pods-SnatchCat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnatchCat.debug.xcconfig"; path = "Target Support Files/Pods-SnatchCat/Pods-SnatchCat.debug.xcconfig"; sourceTree = "<group>"; };
 		370A32FD95904F47DCE10BA6 /* Pods_SnatchCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnatchCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		908685E50E5CA930539F194C /* Pods-SnatchCat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnatchCat.release.xcconfig"; path = "Target Support Files/Pods-SnatchCat/Pods-SnatchCat.release.xcconfig"; sourceTree = "<group>"; };
+		B14131F024C8D1990047A413 /* AttributesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCell.swift; sourceTree = "<group>"; };
+		B14131F224C8D2F30047A413 /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		B168D8E9246CC05C00465135 /* SnatchCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnatchCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B168D8EC246CC05C00465135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B168D8EE246CC05C00465135 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,10 +56,16 @@
 		B168D93B247AD22500465135 /* DispatchToMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchToMain.swift; sourceTree = "<group>"; };
 		B168D93D247B155700465135 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		B168D93F247C186900465135 /* dataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataModel.swift; sourceTree = "<group>"; };
-		B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableCell.swift; sourceTree = "<group>"; };
+		B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		B184F604248887D900AD2A43 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		B184F606248B158600AD2A43 /* CatDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDetailViewController.swift; sourceTree = "<group>"; };
 		B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionsController.swift; sourceTree = "<group>"; };
+		B1E6217924C89D6000550B63 /* ImageHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderCell.swift; sourceTree = "<group>"; };
+		B1E6217D24C89EB300550B63 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		B1E6217F24C89F0400550B63 /* CatDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDetailController.swift; sourceTree = "<group>"; };
+		B1E6218124C89F2B00550B63 /* BaseListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListController.swift; sourceTree = "<group>"; };
+		B1E6218524C8C79B00550B63 /* NameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCell.swift; sourceTree = "<group>"; };
+		B1E6218724C8C7C400550B63 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B1E6218A24C8C9F900550B63 /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +138,8 @@
 				B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */,
 				B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */,
 				B168D93D247B155700465135 /* UIViewController+Extensions.swift */,
-				B184F606248B158600AD2A43 /* CatDetailViewController.swift */,
+				B1E6217F24C89F0400550B63 /* CatDetailController.swift */,
+				B1E6218124C89F2B00550B63 /* BaseListController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -151,7 +168,10 @@
 		B168D93A247AD21500465135 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B1E6217D24C89EB300550B63 /* UIView+Layout.swift */,
 				B168D93B247AD22500465135 /* DispatchToMain.swift */,
+				B1E6218724C8C7C400550B63 /* Extensions.swift */,
+				B1E6218A24C8C9F900550B63 /* VerticalStackView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -159,7 +179,8 @@
 		B184D6E1247EE4F4007972E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B184D6DF247ECBD4007972E8 /* SearchResultTableCell.swift */,
+				B1E6218924C8C89D00550B63 /* Search */,
+				B1E6217824C89D3A00550B63 /* Details */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +191,25 @@
 				B168D935247AD1F900465135 /* PetFinderAPI.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		B1E6217824C89D3A00550B63 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				B1E6217924C89D6000550B63 /* ImageHeaderCell.swift */,
+				B1E6218524C8C79B00550B63 /* NameCell.swift */,
+				B14131F024C8D1990047A413 /* AttributesCell.swift */,
+				B14131F224C8D2F30047A413 /* DescriptionCell.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		B1E6218924C8C89D00550B63 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,20 +327,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1E6218624C8C79B00550B63 /* NameCell.swift in Sources */,
+				B1E6217E24C89EB300550B63 /* UIView+Layout.swift in Sources */,
 				B184F605248887D900AD2A43 /* Auth.swift in Sources */,
 				B168D938247AD1F900465135 /* PetFinderAPI.swift in Sources */,
 				B168D937247AD1F900465135 /* Result.swift in Sources */,
+				B1E6218024C89F0400550B63 /* CatDetailController.swift in Sources */,
 				B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */,
+				B1E6218824C8C7C400550B63 /* Extensions.swift in Sources */,
 				B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */,
+				B1E6218B24C8C9F900550B63 /* VerticalStackView.swift in Sources */,
+				B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */,
 				B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */,
 				B168D940247C186900465135 /* dataModel.swift in Sources */,
 				B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */,
 				B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */,
+				B1E6217A24C89D6000550B63 /* ImageHeaderCell.swift in Sources */,
+				B1E6218224C89F2B00550B63 /* BaseListController.swift in Sources */,
 				B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */,
 				B1A183AE24862831006BE4CA /* SearchSuggestionsController.swift in Sources */,
 				B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */,
-				B184D6E0247ECBD4007972E8 /* SearchResultTableCell.swift in Sources */,
-				B184F607248B158600AD2A43 /* CatDetailViewController.swift in Sources */,
+				B14131F324C8D2F30047A413 /* DescriptionCell.swift in Sources */,
+				B184D6E0247ECBD4007972E8 /* SearchResultCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

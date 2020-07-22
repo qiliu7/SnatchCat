@@ -123,7 +123,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultCell
 
         let cat = cats[indexPath.row]
         cell.cat = cat
@@ -175,22 +175,20 @@ extension SearchResultsViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: false)
             // Select a search result
         } else if tableView == self.tableView {
-            let selectedCat = catProfiles.filter {$0.cat == cats[indexPath.row]}
+//            let selectedCat = catProfiles.filter {$0.cat == cats[indexPath.row]}
             //  MARK: DOES NOT WORK WHEN NO IMAGE?
-            performSegue(withIdentifier: segueID.showDetails.rawValue, sender: selectedCat[0])
-                print("catProfile: \(catProfiles.map{ $0.cat.name })")
-            print("cats: \(cats.map{$0.name})")
-            //            print(indexPath.row)
+            
+            navigationController?.pushViewController(CatDetailController(cat: cats[indexPath.row]), animated: true)
             tableView.deselectRow(at: indexPath, animated: false)
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueID.showDetails.rawValue {
-            let detailVC = segue.destination as! CatDetailViewController
-            detailVC.selectedCat = (sender as! CatProfile)
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == segueID.showDetails.rawValue {
+//            let detailVC = segue.destination as! CatDetailController
+////            detailVC.selectedCat = (sender as! CatProfile)
+//        }
+//    }
 }
 
 extension SearchResultsViewController: CLLocationManagerDelegate {

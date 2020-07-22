@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchResultTableCell: UITableViewCell {
+class SearchResultCell: UITableViewCell {
     
     private let formatter = RelativeDateTimeFormatter()
     
@@ -33,8 +33,6 @@ class SearchResultTableCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        
     }
     
     // Needs to be this way if is created via Storyboard?
