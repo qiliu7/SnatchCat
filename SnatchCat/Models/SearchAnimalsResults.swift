@@ -28,6 +28,7 @@ struct CatResult: Codable, Equatable {
     let name: String
     let breeds: Breed
     let age: String
+    let url: URL
     let photoURLs: [PhotoURL]?
     let publishedAt: Date
     let description: String?
@@ -41,7 +42,7 @@ struct CatResult: Codable, Equatable {
     
     
     enum CodingKeys: String, CodingKey {
-        case photoURLs = "photos", name, breeds, age, publishedAt, description, gender, size, environment, attributes, coat, colors
+        case photoURLs = "photos", name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors
     }
 }
 
