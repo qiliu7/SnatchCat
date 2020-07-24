@@ -21,7 +21,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
     }
     private func setDescriptionTextView(of name: String, with description: String, at url: URL) {
         
-        let prompt = "[Read more]"
+        let prompt = " [Read more]"
         let description = description + prompt
         let attributedString = NSMutableAttributedString(string: description)
         attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(0..<description.count))
@@ -35,6 +35,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
         let iv = UIImageView(image: #imageLiteral(resourceName: "noImageAvailable"))
         iv.constrainWidth(constant: 50)
         iv.constrainHeight(constant: 50)
+        iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 25
         iv.clipsToBounds = true
         return iv

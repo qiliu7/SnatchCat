@@ -39,10 +39,12 @@ struct CatResult: Codable, Equatable {
     let attributes: Attributes
     let coat: String?
     let colors: Colors
+    let organizationId: String?
     
     
     enum CodingKeys: String, CodingKey {
-        case photoURLs = "photos", name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors
+        case photoURLs = "photos"
+        case name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors, organizationId
     }
 }
 
@@ -94,14 +96,14 @@ struct Environment: Codable {
     let cats: Bool?
 }
 
-struct Address: Codable {
-    let address1: String?
-    let address2: String?
-    let city: String?
-    let state: String?
-    let postcode: String?
-    let country: String?
-}
+//struct Address: Codable {
+//    let address1: String
+//    let address2: String?
+//    let city: String
+//    let state: String
+//    let postcode: String
+//    let country: String
+//}
 
 struct Contact: Codable {
     let email: String?
@@ -109,17 +111,17 @@ struct Contact: Codable {
     let address: Address?
 }
 
-// not sure
-struct Links: Codable {
-    let animal: [String: String]?
-    let type: [String: String]?
-    let organization: [String: String]?
-    
-    enum CodingKeys: String, CodingKey {
-        case animal = "self"
-        case type, organization
-    }
-}
+//// not sure
+//struct Links: Codable {
+//    let animal: [String: String]?
+//    let type: [String: String]?
+//    let organization: [String: String]?
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case animal = "self"
+//        case type, organization
+//    }
+//}
 
 struct Animal: Codable {
     let id: Int
@@ -150,7 +152,7 @@ struct Animal: Codable {
     // could be time?
     let publishedAt: String?
     let distance: Float?
-    let _links: Links
+//    let _links: Links
 }
 
 

@@ -8,11 +8,26 @@
 
 import UIKit
 
-//enum Location {
-//    case city(String)
-//    case coordinate(Double, Double)
-////    case postalCode(String)
-//}
+struct Organization: Decodable {
+    let organization: OrganizationClass
+}
+
+struct OrganizationClass: Decodable {
+    let name: String
+    let email: String
+    let phone: String
+    let address: Address
+    let photos: [PhotoURL]
+}
+
+
+// MARK: - Address
+struct Address: Codable {
+    let address1: String
+    let address2: String?
+    let city, state, postcode, country: String
+}
+
 
 struct CatProfile {
     let cat: CatResult

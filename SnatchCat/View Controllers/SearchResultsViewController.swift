@@ -21,7 +21,7 @@ class SearchResultsViewController: UIViewController {
         case searchLocationCell
     }
     
-    var petFinder: PetFinderAPI!
+    var petFinder: PetfinderAPI!
     
     private enum CellReuseID: String {
         case searchResultCell
@@ -55,7 +55,7 @@ class SearchResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        petFinder = PetFinderAPI()
+        petFinder = PetfinderAPI()
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
         authenticate()
