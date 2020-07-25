@@ -13,7 +13,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
     var cat: CatResult? {
         didSet {
             guard let cat = cat else { return }
-            imageView.sd_setImage(with: cat.photoURLs?.first?.full)
+            imageView.sd_setImage(with: cat.photoURLs?.first?.medium)
             titleLabel.text = "Meet \(cat.name)"
             setDescriptionTextView(of: cat.name, with: cat.description ?? "", at: cat.url)
             askAboutButton.setTitle("ASK ABOUT \(cat.name.uppercased())", for: .normal)
@@ -33,16 +33,16 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
     
     let imageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "noImageAvailable"))
-        iv.constrainWidth(constant: 50)
-        iv.constrainHeight(constant: 50)
+        iv.constrainWidth(constant: 70)
+        iv.constrainHeight(constant: 70)
         iv.contentMode = .scaleAspectFill
-        iv.layer.cornerRadius = 25
+        iv.layer.cornerRadius = 35
         iv.clipsToBounds = true
         return iv
     }()
     
     let titleLabel: UILabel = {
-        let label = UILabel(text: "Meet Toffee", font: .boldSystemFont(ofSize: 20))
+        let label = UILabel(text: "Meet Toffee", font: .boldSystemFont(ofSize: 24))
         return label
     }()
     
@@ -71,11 +71,12 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
     let askAboutButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.setTitle("ASK ABOUT TOFFEE", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
         button.backgroundColor = .purple
         button.setTitleColor(.white, for: .normal)
-        button.constrainHeight(constant: 32)
-        button.constrainWidth(constant: 350)
-        button.layer.cornerRadius = 16
+        button.constrainHeight(constant: 40)
+        button.constrainWidth(constant: 370)
+        button.layer.cornerRadius = 20
         return button
     }()
     
@@ -91,7 +92,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
         stackView.alignment = .center
         
         addSubview(stackView)
-        stackView.fillSuperview(padding: UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10))
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
     }
     
     required init?(coder: NSCoder) {

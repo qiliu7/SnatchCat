@@ -13,7 +13,7 @@ class OrganizationInfoCell: UICollectionViewCell {
     var orgnization: Organization? {
         didSet {
             guard let org = orgnization else { return }
-            imageView.sd_setImage(with: org.organization.photos.first?.full)
+            imageView.sd_setImage(with: org.organization.photos.first?.medium)
             nameLabel.text = org.organization.name
             let addr = org.organization.address
             addressLabel.text = "\(addr.address1)\n\((addr.address2 != nil) ? "\(addr.address2!)\n" : "")\(addr.city), \(addr.state) \(addr.postcode)"
@@ -43,15 +43,15 @@ class OrganizationInfoCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "noImageAvailable"))
-        iv.constrainWidth(constant: 50)
-        iv.constrainHeight(constant: 50)
+         iv.constrainWidth(constant: 70)
+        iv.constrainHeight(constant: 70)
         iv.contentMode = .scaleAspectFill
-        iv.layer.cornerRadius = 25
+        iv.layer.cornerRadius = 35
         iv.clipsToBounds = true
         return iv
     }()
     let nameLabel: UILabel = {
-        let label = UILabel(text: "Saskatoon SPCA", font: .boldSystemFont(ofSize: 20), numberOfLines: 2)
+        let label = UILabel(text: "Saskatoon SPCA", font: .boldSystemFont(ofSize: 24), numberOfLines: 2)
         label.textAlignment = .center
         return label
     }()
@@ -71,15 +71,21 @@ class OrganizationInfoCell: UICollectionViewCell {
         let button = UIButton(type: .roundedRect)
         button.setTitle("SEE FULL SHELTER DETAILS", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
         button.backgroundColor = .purple
-        button.constrainHeight(constant: 32)
-        button.constrainWidth(constant: 350)
-        button.layer.cornerRadius = 16
+        button.constrainHeight(constant: 40)
+        button.constrainWidth(constant: 370)
+        button.layer.cornerRadius = 20
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        let infoStackView = VerticalStackView(arrangedViews: [
+            imageView, nameLabel
+        ], spacing: 8)
+        infoStackView.alignment = .center
         
         let addrStackView = UIStackView(arrangedSubviews: [
             mapIconView, addressLabel
@@ -100,14 +106,9 @@ class OrganizationInfoCell: UICollectionViewCell {
             ])
         ], spacing: 16)
         addrStackView.alignment = .leading
-
-        let infoStackView = VerticalStackView(arrangedViews: [
-            imageView, nameLabel
-        ], spacing: 8)
-        infoStackView.alignment = .center
         
         addSubview(infoStackView)
-        infoStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
+        infoStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
         addSubview(contactInfoStackView)
         contactInfoStackView.anchor(top: infoStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 20, left: 20, bottom: 0, right: 20))
     }

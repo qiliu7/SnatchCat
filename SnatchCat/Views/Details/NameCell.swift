@@ -19,7 +19,7 @@ class NameCell: UICollectionViewCell {
     }
     
     let nameLabel: UILabel = {
-        let label = UILabel(text: "Cat Name", font: .boldSystemFont(ofSize: 20))
+        let label = UILabel(text: "Cat Name", font: .boldSystemFont(ofSize: 24))
         return label
     }()
     
@@ -36,7 +36,7 @@ class NameCell: UICollectionViewCell {
         ], spacing: 8)
         stackView.alignment = .center
         addSubview(stackView)
-        stackView.fillSuperview(padding: UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0))
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
