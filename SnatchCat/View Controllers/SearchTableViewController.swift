@@ -10,23 +10,35 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class SearchTableViewController: UITableViewController {
+class SearchResultsViewController: UIViewController {
+
+    @IBOutlet weak var tableView: UITableView!
+
     
-//    @IBOutlet weak var searchBar: UISearchBar!
-//    @IBOutlet weak var tableView: UITableView!
+    let ROW_HEIGHT = 150
     
-    private enum CellReuseID: String {
+    private enum ReuseCellID: String {
         case searchLocationCell
     }
     
-    let petFinder = PetFinderAPI()
-    // NOT SURE IF NIL YET
-    let searchController = UISearchController(searchResultsController: nil)
+    var petFinder: PetFinderAPI!
+    
+    private enum CellReuseID: String {
+        case searchResultCell
+    }
+    
+    private var suggestionController: SuggestionTableViewController!
+    private var searchController: UISearchController!
+    // TODO: add shelter later
+    private var searchResults: [Cat]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    var catProfiles = [CatProfile]()
+    
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
-    let suggestions = ["Current Location"]
-    let emptySeggustions = [String]()
-    let locationCompleter = MKLocalSearchCompleter()
     
     var isSearching: Bool {
         return searchController.isActive
@@ -34,36 +46,73 @@ class SearchTableViewController: UITableViewController {
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        petFinder = PetFinderAPI()
         // TODO: add appropiate title
         navigationItem.title = "Calgary, AB"
-        navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
+        suggestionController = SuggestionTableViewController(style: .plain)
+        suggestionController.tableView.delegate = self
+        
+        searchController = UISearchController(searchResultsController: suggestionController)
+        searchController.searchResultsUpdater = suggestionController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Enter a location"
         searchController.searchBar.delegate = self
-        tableView.separatorStyle = .none
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.isHidden = true
+        navigationItem.searchController = searchController
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        //        tableView.isHidden = true
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationCompleter.delegate = self
-        locationCompleter.resultTypes = .address
         definesPresentationContext = true
+        
+        tableView.rowHeight = CGFloat(ROW_HEIGHT)
+        
     }
     
-    // TODO: change naming
-    private func startSearchAndNavigateToResultsVC(location: Location) {
-        let resultsVC = storyboard?.instantiateViewController(identifier: "searchResultsVC") as! SearchResultsTableViewController
-        resultsVC.petFinder = petFinder
-        resultsVC.location = location
-        petFinder.searchAnimals(at: location, completion: resultsVC.handleSearchResponse)
-        navigationController?.pushViewController(resultsVC, animated: true)
+    private func search(location: String) {
+        petFinder.searchAnimals(at: location, completion: handleSearchResponse(results:))
+    }
+    
+    func handleSearchResponse(results: Result<SearchAnimalsResults>) {
+        print(results)
+        var cats = [Cat]()
+        
+        switch results {
+        case .results(let results):
+            cats = results.cats
+        case .error(let error):
+            showAlert(title: "Error", message: error.localizedDescription)
+        }
+        // TODO: add activityIndicator
+        let downloadGroup = DispatchGroup()
+        for cat in cats {
+            var catProfile = CatProfile(cat: cat, photo: nil)
+            if let url = cat.photoURLs?.first?.full {
+                downloadGroup.enter()
+                petFinder.downloadPhoto(url: url) { (photoResult) in
+                    switch photoResult {
+                    case .results(let photo):
+                        catProfile.photo = photo
+                    case .error(let error):
+                        print(error.localizedDescription)
+                    }
+                    self.catProfiles.append(catProfile)
+                    downloadGroup.leave()
+                }
+            } else {
+                self.catProfiles.append(catProfile)
+            }
+        }
+        
+        downloadGroup.notify(queue: DispatchQueue.main) {
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,90 +144,80 @@ class SearchTableViewController: UITableViewController {
     }
 }
 
-extension SearchTableViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        locationCompleter.queryFragment = searchController.searchBar.text!
+
+extension SearchResultsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return catProfiles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultTableCell
+        let profile = catProfiles[indexPath.row]
+        cell.nameLabel.text = profile.cat.name
+        cell.resultImageView.image = catProfiles[indexPath.row].photo
+        cell.detailLabal.text = profile.cat.age + " • " + profile.cat.breeds.primary
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        let publishTime = formatter.localizedString(for: profile.cat.publishedAt, relativeTo: Date())
+        cell.secondDetailLabel.text = publishTime
+        return cell
     }
 }
 
-extension SearchTableViewController: UISearchBarDelegate {
+extension SearchResultsViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
-        print(searchController.isActive)
-        tableView.reloadData()
-//        tableView.isHidden = false
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-//        tableView.isHidden = true
+        suggestionController.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
-        searchController.isActive = false
-        tableView.reloadData()
-//        tableView.isHidden = true
     }
-
-//    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        locationCompleter.queryFragment = text
-//        return true
-//    }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //TODO: add zip code later, AUTOCORRECTION
         if searchBar.text == "" {
             return
         }
-        guard let city = searchBar.text else {
+        guard let location = searchBar.text else {
             return
         }
-        startSearchAndNavigateToResultsVC(location: Location.city(city))
+        search(location: location)
     }
 }
 
-extension SearchTableViewController: MKLocalSearchCompleterDelegate {
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        print(completer.results)
-    }
+extension SearchResultsViewController: UITableViewDelegate {
     
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        print(error)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == suggestionController.tableView {
+            let suggestion = suggestionController.searchSuggestions[indexPath.section][indexPath.row]
+            if indexPath.section == 0 {
+                // Current Location is selected
+                locationManager.requestWhenInUseAuthorization()
+                locationManager.requestLocation()
+            } else {
+                search(location: suggestion)
+            }
+            searchController.isActive = false
+            searchController.searchBar.text = suggestion
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
     }
 }
 
-//extension SearchTableViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return suggestions.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "searchLocationCell", for: indexPath)
-//        cell.textLabel?.text = suggestions[indexPath.row]
-//
-//        return cell
-//    }
-//}
-
-//extension SearchTableViewController: UITableViewDelegate {
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        // TODO: only when the 1st row is selected
-//        locationManager.requestWhenInUseAuthorization()
-//        locationManager.requestLocation()
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
-//}
-
-extension SearchTableViewController: CLLocationManagerDelegate {
+extension SearchResultsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = manager.location else {
             showAlert(title: "Error", message: "Failed To Retrieve Your Location")
             return
         }
-        let coordinate = Location.coordinate(location.coordinate.latitude, location.coordinate.longitude)
-        startSearchAndNavigateToResultsVC(location: coordinate)
+        let coordinate = location.coordinate
+        // TODO: need better doc or encapsulation
+        search(location: "\(coordinate.latitude),\(coordinate.longitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

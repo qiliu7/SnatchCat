@@ -10,12 +10,41 @@
 import Foundation
 
 struct SearchAnimalsResults: Codable {
-    let cats: [Cat]
+    let cats: [CatResult]
     let pagination: Pagination
     
     enum CodingKeys: String, CodingKey {
         // this app only request for cat results rather then all animals
-        case cats = "animals", pagination
+        case cats = "animals"
+        case pagination
+    }
+}
+
+struct CatResult: Codable, Equatable {
+    static func == (lhs: CatResult, rhs: CatResult) -> Bool {
+        return lhs.name == rhs.name && lhs.publishedAt == rhs.publishedAt
+    }
+    
+    let name: String
+    let breeds: Breed
+    let age: String
+    let url: URL
+    let photoURLs: [PhotoURL]?
+    let publishedAt: Date
+    let description: String?
+    let gender: String
+    // TODO: make enum
+    let size: String
+    let environment: Environment
+    let attributes: Attributes
+    let coat: String?
+    let colors: Colors
+    let organizationId: String?
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case photoURLs = "photos"
+        case name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors, organizationId
     }
 }
 
@@ -67,14 +96,14 @@ struct Environment: Codable {
     let cats: Bool?
 }
 
-struct Address: Codable {
-    let address1: String?
-    let address2: String?
-    let city: String?
-    let state: String?
-    let postcode: String?
-    let country: String?
-}
+//struct Address: Codable {
+//    let address1: String
+//    let address2: String?
+//    let city: String
+//    let state: String
+//    let postcode: String
+//    let country: String
+//}
 
 struct Contact: Codable {
     let email: String?
@@ -82,17 +111,17 @@ struct Contact: Codable {
     let address: Address?
 }
 
-// not sure
-struct Links: Codable {
-    let animal: [String: String]?
-    let type: [String: String]?
-    let organization: [String: String]?
-    
-    enum CodingKeys: String, CodingKey {
-        case animal = "self"
-        case type, organization
-    }
-}
+//// not sure
+//struct Links: Codable {
+//    let animal: [String: String]?
+//    let type: [String: String]?
+//    let organization: [String: String]?
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case animal = "self"
+//        case type, organization
+//    }
+//}
 
 struct Animal: Codable {
     let id: Int
@@ -123,7 +152,7 @@ struct Animal: Codable {
     // could be time?
     let publishedAt: String?
     let distance: Float?
-    let _links: Links
+//    let _links: Links
 }
 
 
