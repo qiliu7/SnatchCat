@@ -84,7 +84,7 @@ class OrganizationInfoCell: UICollectionViewCell {
         
         let infoStackView = VerticalStackView(arrangedViews: [
             imageView, nameLabel
-        ], spacing: 8)
+        ], spacing: 16)
         infoStackView.alignment = .center
         
         let addrStackView = UIStackView(arrangedSubviews: [
