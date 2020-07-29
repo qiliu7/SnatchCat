@@ -25,6 +25,34 @@ struct CatResult: Codable, Equatable {
         return lhs.name == rhs.name && lhs.publishedAt == rhs.publishedAt
     }
     
+    var attributesDict: [String: [String]] {
+        var dict = [
+            "BREED": [breeds.primary],
+            "PHYSICAL CHARACTERISTICS": [size, gender, age, coat, colors.primary].compactMap { $0 }
+        ]
+        var environmentDict: [String: [String]] = ["BEHAVIORAL CHARACTERISTICS": []]
+        environment.dict.forEach { (key, value) in
+            if let value = value {
+                if value {
+                    environmentDict["BEHAVIORAL CHARACTERISTICS"]?.append(key)
+                }
+            }
+        }
+        var healthDict: [String: [String]] = ["HEALTH": []]
+        attributes.dict.forEach { (key, value) in
+            if let value = value {
+                if value {
+                    healthDict["HEALTH"]?.append(key)
+                }
+            }
+        }
+        dict.merge(healthDict) { current, _ in return current }
+        dict.merge(environmentDict) { current, _ in
+            return current
+        }
+        return dict.filter({ return $0.value.count != 0 })
+    }
+    
     let name: String
     let breeds: Breed
     let age: String
@@ -40,8 +68,6 @@ struct CatResult: Codable, Equatable {
     let coat: String?
     let colors: Colors
     let organizationId: String?
-    
-    
     enum CodingKeys: String, CodingKey {
         case photoURLs = "photos"
         case name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors, organizationId
@@ -83,6 +109,18 @@ struct Video: Codable {
 }
 
 struct Attributes: Codable {
+    
+    var dict: [String: Bool?] {
+        let dict = [
+            "Spayed/neutered": spayedNeutered,
+            "Declawed": declawed,
+            "Vaccinations up-to-date": shotsCurrent,
+            "Special Needs": specialNeeds,
+            "House-trained": houseTrained
+        ]
+        return dict
+    }
+    
     let spayedNeutered: Bool?
     let houseTrained: Bool?
     let declawed: Bool?
@@ -91,37 +129,25 @@ struct Attributes: Codable {
 }
 
 struct Environment: Codable {
+    
+    var dict: [String: Bool?] {
+        let dict = [
+            "Good with kids": children,
+            "Good with dogs": dogs,
+            "Good with cats": cats
+        ]
+        return dict
+    }
     let children: Bool?
     let dogs: Bool?
     let cats: Bool?
 }
-
-//struct Address: Codable {
-//    let address1: String
-//    let address2: String?
-//    let city: String
-//    let state: String
-//    let postcode: String
-//    let country: String
-//}
 
 struct Contact: Codable {
     let email: String?
     let phone: String?
     let address: Address?
 }
-
-//// not sure
-//struct Links: Codable {
-//    let animal: [String: String]?
-//    let type: [String: String]?
-//    let organization: [String: String]?
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case animal = "self"
-//        case type, organization
-//    }
-//}
 
 struct Animal: Codable {
     let id: Int

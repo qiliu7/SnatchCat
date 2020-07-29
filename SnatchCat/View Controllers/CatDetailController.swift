@@ -13,6 +13,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     
     private let headerCellId = "headerCellId"
     private let nameCellId = "nameCellId"
+    private let attributesCellId = "attributesCellId"
     private let descriptionCellId = "descr"
     private let organizationCellId = "org"
     
@@ -26,7 +27,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     private enum CellType: Int, CaseIterable {
         case profileImage
         case name
-        //        case attributes
+        case attributes
         case description
         case organization
     }
@@ -43,6 +44,8 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(cat.attributesDict)
+        
         setTranslucentNavBar()
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = .init(top: 0, left: 0, bottom: 130, right: 0)
@@ -50,6 +53,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         collectionView.backgroundColor = .white
         collectionView.register(ImageHeaderCell.self, forCellWithReuseIdentifier: headerCellId)
         collectionView.register(NameCell.self, forCellWithReuseIdentifier: nameCellId)
+        collectionView.register(AttributesCell.self, forCellWithReuseIdentifier: attributesCellId)
         collectionView.register(DescriptionCell.self, forCellWithReuseIdentifier: descriptionCellId)
         collectionView.register(OrganizationInfoCell.self, forCellWithReuseIdentifier: organizationCellId)
         
@@ -84,6 +88,10 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nameCellId, for: indexPath) as! NameCell
             cell.cat = cat
             return cell
+        case .attributes:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: attributesCellId, for: indexPath) as! AttributesCell
+            cell.cat = cat
+            return cell
         case .description:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descriptionCellId, for: indexPath) as! DescriptionCell
             cell.cat = cat
@@ -111,7 +119,12 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             dummyCell.layoutIfNeeded()
             let estimatedSize = dummyCell.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: 1000))
             height = estimatedSize.height
-            
+        case .attributes:
+            let dummyCell = AttributesCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1000))
+            dummyCell.cat = cat
+            dummyCell.layoutIfNeeded()
+            let estimatedSize = dummyCell.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: 1000))
+            height = estimatedSize.height
         case .description:
             let dummyCell = DescriptionCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1000))
             dummyCell.cat = cat
