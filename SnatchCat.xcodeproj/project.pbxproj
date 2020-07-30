@@ -11,6 +11,7 @@
 		B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F024C8D1990047A413 /* AttributesCell.swift */; };
 		B14131F324C8D2F30047A413 /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F224C8D2F30047A413 /* DescriptionCell.swift */; };
 		B14131F524C8F9BE0047A413 /* OrganizationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F424C8F9BE0047A413 /* OrganizationInfoCell.swift */; };
+		B14131FC24D25DC60047A413 /* Saved.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131FB24D25DC60047A413 /* Saved.swift */; };
 		B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EC246CC05C00465135 /* AppDelegate.swift */; };
 		B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EE246CC05C00465135 /* SceneDelegate.swift */; };
 		B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */; };
@@ -43,6 +44,7 @@
 		B14131F024C8D1990047A413 /* AttributesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCell.swift; sourceTree = "<group>"; };
 		B14131F224C8D2F30047A413 /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		B14131F424C8F9BE0047A413 /* OrganizationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationInfoCell.swift; sourceTree = "<group>"; };
+		B14131FB24D25DC60047A413 /* Saved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saved.swift; sourceTree = "<group>"; };
 		B168D8E9246CC05C00465135 /* SnatchCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnatchCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B168D8EC246CC05C00465135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B168D8EE246CC05C00465135 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B14131FA24D25DB80047A413 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */,
+				B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		B14131FD24D25DD60047A413 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Saved;
+			sourceTree = "<group>";
+		};
 		B168D8E0246CC05C00465135 = {
 			isa = PBXGroup;
 			children = (
@@ -137,11 +155,12 @@
 		B168D931247AD0F600465135 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */,
-				B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */,
+				B14131FD24D25DD60047A413 /* Saved */,
+				B14131FA24D25DB80047A413 /* Search */,
 				B168D93D247B155700465135 /* UIViewController+Extensions.swift */,
 				B1E6217F24C89F0400550B63 /* CatDetailController.swift */,
 				B1E6218124C89F2B00550B63 /* BaseListController.swift */,
+				B14131FB24D25DC60047A413 /* Saved.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -339,7 +358,7 @@
 				B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */,
 				B1E6218824C8C7C400550B63 /* Extensions.swift in Sources */,
 				B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */,
-
+				B14131FC24D25DC60047A413 /* Saved.swift in Sources */,
 				B1E6218B24C8C9F900550B63 /* VerticalStackView.swift in Sources */,
 				B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */,
 				B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */,

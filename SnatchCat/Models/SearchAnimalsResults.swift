@@ -181,4 +181,11 @@ struct Animal: Codable {
 //    let _links: Links
 }
 
+// MARK: - Address
+struct Address: Codable {
+    let address1: String
+    let address2: String?
+    let city, state, postcode, country: String
+}
+
 

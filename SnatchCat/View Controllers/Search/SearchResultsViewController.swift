@@ -41,7 +41,6 @@ class SearchResultsViewController: UIViewController {
     // TODO: add shelter later
     //    var catProfiles = [CatProfile]()
     var cats = [CatResult]()
-    var catProfiles = [CatProfile]()
     
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
