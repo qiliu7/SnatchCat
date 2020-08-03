@@ -20,8 +20,8 @@ struct OrganizationClass: Decodable {
     let photos: [PhotoURL]
 }
 
-class Saved {
-    static var cats = [CatResult]()
+class Favorites {
+    static var catList = [CatResult]()
 }
 
 

@@ -83,6 +83,11 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         case .profileImage:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerCellId, for: indexPath) as! ImageHeaderCell
             cell.cat = cat
+            cell.saveToFavHandler = {
+                if !Favorites.catList.contains(self.cat) {
+                    Favorites.catList.append(self.cat)
+                }
+            }
             return cell
         case .name:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nameCellId, for: indexPath) as! NameCell
