@@ -11,17 +11,20 @@ import UIKit
 class FavoritesController: UITableViewController {
     
     private let resultCell = "searchResultCell"
+    let ROW_HEIGHT = 150
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.separatorStyle = .none
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: resultCell)
+        let nib = UINib(nibName: "SearchResultCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: resultCell)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        tableView.rowHeight = CGFloat(ROW_HEIGHT)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,8 +32,8 @@ class FavoritesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: resultCell, for: indexPath)
-        cell.backgroundColor = .yellow
+        let cell = tableView.dequeueReusableCell(withIdentifier: resultCell, for: indexPath) as! SearchResultCell
+        cell.cat = Favorites.catList[indexPath.row]
         return cell
     }
 }

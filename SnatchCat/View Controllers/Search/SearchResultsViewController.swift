@@ -13,6 +13,8 @@ import SDWebImage
 
 class SearchResultsViewController: UIViewController {
     
+    private let resultCell = "searchResultCell"
+    
     @IBOutlet weak var tableView: UITableView!
     
     let ROW_HEIGHT = 150
@@ -37,9 +39,7 @@ class SearchResultsViewController: UIViewController {
     
     private var suggestionController: SearchSuggestionsController!
     private var searchController: UISearchController!
-//    private let imageCache = NSCache<NSURL, UIImage>()
-    // TODO: add shelter later
-    //    var catProfiles = [CatProfile]()
+    
     var cats = [CatResult]()
     
     let locationManager = CLLocationManager()
@@ -67,6 +67,8 @@ class SearchResultsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = CGFloat(ROW_HEIGHT)
+        let nib = UINib(nibName: "SearchResultCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: resultCell)
     }
     private func configureSearchController() {
         suggestionController = SearchSuggestionsController(style: .plain)
@@ -122,7 +124,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.searchResultCell.rawValue, for: indexPath) as! SearchResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: resultCell, for: indexPath) as! SearchResultCell
 
         let cat = cats[indexPath.row]
         cell.cat = cat
