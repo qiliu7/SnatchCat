@@ -15,7 +15,10 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
             guard let cat = cat else { return }
             imageView.sd_setImage(with: cat.photoURLs?.first?.medium)
             titleLabel.text = "Meet \(cat.name)"
-            setDescriptionTextView(of: cat.name, with: cat.description ?? "", at: cat.url)
+            if let description = cat.description?.html2AttributedString?.string {
+                setDescriptionTextView(of: cat.name, with:
+                description, at: cat.url)
+            }
             askAboutButton.setTitle("ASK ABOUT \(cat.name.uppercased())", for: .normal)
         }
     }
