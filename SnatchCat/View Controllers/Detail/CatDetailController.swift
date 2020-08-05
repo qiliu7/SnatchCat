@@ -58,6 +58,11 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         fetchOrganizationInfo()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.popViewController(animated: false)
+    }
+    
     private func fetchOrganizationInfo() {
         PetfinderAPI.shared.fetchOrganizationInfo(id: cat.organizationId ?? "") { (organization, err) in
             if err != nil {
