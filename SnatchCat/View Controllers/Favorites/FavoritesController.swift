@@ -36,4 +36,9 @@ class FavoritesController: UITableViewController {
         cell.cat = Favorites.catList[indexPath.row]
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(CatDetailController(cat: Favorites.catList[indexPath.row]), animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 }

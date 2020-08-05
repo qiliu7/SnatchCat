@@ -44,8 +44,6 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(cat.attributesDict)
-        
         setTranslucentNavBar()
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = .init(top: 0, left: 0, bottom: 130, right: 0)
@@ -86,6 +84,9 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             cell.saveToFavHandler = {
                 if !Favorites.catList.contains(self.cat) {
                     Favorites.catList.append(self.cat)
+                } else {
+                    let index = Favorites.catList.firstIndex(of: self.cat)
+                    Favorites.catList.remove(at: index!)
                 }
             }
             return cell

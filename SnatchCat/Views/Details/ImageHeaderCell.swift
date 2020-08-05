@@ -14,8 +14,9 @@ class ImageHeaderCell: UICollectionViewCell {
     
     var cat: CatResult? {
         didSet {
-//            imageView.sd_setImage(with: cat?.photoURLs?.first?.full)
+            guard let cat = cat else { return }
             horizontalImagesController.cat = cat
+            heartButton.isLiked = Favorites.catList.contains(cat)
         }
     }
     
@@ -26,41 +27,28 @@ class ImageHeaderCell: UICollectionViewCell {
     let horizontalImagesController = HorizontalHeaderController()
 //    let pageControl = UIPageControl()
     // TODO: add shadow to buttons
-    let likeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.tintColor = .red
-        button.setImage(UIImage(systemName: "heart.fill"), for: .highlighted)
-        button.constrainWidth(constant: 60)
-        button.constrainHeight(constant: 60)
-        button.layer.cornerRadius = 30
-        button.clipsToBounds = true
-        button.backgroundColor = .white
-        button.isUserInteractionEnabled = true
-        
+    let heartButton: HeartButton = {
+        let button = HeartButton(type: .custom)
         return button
     }()
     
-    @objc private func buttonTappedHandler(_ sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            saveToFavHandler?()
-        }
+    @objc private func buttonTappedHandler(sender: HeartButton) {
+        saveToFavHandler?()
+        sender.flipLikedState()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        addSubview(imageView)
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.clipsToBounds = true
-//        imageView.fillSuperview()
-//        addSubview(pageControl)
-//        pageControl.centerInSuperview()
         addSubview(horizontalImagesController.view)
         horizontalImagesController.view.fillSuperview()
-        addSubview(likeButton)
-        likeButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 20))
-        likeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonTappedHandler(_:))))
+        addSubview(heartButton)
+        heartButton.constrainHeight(constant: 60)
+        heartButton.constrainWidth(constant: 60)
+        heartButton.imageView?.constrainHeight(constant: 30)
+        heartButton.imageView?.constrainWidth(constant: 30)
+        heartButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 20))
+        heartButton.addTarget(self, action: #selector(buttonTappedHandler), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
