@@ -63,6 +63,19 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         navigationController?.popViewController(animated: false)
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        // When scroll above the bottom of profileImage
+        // TODO: Add distinguish of speed?
+        if collectionView.contentOffset.y >= 400 {
+            setOpaqueNavBar()
+        } else {
+            setTranslucentNavBar()
+        }
+
+        print(collectionView.contentOffset)
+    }
+    
     private func fetchOrganizationInfo() {
         PetfinderAPI.shared.fetchOrganizationInfo(id: cat.organizationId ?? "") { (organization, err) in
             if err != nil {
@@ -159,5 +172,9 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    private func setOpaqueNavBar() {
+        navigationController?.navigationBar.isTranslucent = false
     }
 }
