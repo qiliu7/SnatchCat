@@ -17,15 +17,16 @@
 		B141320524D3B0030047A413 /* HorizontalHeaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141320424D3B0030047A413 /* HorizontalHeaderController.swift */; };
 		B141320A24D920580047A413 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B141320924D920580047A413 /* SearchResultCell.xib */; };
 		B141320C24DA2E460047A413 /* HeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141320B24DA2E460047A413 /* HeartButton.swift */; };
+		B141320E24E5309E0047A413 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141320D24E5309E0047A413 /* DataController.swift */; };
+		B141321124EB74870047A413 /* SnatchCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B141320F24EB74870047A413 /* SnatchCat.xcdatamodeld */; };
+		B141321524EB75690047A413 /* PetfinderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141321424EB75690047A413 /* PetfinderAPI.swift */; };
 		B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EC246CC05C00465135 /* AppDelegate.swift */; };
 		B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EE246CC05C00465135 /* SceneDelegate.swift */; };
 		B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */; };
 		B168D8F6246CC05C00465135 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B168D8F4246CC05C00465135 /* Main.storyboard */; };
-		B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B168D8F7246CC05C00465135 /* SnatchCat.xcdatamodeld */; };
 		B168D8FB246CC05E00465135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B168D8FA246CC05E00465135 /* Assets.xcassets */; };
 		B168D8FE246CC05E00465135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B168D8FC246CC05E00465135 /* LaunchScreen.storyboard */; };
 		B168D937247AD1F900465135 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D934247AD1F900465135 /* Result.swift */; };
-		B168D938247AD1F900465135 /* PetfinderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D935247AD1F900465135 /* PetfinderAPI.swift */; };
 		B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D936247AD1F900465135 /* SearchAnimalsResults.swift */; };
 		B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93B247AD22500465135 /* DispatchToMain.swift */; };
 		B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93D247B155700465135 /* UIViewController+Extensions.swift */; };
@@ -55,17 +56,18 @@
 		B141320424D3B0030047A413 /* HorizontalHeaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalHeaderController.swift; sourceTree = "<group>"; };
 		B141320924D920580047A413 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		B141320B24DA2E460047A413 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
+		B141320D24E5309E0047A413 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		B141321024EB74870047A413 /* SnatchCat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnatchCat.xcdatamodel; sourceTree = "<group>"; };
+		B141321424EB75690047A413 /* PetfinderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetfinderAPI.swift; sourceTree = "<group>"; };
 		B168D8E9246CC05C00465135 /* SnatchCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnatchCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B168D8EC246CC05C00465135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B168D8EE246CC05C00465135 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		B168D8F5246CC05C00465135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B168D8F8246CC05C00465135 /* SnatchCat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnatchCat.xcdatamodel; sourceTree = "<group>"; };
 		B168D8FA246CC05E00465135 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B168D8FD246CC05E00465135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B168D8FF246CC05E00465135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B168D934247AD1F900465135 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		B168D935247AD1F900465135 /* PetfinderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetfinderAPI.swift; sourceTree = "<group>"; };
 		B168D936247AD1F900465135 /* SearchAnimalsResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAnimalsResults.swift; sourceTree = "<group>"; };
 		B168D93B247AD22500465135 /* DispatchToMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchToMain.swift; sourceTree = "<group>"; };
 		B168D93D247B155700465135 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -198,11 +200,12 @@
 		B168D933247AD13300465135 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B141320F24EB74870047A413 /* SnatchCat.xcdatamodeld */,
 				B168D936247AD1F900465135 /* SearchAnimalsResults.swift */,
 				B168D934247AD1F900465135 /* Result.swift */,
-				B168D8F7246CC05C00465135 /* SnatchCat.xcdatamodeld */,
 				B168D93F247C186900465135 /* dataModel.swift */,
 				B184F604248887D900AD2A43 /* Auth.swift */,
+				B141320D24E5309E0047A413 /* DataController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,7 +233,7 @@
 		B1E6217724C791E600550B63 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				B168D935247AD1F900465135 /* PetfinderAPI.swift */,
+				B141321424EB75690047A413 /* PetfinderAPI.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -375,8 +378,8 @@
 			files = (
 				B1E6218624C8C79B00550B63 /* NameCell.swift in Sources */,
 				B1E6217E24C89EB300550B63 /* UIView+Layout.swift in Sources */,
+				B141321124EB74870047A413 /* SnatchCat.xcdatamodeld in Sources */,
 				B184F605248887D900AD2A43 /* Auth.swift in Sources */,
-				B168D938247AD1F900465135 /* PetfinderAPI.swift in Sources */,
 				B168D937247AD1F900465135 /* Result.swift in Sources */,
 				B1E6218024C89F0400550B63 /* CatDetailController.swift in Sources */,
 				B141320524D3B0030047A413 /* HorizontalHeaderController.swift in Sources */,
@@ -386,13 +389,14 @@
 				B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */,
 				B14131FC24D25DC60047A413 /* FavoritesController.swift in Sources */,
 				B1E6218B24C8C9F900550B63 /* VerticalStackView.swift in Sources */,
+				B141321524EB75690047A413 /* PetfinderAPI.swift in Sources */,
+				B141320E24E5309E0047A413 /* DataController.swift in Sources */,
 				B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */,
 				B141320024D3AFBD0047A413 /* BetterSnappingLayout.swift in Sources */,
 				B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */,
 				B14131F524C8F9BE0047A413 /* OrganizationInfoCell.swift in Sources */,
 				B168D940247C186900465135 /* dataModel.swift in Sources */,
 				B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */,
-				B168D8F9246CC05C00465135 /* SnatchCat.xcdatamodeld in Sources */,
 				B141320C24DA2E460047A413 /* HeartButton.swift in Sources */,
 				B1E6217A24C89D6000550B63 /* ImageHeaderCell.swift in Sources */,
 				B1E6218224C89F2B00550B63 /* BaseListController.swift in Sources */,
@@ -602,12 +606,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		B168D8F7246CC05C00465135 /* SnatchCat.xcdatamodeld */ = {
+		B141320F24EB74870047A413 /* SnatchCat.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				B168D8F8246CC05C00465135 /* SnatchCat.xcdatamodel */,
+				B141321024EB74870047A413 /* SnatchCat.xcdatamodel */,
 			);
-			currentVersion = B168D8F8246CC05C00465135 /* SnatchCat.xcdatamodel */;
+			currentVersion = B141321024EB74870047A413 /* SnatchCat.xcdatamodel */;
 			path = SnatchCat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
