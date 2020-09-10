@@ -34,6 +34,7 @@ class PetfinderAPI: NSObject {
         //        static let clientSecretParam = "&client_secret=\(clientSecret)"
         
         case getAccessToken
+        case getAnimal(id: Int)
         case search(location: String)
         
         // MARK: hard coded for now, may change for filters
@@ -41,6 +42,8 @@ class PetfinderAPI: NSObject {
             switch self {
             case .getAccessToken:
                 return Endpoint.base + "/oauth2/token"
+            case .getAnimal(id: var id):
+                return Endpoint.base + "/animals/\(id)"
             case .search(location: var location):
                 location = location.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
                 return Endpoint.base + "/animals?type=cat&location=\(location)"
