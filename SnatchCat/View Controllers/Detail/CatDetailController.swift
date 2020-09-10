@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import CoreData
 
 class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayout {
     
@@ -31,6 +32,8 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         case description
         case organization
     }
+    
+    var dataController: DataController!
     
     init(cat: CatResult) {
         self.cat = cat
@@ -64,7 +67,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+        
         // When scroll above the bottom of profileImage
         // TODO: Add distinguish of speed?
         if collectionView.contentOffset.y >= 400 {
@@ -72,18 +75,17 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         } else {
             setTranslucentNavBar()
         }
-
-        print(collectionView.contentOffset)
     }
     
     private func fetchOrganizationInfo() {
-        PetfinderAPI.shared.fetchOrganizationInfo(id: cat.organizationId ?? "") { (organization, err) in
-            if err != nil {
+        PetfinderAPI.shared.fetchOrganizationInfo(id: cat.organizationId ?? "") { (result) in
+            
+            switch result {
+            case .success(let organization):
+                self.organization = organization
+            case .failure(let err):
                 print("Failed to retrieve organization info \(String(describing: err))")
-                return
             }
-            guard let organization = organization else { return }
-            self.organization = organization
         }
     }
     
@@ -101,10 +103,33 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             cell.cat = cat
             cell.saveToFavHandler = {
                 if !Favorites.catList.contains(self.cat) {
-                    Favorites.catList.append(self.cat)
+                    Favorites.catList.insert(self.cat, at: 0)
+                    
+                    let cat = Cat(context: self.dataController.viewContext)
+                    cat.id = Int32(self.cat.id)
+                    do {
+                        try self.dataController.viewContext.save()
+                    } catch {
+                        self.showAlert(title: "Error", message: "Failed to save to favorites")
+                    }
                 } else {
                     let index = Favorites.catList.firstIndex(of: self.cat)
                     Favorites.catList.remove(at: index!)
+                    // get reference of the managedObject cat
+                    
+                    
+                    
+//                    let fetchRequest: NSFetchRequest<Cat> = Cat.fetchRequest()
+//                    let id = Int32(self.cat.id)
+////                    let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
+////                    fetchRequest.predicate = predicate
+//                    let sortDescriptor: NSSortDescriptor = NSSortDescriptor(key: "addDate", ascending: true)
+//                    fetchRequest.sortDescriptors = [sortDescriptor]
+//
+//                    if let result = try? self.dataController.viewContext.fetch(fetchRequest) {
+//                        self.dataController.viewContext.delete(result.first!)
+//                    }
+                   
                 }
             }
             return cell

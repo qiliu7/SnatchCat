@@ -20,6 +20,13 @@ struct SearchAnimalsResults: Codable {
     }
 }
 
+struct AnimalResultById: Codable {
+    let cat: CatResult
+    enum CodingKeys: String, CodingKey {
+        case cat = "animal"
+    }
+}
+
 struct CatResult: Codable, Equatable {
     static func == (lhs: CatResult, rhs: CatResult) -> Bool {
         return lhs.name == rhs.name && lhs.publishedAt == rhs.publishedAt
@@ -53,6 +60,7 @@ struct CatResult: Codable, Equatable {
         return dict.filter({ return $0.value.count != 0 })
     }
     
+    let id: Int
     let name: String
     let breeds: Breed
     let age: String
@@ -70,7 +78,7 @@ struct CatResult: Codable, Equatable {
     let organizationId: String?
     enum CodingKeys: String, CodingKey {
         case photoURLs = "photos"
-        case name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors, organizationId
+        case id, name, breeds, age, url, publishedAt, description, gender, size, environment, attributes, coat, colors, organizationId
     }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import SDWebImage
+import CoreData
 
 class SearchResultsViewController: UIViewController {
     
@@ -39,8 +40,11 @@ class SearchResultsViewController: UIViewController {
     
     private var suggestionController: SearchSuggestionsController!
     private var searchController: UISearchController!
+    private var fetchedResultsController: NSFetchedResultsController<Cat>!
     
     var cats = [CatResult]()
+    // injected by SceneDelegate
+    var dataController: DataController!
     
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
@@ -51,6 +55,7 @@ class SearchResultsViewController: UIViewController {
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +66,8 @@ class SearchResultsViewController: UIViewController {
         configureSearchController()
         configureTableView()
         configureLocationManager()
+        
+//        fetchFavoritesList()
     }
     
     fileprivate func configureTableView() {
@@ -92,26 +99,86 @@ class SearchResultsViewController: UIViewController {
     private func authenticate() {
         petFinder.requestAccessToken { (result) in
             switch result {
-            case .results(_):
-                ()
-            case .error(let error):
+            case .success(_):
+                self.fetchFavoritesList()
+            case .failure(let error):
                 self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
+    }
+    
+    fileprivate func fetchFavoritesList() {
+        let fetchRequest: NSFetchRequest<Cat> = Cat.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let favCats = try? dataController.viewContext.fetch(fetchRequest) {
+            // convert [Cat] to [CatResult] and save to Favorites
+            favCats.forEach { (cat) in
+                
+            }
+        }
+        
+//        var favoriteList = [CatResult]()
+//
+//        if let favCats = try? dataController.viewContext.fetch(fetchRequest) {
+//            favCats.forEach{ print($0.id, $0.addDate) }
+//
+//            let dispatchGroup = DispatchGroup()
+//
+//            favCats.forEach {
+//                dispatchGroup.enter()
+//                let id = $0.id
+////                print("current request is for id: \(Int(id))")
+//                petFinder.getAnimal(id: Int($0.id)) { (result) in
+//                    print("current request is for id: \(Int(id))")
+////                    dispatchGroup.leave()
+//                    switch result {
+//                    case .success(let result):
+//                        // decide if the result belongs to the same request
+//                        if result.cat.id == Int(id) {
+//                            print("response for id: \(result.cat.id)")
+//                            favoriteList.append(result.cat)
+//                            dispatchGroup.leave()
+//                        } else {
+//                            print("id mismatch, received response for id: \(result.cat.id)")
+//                        }
+//                    case .failure(_):
+//                        return
+//                    }
+//
+//
+////                    if err != nil {
+////                        return
+////                    }
+////                    guard let result = result else { return }
+////                    favoriteList.append(result.cat)
+//                }}
+//            // Save resuts to Favorites
+//
+//            dispatchGroup.notify(queue: .main) {
+//                Favorites.catList = favoriteList
+//                Favorites.catList.forEach { (result) in
+//                    print(result.id, result.name)
+//                }
+//            }
+//        } else {
+//            showAlert(title: "Error", message: "Failed to retrieve saved data")
+//        }
     }
     
     private func search(location: String) {
         petFinder.searchAnimals(at: location, completion: handleSearchResponse(results:))
     }
     
-    func handleSearchResponse(results: Result<SearchAnimalsResults>) {
+    func handleSearchResponse(results: Result<SearchAnimalsResults, Error>) {
         switch results {
-        case .results(let results):
+        case .success(let results):
             cats = results.cats
             dispatchToMain {
                 self.tableView.reloadData()
             }
-        case .error(let error):
+        case .failure(let error):
             showAlert(title: "Error", message: error.localizedDescription)
         }
     }
@@ -125,7 +192,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: resultCell, for: indexPath) as! SearchResultCell
-
+        
         let cat = cats[indexPath.row]
         cell.cat = cat
         return cell
@@ -176,20 +243,21 @@ extension SearchResultsViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: false)
             // Select a search result
         } else if tableView == self.tableView {
-//            let selectedCat = catProfiles.filter {$0.cat == cats[indexPath.row]}
             //  MARK: DOES NOT WORK WHEN NO IMAGE?
             
-            navigationController?.pushViewController(CatDetailController(cat: cats[indexPath.row]), animated: true)
+            let detailController = CatDetailController(cat: cats[indexPath.row])
+            detailController.dataController = dataController
+            navigationController?.pushViewController(detailController, animated: true)
             tableView.deselectRow(at: indexPath, animated: false)
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == segueID.showDetails.rawValue {
-//            let detailVC = segue.destination as! CatDetailController
-////            detailVC.selectedCat = (sender as! CatProfile)
-//        }
-//    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == segueID.showDetails.rawValue {
+    //            let detailVC = segue.destination as! CatDetailController
+    ////            detailVC.selectedCat = (sender as! CatProfile)
+    //        }
+    //    }
 }
 
 extension SearchResultsViewController: CLLocationManagerDelegate {

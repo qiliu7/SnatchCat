@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-enum Result<ResultType> {
-    case results(ResultType)
-    case error(Error)
-}
+//enum Result<ResultType> {
+//    case results(ResultType)
+//    case error(Error)
+//}
 

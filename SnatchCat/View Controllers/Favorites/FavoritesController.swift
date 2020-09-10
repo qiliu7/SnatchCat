@@ -11,7 +11,10 @@ import UIKit
 class FavoritesController: UITableViewController {
     
     private let resultCell = "searchResultCell"
-    let ROW_HEIGHT = 150
+    private let ROW_HEIGHT = 150
+    
+//    // injected thru SceneDelegate
+//    var dataController: DataController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
