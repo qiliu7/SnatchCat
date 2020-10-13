@@ -164,8 +164,8 @@ struct Animal: Codable {
     let type: String
     // should be enum?
     let species: String
-    let breeds: Breed
-    let colors: Colors
+    let breeds: Breed?
+    let colors: Colors?
     let age: String
     let gender: String
     let size: String?

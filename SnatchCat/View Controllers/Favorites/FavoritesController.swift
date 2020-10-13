@@ -16,6 +16,8 @@ class FavoritesController: UITableViewController {
 //    // injected thru SceneDelegate
 //    var dataController: DataController!
     
+    var dataController: DataController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +43,10 @@ class FavoritesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(CatDetailController(cat: Favorites.catList[indexPath.row]), animated: true)
+        let detailController = CatDetailController(cat: Favorites.catList[indexPath.row])
+        // inject dataController dependency
+        detailController.dataController = self.dataController
+        navigationController?.pushViewController(detailController, animated: true)
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }

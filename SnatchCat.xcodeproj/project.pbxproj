@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44098279A8E232613B49FAB1 /* Pods_SnatchCat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 370A32FD95904F47DCE10BA6 /* Pods_SnatchCat.framework */; };
+		B1131F902509C52900ED20C3 /* PetfinderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1131F8F2509C52900ED20C3 /* PetfinderAPI.swift */; };
 		B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F024C8D1990047A413 /* AttributesCell.swift */; };
 		B14131F324C8D2F30047A413 /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F224C8D2F30047A413 /* DescriptionCell.swift */; };
 		B14131F524C8F9BE0047A413 /* OrganizationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14131F424C8F9BE0047A413 /* OrganizationInfoCell.swift */; };
@@ -18,9 +19,7 @@
 		B141320A24D920580047A413 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B141320924D920580047A413 /* SearchResultCell.xib */; };
 		B141320C24DA2E460047A413 /* HeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141320B24DA2E460047A413 /* HeartButton.swift */; };
 		B141320E24E5309E0047A413 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141320D24E5309E0047A413 /* DataController.swift */; };
-		B141321524EB75690047A413 /* PetfinderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141321424EB75690047A413 /* PetfinderAPI.swift */; };
 		B14D4A812509789000BDACA9 /* SnatchCat.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = B14D4A802509788F00BDACA9 /* SnatchCat.xcdatamodel */; };
-		B14D4A83250979AE00BDACA9 /* SnatchCat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B14D4A82250979AD00BDACA9 /* SnatchCat.xcdatamodeld */; };
 		B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EC246CC05C00465135 /* AppDelegate.swift */; };
 		B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8EE246CC05C00465135 /* SceneDelegate.swift */; };
 		B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D8F0246CC05C00465135 /* SearchResultsViewController.swift */; };
@@ -52,6 +51,7 @@
 		1ADA4B8970FCB956F764E228 /* Pods-SnatchCat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnatchCat.debug.xcconfig"; path = "Target Support Files/Pods-SnatchCat/Pods-SnatchCat.debug.xcconfig"; sourceTree = "<group>"; };
 		370A32FD95904F47DCE10BA6 /* Pods_SnatchCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnatchCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		908685E50E5CA930539F194C /* Pods-SnatchCat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnatchCat.release.xcconfig"; path = "Target Support Files/Pods-SnatchCat/Pods-SnatchCat.release.xcconfig"; sourceTree = "<group>"; };
+		B1131F8F2509C52900ED20C3 /* PetfinderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetfinderAPI.swift; sourceTree = "<group>"; };
 		B14131F024C8D1990047A413 /* AttributesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCell.swift; sourceTree = "<group>"; };
 		B14131F224C8D2F30047A413 /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		B14131F424C8F9BE0047A413 /* OrganizationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationInfoCell.swift; sourceTree = "<group>"; };
@@ -62,7 +62,6 @@
 		B141320924D920580047A413 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		B141320B24DA2E460047A413 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
 		B141320D24E5309E0047A413 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		B141321424EB75690047A413 /* PetfinderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetfinderAPI.swift; sourceTree = "<group>"; };
 		B14D4A802509788F00BDACA9 /* SnatchCat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnatchCat.xcdatamodel; sourceTree = "<group>"; };
 		B168D8E9246CC05C00465135 /* SnatchCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnatchCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B168D8EC246CC05C00465135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,13 +138,13 @@
 			path = Favorites;
 			sourceTree = "<group>";
 		};
-		B141320624D3B1190047A413 /* Detail */ = {
+		B141320624D3B1190047A413 /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				B141320424D3B0030047A413 /* HorizontalHeaderController.swift */,
 				B1E6217F24C89F0400550B63 /* CatDetailController.swift */,
 			);
-			path = Detail;
+			path = Details;
 			sourceTree = "<group>";
 		};
 		B168D8E0246CC05C00465135 = {
@@ -169,7 +168,6 @@
 		B168D8EB246CC05C00465135 /* SnatchCat */ = {
 			isa = PBXGroup;
 			children = (
-				B14D4A82250979AD00BDACA9 /* SnatchCat.xcdatamodeld */,
 				B1E6217724C791E600550B63 /* Service */,
 				B184D6E1247EE4F4007972E8 /* Views */,
 				B168D93A247AD21500465135 /* Helpers */,
@@ -188,7 +186,7 @@
 		B168D931247AD0F600465135 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B141320624D3B1190047A413 /* Detail */,
+				B141320624D3B1190047A413 /* Details */,
 				B141320324D3AFF00047A413 /* Favorites */,
 				B141320124D3AFC70047A413 /* HorizontalSnappingController.swift */,
 				B14131FA24D25DB80047A413 /* Search */,
@@ -247,7 +245,7 @@
 		B1E6217724C791E600550B63 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				B141321424EB75690047A413 /* PetfinderAPI.swift */,
+				B1131F8F2509C52900ED20C3 /* PetfinderAPI.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -311,7 +309,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = qi;
 				TargetAttributes = {
 					B168D8E8246CC05C00465135 = {
@@ -413,10 +411,10 @@
 				B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */,
 				B14131FC24D25DC60047A413 /* FavoritesController.swift in Sources */,
 				B1E6218B24C8C9F900550B63 /* VerticalStackView.swift in Sources */,
-				B141321524EB75690047A413 /* PetfinderAPI.swift in Sources */,
 				B1F0BBB424F6FFEF00FC3B0A /* Error.swift in Sources */,
 				B141320E24E5309E0047A413 /* DataController.swift in Sources */,
 				B14131F124C8D1990047A413 /* AttributesCell.swift in Sources */,
+				B1131F902509C52900ED20C3 /* PetfinderAPI.swift in Sources */,
 				B141320024D3AFBD0047A413 /* BetterSnappingLayout.swift in Sources */,
 				B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */,
 				B14131F524C8F9BE0047A413 /* OrganizationInfoCell.swift in Sources */,
@@ -427,7 +425,6 @@
 				B1E6218224C89F2B00550B63 /* BaseListController.swift in Sources */,
 				B168D8ED246CC05C00465135 /* AppDelegate.swift in Sources */,
 				B1A183AE24862831006BE4CA /* SearchSuggestionsController.swift in Sources */,
-				B14D4A83250979AE00BDACA9 /* SnatchCat.xcdatamodeld in Sources */,
 				B168D8EF246CC05C00465135 /* SceneDelegate.swift in Sources */,
 				B14131F324C8D2F30047A413 /* DescriptionCell.swift in Sources */,
 				B184D6E0247ECBD4007972E8 /* SearchResultCell.swift in Sources */,
@@ -483,6 +480,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -543,6 +541,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -631,18 +630,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		B14D4A82250979AD00BDACA9 /* SnatchCat.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-			);
-			name = SnatchCat.xcdatamodeld;
-			path = ../SnatchCat.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = B168D8E1246CC05C00465135 /* Project object */;
 }

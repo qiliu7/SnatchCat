@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Cat+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:Cat+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:SnatchCat.xcodeproj">
    </FileRef>
    <FileRef
