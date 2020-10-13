@@ -107,29 +107,40 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
                     
                     let cat = Cat(context: self.dataController.viewContext)
                     cat.id = Int32(self.cat.id)
+                    cat.age = self.cat.age
+                    let encoder = JSONEncoder()
+                    cat.attributes = try? encoder.encode(self.cat.attributes)
+                    cat.breeds = try? encoder.encode(self.cat.breeds)
+                    cat.coat = self.cat.coat
+                    cat.gender = self.cat.gender
+                    cat.name = self.cat.name
+                    cat.organizationId = self.cat.organizationId
+                    cat.photoURLs = try? encoder.encode(self.cat.photoURLs)
+                    cat.publishedAt = self.cat.publishedAt
+                    cat.simpleDescription = self.cat.description
+                    cat.size = self.cat.size
+                    cat.url = self.cat.url.absoluteString
+                    cat.colors = try? encoder.encode(self.cat.colors)
+                    cat.environment = try? encoder.encode(self.cat.environment)
+                    
                     do {
                         try self.dataController.viewContext.save()
                     } catch {
-                        self.showAlert(title: "Error", message: "Failed to save to favorites")
+                        self.showAlert(title: "Error", message: "Failed to save to Favorites")
                     }
                 } else {
                     let index = Favorites.catList.firstIndex(of: self.cat)
                     Favorites.catList.remove(at: index!)
-                    // get reference of the managedObject cat
                     
-                    
-                    
-//                    let fetchRequest: NSFetchRequest<Cat> = Cat.fetchRequest()
-//                    let id = Int32(self.cat.id)
-////                    let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
-////                    fetchRequest.predicate = predicate
-//                    let sortDescriptor: NSSortDescriptor = NSSortDescriptor(key: "addDate", ascending: true)
-//                    fetchRequest.sortDescriptors = [sortDescriptor]
-//
-//                    if let result = try? self.dataController.viewContext.fetch(fetchRequest) {
-//                        self.dataController.viewContext.delete(result.first!)
-//                    }
-                   
+                    if let catToDelete = self.fetchCat() {
+                        self.dataController.viewContext.delete(catToDelete)
+                        do {
+                            // FIXME: fetch object to be deleted first
+                            try self.dataController.viewContext.save()
+                        } catch {
+                            self.showAlert(title: "Error", message: "Failed to remove from Favorites")
+                        }
+                    }
                 }
             }
             return cell
@@ -201,5 +212,24 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     
     private func setOpaqueNavBar() {
         navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    // 不复用了先 啧
+//    private func encode(attribute: Encodable) -> Data? {
+//
+//        let encoder = JSONEncoder()
+//        if let data = try? encoder.encode(attribute) {
+//            if let jsonString = String(data: data, encoding: .utf8) {
+//                print(jsonString)
+//            }
+//        }
+//    }
+    private func fetchCat() -> Cat? {
+        let fetchRequest : NSFetchRequest<Cat> = Cat.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let cat = try? dataController.viewContext.fetch(fetchRequest)
+        return cat?.first
     }
 }

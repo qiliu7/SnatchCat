@@ -27,6 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let searchNavController = tabBarController.viewControllers?.first as! UINavigationController
     let searchResultsController = searchNavController.topViewController as! SearchResultsViewController
     searchResultsController.dataController = dataController
+    let favNavController = tabBarController.viewControllers?[1] as! UINavigationController
+    let favController = favNavController.topViewController as! FavoritesController
+    favController.dataController = dataController
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {

@@ -40,7 +40,7 @@ class SearchResultsViewController: UIViewController {
     
     private var suggestionController: SearchSuggestionsController!
     private var searchController: UISearchController!
-    private var fetchedResultsController: NSFetchedResultsController<Cat>!
+//    private var fetchedResultsController: NSFetchedResultsController<Cat>!
     
     var cats = [CatResult]()
     // injected by SceneDelegate
@@ -109,62 +109,29 @@ class SearchResultsViewController: UIViewController {
     
     fileprivate func fetchFavoritesList() {
         let fetchRequest: NSFetchRequest<Cat> = Cat.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
+        var favlistByAddDate = [CatResult]()
+        
         if let favCats = try? dataController.viewContext.fetch(fetchRequest) {
+            
             // convert [Cat] to [CatResult] and save to Favorites
             favCats.forEach { (cat) in
                 
+                let decoder = JSONDecoder()
+                if let photoURLS = try? decoder.decode([PhotoURL].self, from: cat.photoURLs ?? Data()),
+                let breeds = try? decoder.decode(Breed.self, from: cat.breeds ?? Data()),
+                let attributes = try? decoder.decode(Attributes.self, from: cat.attributes ?? Data()),
+                let colors = try? decoder.decode(Colors.self, from: cat.colors ?? Data()),
+                let environment = try? decoder.decode(Environment.self, from: cat.environment ?? Data()) {
+                    
+                    let result: CatResult = CatResult(id: Int(cat.id), name: cat.name ?? "", breeds: breeds, age: cat.age ?? "", url: URL(string: cat.url ?? "")!, photoURLs: photoURLS, publishedAt: cat.publishedAt ?? Date(), description: cat.simpleDescription, gender: cat.gender ?? "", size: cat.size ?? "", environment: environment, attributes: attributes, coat: cat.coat, colors: colors, organizationId: cat.organizationId)
+                    favlistByAddDate.append(result)
+                }
             }
         }
-        
-//        var favoriteList = [CatResult]()
-//
-//        if let favCats = try? dataController.viewContext.fetch(fetchRequest) {
-//            favCats.forEach{ print($0.id, $0.addDate) }
-//
-//            let dispatchGroup = DispatchGroup()
-//
-//            favCats.forEach {
-//                dispatchGroup.enter()
-//                let id = $0.id
-////                print("current request is for id: \(Int(id))")
-//                petFinder.getAnimal(id: Int($0.id)) { (result) in
-//                    print("current request is for id: \(Int(id))")
-////                    dispatchGroup.leave()
-//                    switch result {
-//                    case .success(let result):
-//                        // decide if the result belongs to the same request
-//                        if result.cat.id == Int(id) {
-//                            print("response for id: \(result.cat.id)")
-//                            favoriteList.append(result.cat)
-//                            dispatchGroup.leave()
-//                        } else {
-//                            print("id mismatch, received response for id: \(result.cat.id)")
-//                        }
-//                    case .failure(_):
-//                        return
-//                    }
-//
-//
-////                    if err != nil {
-////                        return
-////                    }
-////                    guard let result = result else { return }
-////                    favoriteList.append(result.cat)
-//                }}
-//            // Save resuts to Favorites
-//
-//            dispatchGroup.notify(queue: .main) {
-//                Favorites.catList = favoriteList
-//                Favorites.catList.forEach { (result) in
-//                    print(result.id, result.name)
-//                }
-//            }
-//        } else {
-//            showAlert(title: "Error", message: "Failed to retrieve saved data")
-//        }
+        Favorites.catList = favlistByAddDate
     }
     
     private func search(location: String) {
