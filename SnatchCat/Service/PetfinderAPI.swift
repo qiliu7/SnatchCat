@@ -42,7 +42,7 @@ class PetfinderAPI: NSObject {
             switch self {
             case .getAccessToken:
                 return Endpoint.base + "/oauth2/token"
-            case .getAnimal(id: var id):
+            case .getAnimal(id: let id):
                 return Endpoint.base + "/animals/\(id)"
             case .search(location: var location):
                 location = location.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
