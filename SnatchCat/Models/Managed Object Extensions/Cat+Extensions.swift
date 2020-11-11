@@ -13,6 +13,5 @@ extension Cat {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         addDate = Date()
-        print("addDate: \(addDate)")
     }
 }

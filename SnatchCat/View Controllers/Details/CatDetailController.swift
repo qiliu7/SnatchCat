@@ -214,16 +214,6 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         navigationController?.navigationBar.isTranslucent = false
     }
     
-    // 不复用了先 啧
-//    private func encode(attribute: Encodable) -> Data? {
-//
-//        let encoder = JSONEncoder()
-//        if let data = try? encoder.encode(attribute) {
-//            if let jsonString = String(data: data, encoding: .utf8) {
-//                print(jsonString)
-//            }
-//        }
-//    }
     private func fetchCat() -> Cat? {
         let fetchRequest : NSFetchRequest<Cat> = Cat.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: false)
