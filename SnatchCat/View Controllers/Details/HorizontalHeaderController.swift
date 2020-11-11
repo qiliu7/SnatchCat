@@ -19,6 +19,7 @@ class imageCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -54,7 +55,9 @@ class HorizontalHeaderController: HorizontalSnappingController, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         collectionView.register(imageCell.self, forCellWithReuseIdentifier: imageCellId)
     }
     
