@@ -19,7 +19,7 @@ enum requestError: String, Error {
     case invalidURL
     case encodeFailure
     case decodeFailure
-    case dataMiss//??? 真的存在吗
+    case dataMiss
     case placeholder
 }
 

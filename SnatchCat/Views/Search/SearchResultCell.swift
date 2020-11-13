@@ -37,7 +37,6 @@ class SearchResultCell: UITableViewCell {
                   
     }
     
-    // Needs to be this way if is created via Storyboard?
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

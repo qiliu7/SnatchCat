@@ -172,7 +172,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         
     }
     
-    // MARK: REVISION NEEDED?
+    // TODO: Revision
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellType = CellType(rawValue: indexPath.item)
         var height: CGFloat

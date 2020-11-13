@@ -16,23 +16,11 @@ class PetfinderAPI: NSObject {
     
     
     static let shared = PetfinderAPI()
-    // MARK: ???
     static var bearToken = "" 
-//    // MARK: ???
-//    enum Error: Swift.Error {
-//        case unknownAPIResponse
-//        case generic
-//    }
-//
+
     enum Endpoint {
-        //    let base = "https://api.petfinder.com/v2/animals"
-        //        let scheme = "https"
-        //        let host = "api.petfinder.com"
-        //        let path = "/v2/animals"
         static let base = "https://api.petfinder.com/v2"
-        //        static let apiKeyParam = "&client_id=\(apiKey)"
-        //        static let clientSecretParam = "&client_secret=\(clientSecret)"
-        
+
         case getAccessToken
         case getAnimal(id: Int)
         case search(location: String)
@@ -53,20 +41,6 @@ class PetfinderAPI: NSObject {
         var url: URL? {
             return URL(string: urlString)
         }
-        
-        //  MARK: Query Items 开放filter之后也许要用？
-        //        var queryItems: [URLQueryItem]
-        //
-        //        var url: URL? {
-        //            var components = URLComponents()
-        //            components.scheme = scheme
-        //            components.host = host
-        //            components.path = path
-        //            components.queryItems = queryItems
-        //            // MARK: may not belong here...
-        //            components.queryItems?.append(URLQueryItem(name: "type", value: "cat"))
-        //            return componenresults.url
-        //        }
     }
     
     func requestAccessToken(completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -100,7 +74,6 @@ class PetfinderAPI: NSObject {
             }
             guard let _ = response, let data = data else {
                 dispatchToMain {
-                    // MARK: ??
                     completion(.failure(requestError.dataMiss))
                 }
                 return
@@ -121,10 +94,9 @@ class PetfinderAPI: NSObject {
         }.resume()
     }
     
-    // MARK：here or in endpoint?
+
     func searchAnimals(at location: String, completion: @escaping (Result<SearchAnimalsResults, Error>) -> Void) {
-        //        let queryItems = [URLQueryItem(name: "location", value: location)]
-        //        let endpoint = Endpoint(queryItems: queryItems)
+
         let endpoint = Endpoint.search(location: location)
         guard let searchURL = endpoint.url else {
             completion(.failure(requestError.invalidURL))
@@ -205,7 +177,7 @@ class PetfinderAPI: NSObject {
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
             do {
-                // some might be deleted and return 404 later
+                // TODO: handle of: some might be deleted and return 404 later
                 let object = try decoder.decode(T.self, from: data)
                 dispatchToMain {
                     completion(.success(object))
@@ -229,12 +201,5 @@ class PetfinderAPI: NSObject {
     func getAnimal(id: Int, completion: @escaping (Result<AnimalResultById, Error>) -> Void) {
         guard let url = Endpoint.getAnimal(id: id).url else { return }
         fetchGenericJSONData(url: url, completion: completion)
-        //        var request = URLRequest(url: url)
-        //        request.httpMethod = "GET"
-        //        request.setValue("Bearer \(PetfinderAPI.bearToken)", forHTTPHeaderField: "Authorization")
-        //
-        //        URLSession.shared.dataTask(with: request) { (data, resp, err) in
-        //            <#code#>
-        //        }
     }
 }

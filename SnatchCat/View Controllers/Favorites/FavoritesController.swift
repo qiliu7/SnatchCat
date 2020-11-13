@@ -13,8 +13,7 @@ class FavoritesController: UITableViewController {
     private let resultCell = "searchResultCell"
     private let ROW_HEIGHT = 150
     
-//    // injected thru SceneDelegate
-//    var dataController: DataController!
+    // injected thru SceneDelegate
     
     var dataController: DataController!
     

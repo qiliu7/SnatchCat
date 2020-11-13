@@ -19,7 +19,6 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
                 setDescriptionTextView(of: cat.name, with:
                 description, at: cat.url)
             }
-//            askAboutButton.setTitle("ASK ABOUT \(cat.name.uppercased())", for: .normal)
         }
     }
     private func setDescriptionTextView(of name: String, with description: String, at url: URL) {
@@ -70,18 +69,6 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
         tv.attributedText = attributedString
         return tv
     }()
-    
-//    let askAboutButton: UIButton = {
-//        let button = UIButton(type: .roundedRect)
-//        button.setTitle("ASK ABOUT TOFFEE", for: .normal)
-//        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-//        button.backgroundColor = .purple
-//        button.setTitleColor(.white, for: .normal)
-//        button.constrainHeight(constant: 40)
-//        button.constrainWidth(constant: 370)
-//        button.layer.cornerRadius = 20
-//        return button
-//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

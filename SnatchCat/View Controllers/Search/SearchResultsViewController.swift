@@ -40,7 +40,6 @@ class SearchResultsViewController: UIViewController {
     
     private var suggestionController: SearchSuggestionsController!
     private var searchController: UISearchController!
-//    private var fetchedResultsController: NSFetchedResultsController<Cat>!
     
     var cats = [CatResult]()
     // injected by SceneDelegate
@@ -61,13 +60,10 @@ class SearchResultsViewController: UIViewController {
         super.viewDidLoad()
         petFinder = PetfinderAPI()
         // TODO: add appropiate title
-        navigationItem.title = "Calgary, AB"
         authenticate()
         configureSearchController()
         configureTableView()
         configureLocationManager()
-        
-//        fetchFavoritesList()
     }
     
     fileprivate func configureTableView() {
@@ -210,21 +206,12 @@ extension SearchResultsViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: false)
             // Select a search result
         } else if tableView == self.tableView {
-            //  MARK: DOES NOT WORK WHEN NO IMAGE?
-            
             let detailController = CatDetailController(cat: cats[indexPath.row])
             detailController.dataController = dataController
             navigationController?.pushViewController(detailController, animated: true)
             tableView.deselectRow(at: indexPath, animated: false)
         }
     }
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == segueID.showDetails.rawValue {
-    //            let detailVC = segue.destination as! CatDetailController
-    ////            detailVC.selectedCat = (sender as! CatProfile)
-    //        }
-    //    }
 }
 
 extension SearchResultsViewController: CLLocationManagerDelegate {
@@ -241,10 +228,6 @@ extension SearchResultsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         showAlert(title: "Failed To Retrieve Your Location", message: "\(error.localizedDescription)")
     }
-    //
-    //  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    //
-    //  }
 }
 
 extension UISearchController {

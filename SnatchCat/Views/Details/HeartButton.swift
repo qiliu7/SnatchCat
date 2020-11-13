@@ -24,8 +24,6 @@ class HeartButton: UIButton {
         super.init(frame: frame)
         setImage(unlikedImage, for: .normal)
         self.tintColor = .red
-//        imageView?.constrainWidth(constant: 30)
-//        imageView?.constrainHeight(constant: 30)
         imageView?.contentMode = .scaleAspectFill
         layer.cornerRadius = 30
         clipsToBounds = true
