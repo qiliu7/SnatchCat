@@ -11,8 +11,9 @@ import SDWebImage
 import CoreData
 import MapKit
 import CoreLocation
+import MessageUI
 
-class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayout {
+class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
     private let headerCellId = "headerCellId"
     private let nameCellId = "nameCellId"
@@ -161,7 +162,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         case .organization:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: organizationCellId, for: indexPath) as! OrganizationInfoCell
             cell.showMapHandler = showMapHandler
-            cell.showEmailHandler = { print("Email") }
+            cell.showEmailHandler = showEmailHandler
             cell.phoneHandler = { print("phone") }
             cell.orgnization = organization
             return cell
@@ -250,5 +251,20 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
                 }
             }
         }
+    }
+    
+    private func showEmailHandler() {
+        
+        guard let organization = organization else { return }
+        
+        if !MFMailComposeViewController.canSendMail() {
+            showAlert(title: "Error", message: "Mail services are not available")
+            return
+        }
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        composeVC.setToRecipients(["\(organization.organization.email)"])
+        
+        self.present(composeVC, animated: true)
     }
 }
