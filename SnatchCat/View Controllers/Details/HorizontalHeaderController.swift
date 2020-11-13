@@ -43,16 +43,7 @@ class HorizontalHeaderController: HorizontalSnappingController, UICollectionView
             collectionView.reloadData()
         }
     }
-    
-//    init(cat: CatResult) {
-//        self.cat = cat
-//        super.init()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout

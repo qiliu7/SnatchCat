@@ -20,12 +20,7 @@ class ImageHeaderCell: UICollectionViewCell {
         }
     }
     
-//    let imageView: UIImageView = {
-//        let iv = UIImageView()
-//        return iv
-//    }()
     let horizontalImagesController = HorizontalHeaderController()
-//    let pageControl = UIPageControl()
     // TODO: add shadow to buttons
     let heartButton: HeartButton = {
         let button = HeartButton(type: .custom)

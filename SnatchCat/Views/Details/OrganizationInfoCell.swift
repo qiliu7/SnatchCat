@@ -10,36 +10,22 @@ import UIKit
 
 class OrganizationInfoCell: UICollectionViewCell {
     
+    var showMapHandler: (() -> ())?
+    var showEmailHandler: (() -> ())?
+    var phoneHandler: (() -> ())?
+    
     var orgnization: Organization? {
         didSet {
             guard let org = orgnization else { return }
             imageView.sd_setImage(with: org.organization.photos.first?.medium)
             nameLabel.text = org.organization.name
             let addr = org.organization.address
-            addressLabel.text = "\(addr.address1)\n\((addr.address2 != nil) ? "\(addr.address2!)\n" : "")\(addr.city), \(addr.state) \(addr.postcode)"
-            emailLabel.text = org.organization.email
-            phoneLabel.text = org.organization.phone
+            
+            mapButton.setTitle("\(addr.address1)\n\((addr.address2 != nil) ? "\(addr.address2!)\n" : "")\(addr.city), \(addr.state) \(addr.postcode)", for: .normal)
+            emailButton.setTitle(org.organization.email, for: .normal)
+            phoneButton.setTitle(org.organization.phone, for: .normal)
         }
     }
-    
-    private let mapIconView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "map"))
-        iv.constrainWidth(constant: 20)
-        iv.constrainHeight(constant: 20)
-        return iv
-    }()
-    private let emailIconView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "envelope"))
-        iv.constrainWidth(constant: 20)
-        iv.constrainHeight(constant: 20)
-        return iv
-    }()
-    private let phoneIconView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "phone"))
-        iv.constrainWidth(constant: 20)
-        iv.constrainHeight(constant: 20)
-        return iv
-    }()
     
     let imageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "noImageAvailable"))
@@ -50,24 +36,14 @@ class OrganizationInfoCell: UICollectionViewCell {
         iv.clipsToBounds = true
         return iv
     }()
+    
     let nameLabel: UILabel = {
         let label = UILabel(text: "Saskatoon SPCA", font: .boldSystemFont(ofSize: 24), numberOfLines: 2)
         label.textAlignment = .center
         return label
     }()
-    let addressLabel: UILabel = {
-        let label = UILabel(text: "5028 Clarence Avenue South\nSaskatoon\n,SK S7K 3S9", font: .systemFont(ofSize: 16), numberOfLines: 3)
-        return label
-    }()
-    let emailLabel: UILabel = {
-        let label = UILabel(text: "info@saskatoonspca.com", font: .systemFont(ofSize: 16), numberOfLines: 1)
-        return label
-    }()
-    let phoneLabel: UILabel = {
-        let label = UILabel(text: "306-374-7387", font: .systemFont(ofSize: 16), numberOfLines: 1)
-        return label
-    }()
-    let seeDetailButton: UIButton = {
+    
+    let seeDetailsButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.setTitle("SEE FULL SHELTER DETAILS", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -79,6 +55,42 @@ class OrganizationInfoCell: UICollectionViewCell {
         return button
     }()
     
+    private let mapButton: UIButton = {
+        let mb = UIButton(type: .system)
+        mb.setImage(UIImage(systemName: "map"), for: .normal)
+        mb.setTitle("5028 Clarence Avenue South\nSaskatoon, SK S7K 3S9", for: .normal)
+        mb.titleLabel?.font = .systemFont(ofSize: 16)
+        mb.titleLabel?.numberOfLines = 3
+        mb.contentHorizontalAlignment = .leading
+        mb.titleEdgeInsets.left = 16
+        mb.setTitleColor(.black, for: .normal)
+        return mb
+    }()
+    
+    private let emailButton: UIButton = {
+        let eb = UIButton(type: .system)
+        eb.setImage(UIImage(systemName: "envelope"), for: .normal)
+        eb.setTitle("info@saskatoonspca.com", for: .normal)
+        eb.titleLabel?.font = .systemFont(ofSize: 16)
+        eb.titleLabel?.numberOfLines = 1
+        eb.contentHorizontalAlignment = .leading
+        eb.titleEdgeInsets.left = 16
+        eb.setTitleColor(.black, for: .normal)
+        return eb
+    }()
+    
+    private let phoneButton: UIButton = {
+        let pb = UIButton(type: .system)
+        pb.setImage(UIImage(systemName: "phone"), for: .normal)
+        pb.setTitle("306-374-7387", for: .normal)
+        pb.titleLabel?.font = .systemFont(ofSize: 16)
+        pb.titleLabel?.numberOfLines = 1
+        pb.contentHorizontalAlignment = .leading
+        pb.titleEdgeInsets.left = 16
+        pb.setTitleColor(.black, for: .normal)
+        return pb
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -86,34 +98,40 @@ class OrganizationInfoCell: UICollectionViewCell {
             imageView, nameLabel
         ], spacing: 16)
         infoStackView.alignment = .center
-        
-        let addrStackView = UIStackView(arrangedSubviews: [
-            mapIconView, addressLabel
-        ], spacing: 16)
-        let emailStackView = UIStackView(arrangedSubviews: [
-            emailIconView, emailLabel
-        ], spacing: 16)
-        let phoneStackView = UIStackView(arrangedSubviews: [
-            phoneIconView, phoneLabel
-        ], spacing: 16)
-        
+
         let contactInfoStackView = VerticalStackView(arrangedViews: [
-            addrStackView,
-            emailStackView,
-            phoneStackView,
+            mapButton,
+            emailButton,
+            phoneButton,
+
             UIStackView(arrangedSubviews: [
-            UIView(), seeDetailButton, UIView()
+            UIView(), seeDetailsButton, UIView()
             ])
         ], spacing: 16)
-        addrStackView.alignment = .leading
         
         addSubview(infoStackView)
         infoStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
         addSubview(contactInfoStackView)
         contactInfoStackView.anchor(top: infoStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 20, left: 20, bottom: 0, right: 20))
+        
+        mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
+        emailButton.addTarget(self, action: #selector(emailButtonTapped), for: .touchUpInside)
+        phoneButton.addTarget(self, action: #selector(phoneButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func mapButtonTapped() {
+        showMapHandler?()
+    }
+    
+    @objc func emailButtonTapped() {
+        showEmailHandler?()
+    }
+    
+    @objc func phoneButtonTapped() {
+        phoneHandler?()
     }
 }

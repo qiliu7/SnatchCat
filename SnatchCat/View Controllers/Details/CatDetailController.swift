@@ -9,6 +9,8 @@
 import UIKit
 import SDWebImage
 import CoreData
+import MapKit
+import CoreLocation
 
 class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayout {
     
@@ -158,6 +160,9 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             return cell
         case .organization:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: organizationCellId, for: indexPath) as! OrganizationInfoCell
+            cell.showMapHandler = showMapHandler
+            cell.showEmailHandler = { print("Email") }
+            cell.phoneHandler = { print("phone") }
             cell.orgnization = organization
             return cell
         case .none:
@@ -221,5 +226,29 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         
         let cat = try? dataController.viewContext.fetch(fetchRequest)
         return cat?.first
+    }
+    
+    private func showMapHandler() {
+        let geocoder = CLGeocoder()
+        if let address = organization?.organization.address {
+            let addressString = "\(address.address1), \(address.address2 ?? ""), \(address.city), \(address.state), \(address.country), \(address.postcode)"
+            geocoder.geocodeAddressString(addressString, completionHandler: handleGeocodingResponse(placemarks:error:))
+        }
+    }
+    
+    private func handleGeocodingResponse(placemarks: [CLPlacemark]?, error: Error?) {
+        if let error = error {
+            showAlert(title: "Error", message: "\(error)")
+            return
+        } else {
+            if let clPlacemark = placemarks?.first {
+                if let coordinate = clPlacemark.location?.coordinate {
+                    let mkPlacemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
+                    let mapItem = MKMapItem(placemark: mkPlacemark)
+                    mapItem.name = organization?.organization.name
+                    mapItem.openInMaps(launchOptions: nil)
+                }
+            }
+        }
     }
 }
