@@ -163,7 +163,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: organizationCellId, for: indexPath) as! OrganizationInfoCell
             cell.showMapHandler = showMapHandler
             cell.showEmailHandler = showEmailHandler
-            cell.phoneHandler = { print("phone") }
+            cell.phoneHandler = presentCallActionSheet
             cell.orgnization = organization
             return cell
         case .none:
@@ -266,5 +266,20 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         composeVC.setToRecipients(["\(organization.organization.email)"])
         
         self.present(composeVC, animated: true)
+    }
+    
+    private func presentCallActionSheet() {
+        
+        guard let organization = organization else { return }
+        var phoneNumber = organization.organization.phone
+        
+        phoneNumber = phoneNumber.filter { $0 != "-" && $0 != " "}
+
+        if let url = URL(string: "tel://\(phoneNumber)"){
+            if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        
     }
 }
