@@ -19,7 +19,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
                 setDescriptionTextView(of: cat.name, with:
                 description, at: cat.url)
             }
-            askAboutButton.setTitle("ASK ABOUT \(cat.name.uppercased())", for: .normal)
+//            askAboutButton.setTitle("ASK ABOUT \(cat.name.uppercased())", for: .normal)
         }
     }
     private func setDescriptionTextView(of name: String, with description: String, at url: URL) {
@@ -71,17 +71,17 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
         return tv
     }()
     
-    let askAboutButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.setTitle("ASK ABOUT TOFFEE", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        button.backgroundColor = .purple
-        button.setTitleColor(.white, for: .normal)
-        button.constrainHeight(constant: 40)
-        button.constrainWidth(constant: 370)
-        button.layer.cornerRadius = 20
-        return button
-    }()
+//    let askAboutButton: UIButton = {
+//        let button = UIButton(type: .roundedRect)
+//        button.setTitle("ASK ABOUT TOFFEE", for: .normal)
+//        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+//        button.backgroundColor = .purple
+//        button.setTitleColor(.white, for: .normal)
+//        button.constrainHeight(constant: 40)
+//        button.constrainWidth(constant: 370)
+//        button.layer.cornerRadius = 20
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,7 +90,8 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
             UIStackView(arrangedSubviews: [
                 UIView(), imageView, UIView()
             ]),
-            titleLabel, descriptionTextView, askAboutButton
+            titleLabel, descriptionTextView
+//            , askAboutButton
         ], spacing: 16)
         stackView.alignment = .center
         

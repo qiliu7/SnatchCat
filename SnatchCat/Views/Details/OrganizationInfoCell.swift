@@ -43,17 +43,17 @@ class OrganizationInfoCell: UICollectionViewCell {
         return label
     }()
     
-    let seeDetailsButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.setTitle("SEE FULL SHELTER DETAILS", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        button.backgroundColor = .purple
-        button.constrainHeight(constant: 40)
-        button.constrainWidth(constant: 370)
-        button.layer.cornerRadius = 20
-        return button
-    }()
+//    let seeDetailsButton: UIButton = {
+//        let button = UIButton(type: .roundedRect)
+//        button.setTitle("SEE FULL SHELTER DETAILS", for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+//        button.backgroundColor = .purple
+//        button.constrainHeight(constant: 40)
+//        button.constrainWidth(constant: 370)
+//        button.layer.cornerRadius = 20
+//        return button
+//    }()
     
     private let mapButton: UIButton = {
         let mb = UIButton(type: .system)
@@ -104,9 +104,9 @@ class OrganizationInfoCell: UICollectionViewCell {
             emailButton,
             phoneButton,
 
-            UIStackView(arrangedSubviews: [
-            UIView(), seeDetailsButton, UIView()
-            ])
+//            UIStackView(arrangedSubviews: [
+//            UIView(), seeDetailsButton, UIView()
+//            ])
         ], spacing: 16)
         
         addSubview(infoStackView)
