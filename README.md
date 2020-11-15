@@ -5,6 +5,8 @@ A user can initiate a new search by entering a location (or use the current loca
 
 Note that the email and phone link only works on physical devices but not on simulators.
 
+Does not support Dark Mode yet.
+
 ## Installation
 1. Get your API Key and Secret at https://www.petfinder.com/developers/
 2. Clone the repo
