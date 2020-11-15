@@ -34,6 +34,7 @@
 		B184D6E0247ECBD4007972E8 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */; };
 		B184F605248887D900AD2A43 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F604248887D900AD2A43 /* Auth.swift */; };
 		B1A183AE24862831006BE4CA /* SearchSuggestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */; };
+		B1A2196925611ACF000FD304 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A2196825611ACF000FD304 /* Secrets.swift */; };
 		B1E6217A24C89D6000550B63 /* ImageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6217924C89D6000550B63 /* ImageHeaderCell.swift */; };
 		B1E6217E24C89EB300550B63 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6217D24C89EB300550B63 /* UIView+Layout.swift */; };
 		B1E6218024C89F0400550B63 /* CatDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6217F24C89F0400550B63 /* CatDetailController.swift */; };
@@ -79,6 +80,7 @@
 		B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		B184F604248887D900AD2A43 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionsController.swift; sourceTree = "<group>"; };
+		B1A2196825611ACF000FD304 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		B1E6217924C89D6000550B63 /* ImageHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderCell.swift; sourceTree = "<group>"; };
 		B1E6217D24C89EB300550B63 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		B1E6217F24C89F0400550B63 /* CatDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatDetailController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		B168D933247AD13300465135 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B1A2196725611ABA000FD304 /* Helpers */,
 				B14D4A802509788F00BDACA9 /* SnatchCat.xcdatamodel */,
 				B1F0BBAE24F26AB200FC3B0A /* Managed Object Extensions */,
 				B168D936247AD1F900465135 /* SearchAnimalsResults.swift */,
@@ -240,6 +243,14 @@
 				B1E6217824C89D3A00550B63 /* Details */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B1A2196725611ABA000FD304 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B1A2196825611ACF000FD304 /* Secrets.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B1E6217724C791E600550B63 /* Service */ = {
@@ -401,6 +412,7 @@
 				B1E6217E24C89EB300550B63 /* UIView+Layout.swift in Sources */,
 				B14D4A812509789000BDACA9 /* SnatchCat.xcdatamodel in Sources */,
 				B184F605248887D900AD2A43 /* Auth.swift in Sources */,
+				B1A2196925611ACF000FD304 /* Secrets.swift in Sources */,
 				B168D937247AD1F900465135 /* Result.swift in Sources */,
 				B1E6218024C89F0400550B63 /* CatDetailController.swift in Sources */,
 				B1F0BBB224F2793100FC3B0A /* PetfinderResponse.swift in Sources */,

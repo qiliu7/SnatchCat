@@ -8,15 +8,10 @@
 
 import UIKit
 
-// TODO: move somewhere else
-let apiKey = "***REMOVED***"
-let clientSecret = "***REMOVED***"
-
 class PetfinderAPI: NSObject {
     
-    
     static let shared = PetfinderAPI()
-    static var bearToken = "" 
+    static var bearerToken = ""
 
     enum Endpoint {
         static let base = "https://api.petfinder.com/v2"
@@ -54,7 +49,7 @@ class PetfinderAPI: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let encoder = JSONEncoder()
-        let auth = Auth(grantType: "client_credentials", clientID: apiKey, clientSecret: clientSecret)
+        let auth = Auth(grantType: "client_credentials", clientID: PetfinderAPI.apiKey, clientSecret: PetfinderAPI.clientSecret)
         do {
             request.httpBody = try encoder.encode(auth)
         } catch {
@@ -81,7 +76,7 @@ class PetfinderAPI: NSObject {
             let decoder = JSONDecoder()
             do {
                 let results = try decoder.decode(TokenResponse.self, from: data)
-                PetfinderAPI.bearToken = results.accessToken
+                PetfinderAPI.bearerToken = results.accessToken
                 dispatchToMain {
                     completion(.success(true))
                 }
@@ -105,7 +100,7 @@ class PetfinderAPI: NSObject {
         
         var searchRequest = URLRequest(url: searchURL)
         searchRequest.httpMethod = "GET"
-        searchRequest.setValue("Bearer \(PetfinderAPI.bearToken)", forHTTPHeaderField: "Authorization")
+        searchRequest.setValue("Bearer \(PetfinderAPI.bearerToken)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: searchRequest) { (data, response, error) in
             if let error = error {
@@ -151,7 +146,7 @@ class PetfinderAPI: NSObject {
     func fetchGenericJSONData<T: Decodable>(url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bearer \(PetfinderAPI.bearToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(PetfinderAPI.bearerToken)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { (data, resp, err) in
             if err != nil {
