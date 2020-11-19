@@ -131,8 +131,15 @@ class PetfinderAPI: NSObject {
                     completion(.success(results))
                 }
             } catch {
-                dispatchToMain {
-                    completion(.failure(requestError.decodeFailure))
+                do {
+                    let responseObject = try decoder.decode(ErrorResponse.self, from: data)
+                    dispatchToMain {
+                        completion(.failure(responseObject))
+                    }
+                } catch {
+                    dispatchToMain {
+                        completion(.failure(requestError.decodeFailure))
+                    }
                 }
             }
         }.resume()
@@ -179,7 +186,7 @@ class PetfinderAPI: NSObject {
                 }
             } catch {
                 do {
-                    let responseObject = try decoder.decode(PetfinderResponse.self, from: data)
+                    let responseObject = try decoder.decode(ErrorResponse.self, from: data)
                     dispatchToMain {
                         completion(.failure(responseObject))
                     }
@@ -192,7 +199,6 @@ class PetfinderAPI: NSObject {
         }.resume()
     }
 
-    
     func getAnimal(id: Int, completion: @escaping (Result<AnimalResultById, Error>) -> Void) {
         guard let url = Endpoint.getAnimal(id: id).url else { return }
         fetchGenericJSONData(url: url, completion: completion)

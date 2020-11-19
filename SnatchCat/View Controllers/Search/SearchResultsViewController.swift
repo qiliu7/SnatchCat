@@ -142,7 +142,7 @@ class SearchResultsViewController: UIViewController {
                 self.tableView.reloadData()
             }
         case .failure(let error):
-            showAlert(title: "Error", message: error.localizedDescription)
+            showAlert(title: "Could Not Find Pets For This Location", message: "Please try searching for another one.")
         }
     }
 }
@@ -226,7 +226,7 @@ extension SearchResultsViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        showAlert(title: "Failed To Retrieve Your Location", message: "\(error.localizedDescription)")
+        showAlert(title: "Could Not Find Pets For This Location", message: "Please try searching for another one.")
     }
 }
 
