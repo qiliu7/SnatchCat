@@ -71,8 +71,11 @@ extension SearchSuggestionsController: UISearchResultsUpdating {
 extension SearchSuggestionsController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completerResults = completer.results
-        let resultStrings = completerResults.map({ $0.title })
-        searchSuggestions = [["Current Location"]] + [resultStrings]
+        
+        // Filter out results that are either city or state/province names.
+        let results = completerResults.filter{ $0.title.contains(",") }
+        let resultTitles = results.map{ $0.title }
+        searchSuggestions = [["Current Location"]] + [resultTitles]
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
