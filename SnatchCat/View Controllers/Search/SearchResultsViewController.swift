@@ -55,6 +55,7 @@ class SearchResultsViewController: UIViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
 
+    var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,7 @@ class SearchResultsViewController: UIViewController {
         configureSearchController()
         configureTableView()
         configureLocationManager()
+        activityIndicator = createActivityIndicatorView()
     }
     
     fileprivate func configureTableView() {
@@ -131,17 +133,19 @@ class SearchResultsViewController: UIViewController {
     }
     
     private func search(location: String) {
+        activityIndicator.startAnimating()
         petFinder.searchAnimals(at: location, completion: handleSearchResponse(results:))
     }
     
     func handleSearchResponse(results: Result<SearchAnimalsResults, Error>) {
+        activityIndicator.stopAnimating()
         switch results {
         case .success(let results):
             cats = results.cats
             dispatchToMain {
                 self.tableView.reloadData()
             }
-        case .failure(let error):
+        case .failure:
             showAlert(title: "Could Not Find Pets For This Location", message: "Please try searching for another one.")
         }
     }

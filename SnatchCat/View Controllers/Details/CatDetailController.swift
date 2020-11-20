@@ -37,6 +37,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     }
     
     var dataController: DataController!
+    var activityIndicator: UIActivityIndicatorView!
     
     init(cat: CatResult) {
         self.cat = cat
@@ -61,6 +62,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         collectionView.register(DescriptionCell.self, forCellWithReuseIdentifier: descriptionCellId)
         collectionView.register(OrganizationInfoCell.self, forCellWithReuseIdentifier: organizationCellId)
         
+        activityIndicator = createActivityIndicatorView()
         fetchOrganizationInfo()
     }
     
@@ -81,8 +83,10 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     }
     
     private func fetchOrganizationInfo() {
+        activityIndicator.startAnimating()
         PetfinderAPI.shared.fetchOrganizationInfo(id: cat.organizationId ?? "") { (result) in
             
+            self.activityIndicator.stopAnimating()
             switch result {
             case .success(let organization):
                 self.organization = organization
