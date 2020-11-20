@@ -13,7 +13,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
     var cat: CatResult? {
         didSet {
             guard let cat = cat else { return }
-            imageView.sd_setImage(with: cat.photoURLs?.first?.medium)
+            imageView.sd_setImage(with: cat.photoURLs?.first?.medium, placeholderImage: #imageLiteral(resourceName: "noImageAvailable"))
             titleLabel.text = "Meet \(cat.name)"
             if let description = cat.description?.html2AttributedString?.string {
                 setDescriptionTextView(of: cat.name, with:
@@ -34,7 +34,7 @@ class DescriptionCell: UICollectionViewCell, UITextViewDelegate {
     }
     
     let imageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "noImageAvailable"))
+        let iv = UIImageView()
         iv.constrainWidth(constant: 70)
         iv.constrainHeight(constant: 70)
         iv.contentMode = .scaleAspectFill

@@ -17,7 +17,7 @@ class imageCell: UICollectionViewCell {
     }
     
     let imageView: UIImageView = {
-        let iv = UIImageView()
+        let iv = UIImageView(image: #imageLiteral(resourceName: "noImageAvailable"))
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         return iv
@@ -53,13 +53,21 @@ class HorizontalHeaderController: HorizontalSnappingController, UICollectionView
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cat?.photoURLs?.count ?? 0
+        
+        if let count = cat?.photoURLs?.count {
+            return count > 1 ? count : 1
+        }
+        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellId, for: indexPath) as! imageCell
-        let photoURLs = cat?.photoURLs
-        cell.imageURL = photoURLs?[indexPath.item].full
+        if let count = cat?.photoURLs?.count, let urls = cat?.photoURLs {
+            if count > 0 {
+                cell.imageURL = urls[indexPath.item].full
+            }
+        }
+        cell.backgroundColor = #colorLiteral(red: 0.9135770798, green: 0.9134877324, blue: 0.9299390912, alpha: 1)
         return cell
     }
     
