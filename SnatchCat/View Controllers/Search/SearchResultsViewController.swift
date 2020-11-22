@@ -42,9 +42,6 @@ class SearchResultsViewController: UIViewController {
     private var searchController: UISearchController!
     
     var cats = [CatResult]()
-    // injected by SceneDelegate
-    var dataController: DataController!
-    
     let locationManager = CLLocationManager()
     // TODO: add previous searched locations
     
@@ -112,7 +109,7 @@ class SearchResultsViewController: UIViewController {
         
         var favlistByAddDate = [CatResult]()
         
-        if let favCats = try? dataController.viewContext.fetch(fetchRequest) {
+        if let favCats = try? DataController.viewContext.fetch(fetchRequest) {
             
             // convert [Cat] to [CatResult] and save to Favorites
             favCats.forEach { (cat) in
@@ -211,7 +208,6 @@ extension SearchResultsViewController: UITableViewDelegate {
             // Select a search result
         } else if tableView == self.tableView {
             let detailController = CatDetailController(cat: cats[indexPath.row])
-            detailController.dataController = dataController
             navigationController?.pushViewController(detailController, animated: true)
             tableView.deselectRow(at: indexPath, animated: false)
         }

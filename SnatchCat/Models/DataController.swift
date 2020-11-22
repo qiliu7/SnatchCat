@@ -11,22 +11,28 @@ import CoreData
 
 class DataController {
     
-    let persistentContainer: NSPersistentContainer
-    
-    var viewContext: NSManagedObjectContext {
+    static var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
-    init(modelName: String) {
-        persistentContainer = NSPersistentContainer(name: modelName)
-    }
-    
-    func load(completion: (() -> Void)? = nil) {
-        persistentContainer.loadPersistentStores { (storeDescription, err) in
-            guard err == nil else {
-                fatalError(err.debugDescription)
+    static var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "SnatchCat")
+        container.loadPersistentStores { (storeDescription, err) in
+            if let err = err as NSError? {
+                fatalError("unresolved error \(err), \(err.userInfo)")
             }
-            completion?()
+        }
+        return container
+    }()
+    
+    static func saveContext() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
         }
     }
 }

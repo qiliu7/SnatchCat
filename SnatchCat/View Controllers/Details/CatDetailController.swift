@@ -35,8 +35,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         case description
         case organization
     }
-    
-    var dataController: DataController!
+
     var activityIndicator: UIActivityIndicatorView!
     
     init(cat: CatResult) {
@@ -112,7 +111,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
                 if !Favorites.catList.contains(self.cat) {
                     Favorites.catList.insert(self.cat, at: 0)
                     
-                    let cat = Cat(context: self.dataController.viewContext)
+                    let cat = Cat(context: DataController.viewContext)
                     cat.id = Int32(self.cat.id)
                     cat.age = self.cat.age
                     let encoder = JSONEncoder()
@@ -130,23 +129,14 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
                     cat.colors = try? encoder.encode(self.cat.colors)
                     cat.environment = try? encoder.encode(self.cat.environment)
                     
-                    do {
-                        try self.dataController.viewContext.save()
-                    } catch {
-                        self.showAlert(title: "Error", message: "Failed to save to Favorites")
-                    }
+                    DataController.saveContext()
                 } else {
                     let index = Favorites.catList.firstIndex(of: self.cat)
                     Favorites.catList.remove(at: index!)
                     
                     if let catToDelete = self.fetchCat() {
-                        self.dataController.viewContext.delete(catToDelete)
-                        do {
-                            // FIXME: fetch object to be deleted first
-                            try self.dataController.viewContext.save()
-                        } catch {
-                            self.showAlert(title: "Error", message: "Failed to remove from Favorites")
-                        }
+                        DataController.viewContext.delete(catToDelete)
+                        DataController.saveContext()
                     }
                 }
             }
@@ -228,8 +218,9 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         let fetchRequest : NSFetchRequest<Cat> = Cat.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
+
+        let cat = try? DataController.viewContext.fetch(fetchRequest)
         
-        let cat = try? dataController.viewContext.fetch(fetchRequest)
         return cat?.first
     }
     

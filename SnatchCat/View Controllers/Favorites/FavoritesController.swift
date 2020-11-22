@@ -13,10 +13,6 @@ class FavoritesController: UITableViewController {
     private let resultCell = "searchResultCell"
     private let ROW_HEIGHT = 150
     
-    // injected thru SceneDelegate
-    
-    var dataController: DataController!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +39,6 @@ class FavoritesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailController = CatDetailController(cat: Favorites.catList[indexPath.row])
-        // inject dataController dependency
-        detailController.dataController = self.dataController
         navigationController?.pushViewController(detailController, animated: true)
         tableView.deselectRow(at: indexPath, animated: false)
     }
