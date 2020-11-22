@@ -30,7 +30,7 @@
 		B168D939247AD1F900465135 /* SearchAnimalsResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D936247AD1F900465135 /* SearchAnimalsResults.swift */; };
 		B168D93C247AD22500465135 /* DispatchToMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93B247AD22500465135 /* DispatchToMain.swift */; };
 		B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93D247B155700465135 /* UIViewController+Extensions.swift */; };
-		B168D940247C186900465135 /* dataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* dataModel.swift */; };
+		B168D940247C186900465135 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B168D93F247C186900465135 /* DataModel.swift */; };
 		B184D6E0247ECBD4007972E8 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */; };
 		B184F605248887D900AD2A43 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184F604248887D900AD2A43 /* Auth.swift */; };
 		B1A183AE24862831006BE4CA /* SearchSuggestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */; };
@@ -75,7 +75,7 @@
 		B168D936247AD1F900465135 /* SearchAnimalsResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAnimalsResults.swift; sourceTree = "<group>"; };
 		B168D93B247AD22500465135 /* DispatchToMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchToMain.swift; sourceTree = "<group>"; };
 		B168D93D247B155700465135 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
-		B168D93F247C186900465135 /* dataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataModel.swift; sourceTree = "<group>"; };
+		B168D93F247C186900465135 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		B184D6DF247ECBD4007972E8 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		B184F604248887D900AD2A43 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		B1A183AD24862831006BE4CA /* SearchSuggestionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionsController.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				B1A2196725611ABA000FD304 /* Helpers */,
 				B14D4A802509788F00BDACA9 /* SnatchCat.xcdatamodel */,
 				B1F0BBAE24F26AB200FC3B0A /* Managed Object Extensions */,
-				B168D93F247C186900465135 /* dataModel.swift */,
+				B168D93F247C186900465135 /* DataModel.swift */,
 				B184F604248887D900AD2A43 /* Auth.swift */,
 				B141320D24E5309E0047A413 /* DataController.swift */,
 				B1F0BBB324F6FFEF00FC3B0A /* Error.swift */,
@@ -434,7 +434,7 @@
 				B141320024D3AFBD0047A413 /* BetterSnappingLayout.swift in Sources */,
 				B168D8F1246CC05C00465135 /* SearchResultsViewController.swift in Sources */,
 				B14131F524C8F9BE0047A413 /* OrganizationInfoCell.swift in Sources */,
-				B168D940247C186900465135 /* dataModel.swift in Sources */,
+				B168D940247C186900465135 /* DataModel.swift in Sources */,
 				B168D93E247B155700465135 /* UIViewController+Extensions.swift in Sources */,
 				B141320C24DA2E460047A413 /* HeartButton.swift in Sources */,
 				B1E6217A24C89D6000550B63 /* ImageHeaderCell.swift in Sources */,
