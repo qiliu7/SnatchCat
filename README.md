@@ -13,7 +13,7 @@ Does not support Dark Mode yet.
 ```
 git clone https://github.com/qiliu7/SnatchCat.git
 ```
-3. Open SnatchCat.xcodeproj with Xcode
+3. Open SnatchCat.xcworkspace with Xcode
 4. Enter your API Key and Secret in `Models/Helpers/Secrets.swift`
 ```swift
 static let apiKey = "INSERT APIKEY HERE"
