@@ -27,6 +27,7 @@ class AttributesCell: UICollectionViewCell, UITableViewDataSource, UITableViewDe
         tableView.fillSuperview()
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
+        tableView.allowsSelection = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
