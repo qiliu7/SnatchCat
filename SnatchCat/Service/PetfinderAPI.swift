@@ -19,8 +19,7 @@ class PetfinderAPI: NSObject {
         case getAccessToken
         case getAnimal(id: Int)
         case search(location: String)
-        
-        // MARK: hard coded for now, may change for filters
+
         var urlString: String {
             switch self {
             case .getAccessToken:
@@ -41,7 +40,7 @@ class PetfinderAPI: NSObject {
     func requestAccessToken(completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let url = Endpoint.getAccessToken.url else {
             dispatchToMain {
-                completion(.failure(requestError.invalidURL))
+                completion(.failure(RequestError.invalidURL))
             }
             return
         }
@@ -54,22 +53,20 @@ class PetfinderAPI: NSObject {
             request.httpBody = try encoder.encode(auth)
         } catch {
             dispatchToMain {
-                completion(.failure(requestError.encodeFailure))
+                completion(.failure(RequestError.encodeFailure))
             }
         }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            //TODO: need to know whats inside error
-            if let error = error {
-                let res = response as! HTTPURLResponse
+            guard error == nil, let _ = response as? HTTPURLResponse else {
                 dispatchToMain {
-                    print(error)
-                    completion(.failure(res.status!))
+                    print(error!)
+                    completion(.failure(RequestError.dataMiss))
                 }
                 return
             }
-            guard let _ = response, let data = data else {
+            guard let data = data else {
                 dispatchToMain {
-                    completion(.failure(requestError.dataMiss))
+                    completion(.failure(RequestError.dataMiss))
                 }
                 return
             }
@@ -82,7 +79,7 @@ class PetfinderAPI: NSObject {
                 }
             } catch {
                 dispatchToMain {
-                    completion(.failure(requestError.decodeFailure))
+                    completion(.failure(RequestError.decodeFailure))
                 }
                 return
             }
@@ -94,7 +91,7 @@ class PetfinderAPI: NSObject {
 
         let endpoint = Endpoint.search(location: location)
         guard let searchURL = endpoint.url else {
-            completion(.failure(requestError.invalidURL))
+            completion(.failure(RequestError.invalidURL))
             return
         }
         
@@ -106,13 +103,13 @@ class PetfinderAPI: NSObject {
             if let error = error {
                 dispatchToMain {
                     print(error)
-                    completion(.failure(requestError.placeholder))
+                    completion(.failure(RequestError.placeholder))
                 }
                 return
             }
             guard let _ = response, let data = data else {
                 dispatchToMain {
-                    completion(.failure(requestError.dataMiss))
+                    completion(.failure(RequestError.dataMiss))
                 }
                 return
             }
@@ -138,7 +135,7 @@ class PetfinderAPI: NSObject {
                     }
                 } catch {
                     dispatchToMain {
-                        completion(.failure(requestError.decodeFailure))
+                        completion(.failure(RequestError.decodeFailure))
                     }
                 }
             }
@@ -156,16 +153,16 @@ class PetfinderAPI: NSObject {
         request.setValue("Bearer \(PetfinderAPI.bearerToken)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { (data, resp, err) in
-            if err != nil {
-                let res = resp as! HTTPURLResponse
+            
+            guard err == nil, let _ = resp as? HTTPURLResponse else {
                 dispatchToMain {
-                    completion(.failure(res.status!))
+                    completion(.failure(RequestError.dataMiss))
                 }
                 return
             }
             guard let data = data else {
                 dispatchToMain {
-                    completion(.failure(requestError.placeholder))
+                    completion(.failure(RequestError.placeholder))
                 }
                 return
             }
@@ -192,7 +189,7 @@ class PetfinderAPI: NSObject {
                     }
                 } catch {
                     dispatchToMain {
-                        completion(.failure(requestError.decodeFailure))
+                        completion(.failure(RequestError.decodeFailure))
                     }
                 }
             }

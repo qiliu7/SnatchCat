@@ -96,8 +96,10 @@ class SearchResultsViewController: UIViewController {
             switch result {
             case .success(_):
                 self.fetchFavoritesList()
-            case .failure(let error):
-                self.showAlert(title: "Error", message: error.localizedDescription)
+            case .failure(let error as RequestError):
+                self.showAlert(title: "Error", message: error.rawValue)
+            case .failure(_):
+                ()
             }
         }
     }

@@ -15,11 +15,11 @@ enum HTTPStatusCode: Int, Error {
     case internalServerError = 500
 }
 
-enum requestError: String, Error {
+enum RequestError: String, Error {
     case invalidURL
     case encodeFailure
     case decodeFailure
-    case dataMiss
+    case dataMiss = "Please check your network connection."
     case placeholder
 }
 

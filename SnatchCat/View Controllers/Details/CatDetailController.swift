@@ -90,7 +90,13 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             case .success(let organization):
                 self.organization = organization
             case .failure(let err):
-                print("Failed to retrieve organization info \(String(describing: err))")
+                let message: String
+                if let err = err as? RequestError {
+                    message = err.rawValue
+                } else {
+                    message = err.localizedDescription
+                }
+                self.showAlert(title: "Failed To Retrieve Organization Info", message: message)
             }
         }
     }
@@ -275,6 +281,5 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-        
     }
 }
