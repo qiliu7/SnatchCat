@@ -35,7 +35,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         case description
         case organization
     }
-
+    
     var activityIndicator: UIActivityIndicatorView!
     
     init(cat: CatResult) {
@@ -224,7 +224,7 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         let fetchRequest : NSFetchRequest<Cat> = Cat.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "addDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-
+        
         let cat = try? DataController.viewContext.fetch(fetchRequest)
         
         return cat?.first
@@ -275,10 +275,10 @@ class CatDetailController: BaseListController, UICollectionViewDelegateFlowLayou
         var phoneNumber = organization.organization.phone
         
         phoneNumber = phoneNumber.filter { $0 != "-" && $0 != " "}
-
+        
         if let url = URL(string: "tel://\(phoneNumber)"){
             if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
     }

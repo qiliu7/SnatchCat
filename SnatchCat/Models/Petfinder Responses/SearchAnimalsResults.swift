@@ -182,11 +182,9 @@ struct Animal: Codable {
     let environment: Environment
     let tags: [String]?
     let contact: Contact
-    
-    // could be time?
+
     let publishedAt: String?
     let distance: Float?
-//    let _links: Links
 }
 
 // MARK: - Address
