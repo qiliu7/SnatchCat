@@ -108,6 +108,7 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-# Sensitive Data
+# Personal Ignore Rules
 Secrets.swift
+replacements.txt
 # End of https://www.gitignore.io/api/swift,macos
